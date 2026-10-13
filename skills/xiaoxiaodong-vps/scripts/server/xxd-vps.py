@@ -11,7 +11,7 @@
     python3 xxd-vps.py export       # 仅在把输出重定向到本机文件时使用
 """
 import argparse, base64, datetime, hashlib, http.client, ipaddress, json, os, pathlib, re, secrets
-import shutil, socket, sqlite3, ssl, string, subprocess, sys, tarfile, tempfile, time, urllib.error
+import shutil, signal, socket, sqlite3, ssl, string, subprocess, sys, tarfile, tempfile, time, urllib.error
 import urllib.parse, urllib.request, uuid, zipfile
 
 HERE = pathlib.Path(__file__).resolve().parent
@@ -752,7 +752,36 @@ def rule_problems(clash_text):
                 kinds.add('classical' if ',' in str(x) else 'domain')
         if not kinds or kinds - {p['behavior']}:
             bad.append(f"{name}（声明 {p['behavior']}，实际 {'/'.join(sorted(kinds)) or '空'}）")
+    for key, url in (conf.get('geox-url') or {}).items():
+        if not (RULES / str(url).rsplit('/', 1)[1]).exists():
+            bad.append(f'geox-url {key} 缺文件')
+    if 'IP-ASN,' in clash_text and not (conf.get('geox-url') or {}).get('asn'):
+        bad.append('有 IP-ASN 规则但没有 ASN 数据库地址')
     return bad
+
+
+def sync_clash_rules(d, c):
+    """让已部署的服务器重跑 sub 就能用上新模板：模板有变化时写进 3x-ui，再只重载订阅服务。"""
+    new = render_clash(d['ip'], c)
+    db = sqlite3.connect(str(XUI_DB))
+    try:
+        row = db.execute("select value from settings where key='subClashRules'").fetchone()
+        if row and row[0] == new:
+            return
+        db.execute("update settings set value=? where key='subClashRules'", (new,))
+        db.commit()
+    finally:
+        db.close()
+    say('订阅规则：模板有更新，已写入 3x-ui')
+    # 3x-ui 启动时把设置读进内存；SIGHUP 只重启面板和订阅服务，Xray 不断线
+    pid = run(['systemctl', 'show', '-p', 'MainPID', '--value', 'x-ui'], quiet=True).stdout.strip()
+    os.kill(int(pid), signal.SIGHUP)
+    time.sleep(3)  # 旧的订阅服务要先停下来，否则下面会看到它还在监听
+    for _ in range(30):
+        time.sleep(1)
+        if f"127.0.0.1:{PORT['xui_sub']} " in run(['ss', '-Hlnt'], quiet=True).stdout:
+            return
+    die('3x-ui 订阅服务没有重新监听')
 
 
 def cmd_sub(a):
@@ -772,6 +801,8 @@ def cmd_sub(a):
         die('规则下载不完整：' + p.stdout.strip().splitlines()[-1])
     if any(l.startswith('WARN') for l in p.stdout.splitlines()):
         say('部分规则本次没下载到，沿用了上一份')
+
+    sync_clash_rules(d, c)
 
     say('订阅中间层：只放行已知订阅路径，并在客户端显示本月流量')
     iface = json.loads(run(['ip', '-j', 'route', 'show', 'default'], quiet=True).stdout)[0]['dev']

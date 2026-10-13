@@ -9,6 +9,7 @@
   "meta-cn-domain.mrs": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/cn.mrs",
   "meta-cn-ip.mrs": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/cn.mrs",
   "geoip.metadb": "https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/geoip.metadb",
+  "GeoLite2-ASN.mmdb": "https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/GeoLite2-ASN.mmdb",
   "cncidr.yaml": {
     "url": "https://raw.githubusercontent.com/misakaio/chnroutes2/master/chnroutes.txt",
     "convert": "cidr"

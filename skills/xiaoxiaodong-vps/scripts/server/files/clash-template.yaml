@@ -730,7 +730,9 @@ rules:
 - RULE-SET,cn-domain,DIRECT
 - RULE-SET,cn-ip,DIRECT,no-resolve
 - GEOIP,CN,DIRECT
+- IP-ASN,132203,DIRECT,no-resolve
 - MATCH,PROXY-代理
 find-process-mode: 'off'
 geox-url:
   mmdb: https://{{SERVER_IP}}:2096/rules/geoip.metadb
+  asn: https://{{SERVER_IP}}:2096/rules/GeoLite2-ASN.mmdb
