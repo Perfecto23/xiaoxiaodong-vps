@@ -1016,7 +1016,7 @@ def check_cliproxy(d, c):
 # ---------------------------------------------------------------- maintenance
 def cmd_maint(a):
     d = deploy()
-    say('CLIProxyAPI 自动更新：每 30 分钟检查，校验 → 原子替换 → 健康检查 → 失败回滚')
+    say('CLIProxyAPI 自动更新：每 30 分钟检查，校验 → 等没有在途请求再换（约 1 秒）→ 健康检查 → 失败回滚')
     shutil.copy2(FILES / 'cliproxy-auto-update', '/usr/local/sbin/cliproxy-auto-update')
     os.chmod('/usr/local/sbin/cliproxy-auto-update', 0o755)
     write('/etc/cliproxy-auto-update/instances.json', json.dumps([{
@@ -1038,7 +1038,7 @@ UMask=0077
 Description=CLIProxyAPI auto-update every 30 minutes
 [Timer]
 OnCalendar=*-*-* *:00,30:00 UTC
-RandomizedDelaySec=120s
+RandomizedDelaySec=10min
 Persistent=true
 Unit=cliproxy-auto-update.service
 [Install]

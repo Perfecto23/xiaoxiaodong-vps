@@ -119,6 +119,6 @@ bash "$R" 名称 verify --full
 
 用户说"帮我检查一下 ssh 名称 这台服务器"时：先 `bash "$R" 名称 upload`，再 `bash "$R" 名称 verify --full`，只读复核，有问题再按对应阶段修。
 
-- CLIProxyAPI 和管理中心每 30 分钟自动检查新版：SHA-256 校验 → 原子替换 → 健康检查 → 失败自动回滚，同一坏版本 24 小时内不重试。日志：`journalctl -u cliproxy-auto-update`。
+- CLIProxyAPI 和管理中心每 30 分钟自动检查新版：SHA-256 校验 → 等到没有在途请求的空闲时刻（最多推迟 24 小时）→ 原子替换并重启（约 1 秒）→ 健康检查 → 失败自动回滚，同一坏版本 24 小时内不重试。日志：`journalctl -u cliproxy-auto-update`。
 - 3x-ui 和 Xray **不自动升级**。
 - 服务器上的工具副本在 `/opt/xxd-vps/tool/`，命令 `xxd-vps verify` / `xxd-vps backup` 可直接在服务器上运行。

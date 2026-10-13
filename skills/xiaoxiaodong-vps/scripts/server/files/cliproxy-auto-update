@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """Transactional CLIProxyAPI updater. No credentials are logged or passed to curl."""
 import argparse, ast, datetime, fcntl, hashlib, json, os, pathlib, re, shutil, signal
-import subprocess, sys, tarfile, tempfile, time, urllib.request, urllib.error, ssl
+import subprocess, sys, tarfile, tempfile, time, urllib.parse, urllib.request, urllib.error, ssl
 
 CONFIG = pathlib.Path(os.environ.get('UPDATER_CONFIG', '/etc/cliproxy-auto-update/instances.json'))
 CACHE = pathlib.Path(os.environ.get('UPDATER_CACHE', '/var/cache/cliproxy-auto-update'))
@@ -11,6 +11,10 @@ CLI_REPO = 'router-for-me/CLIProxyAPI'
 PANEL_REPO = 'router-for-me/Cli-Proxy-API-Management-Center'
 UA = 'cliproxy-auto-update/3'
 MIRROR = os.environ.get('UPDATER_MIRROR_URL','').rstrip('/')
+# Swap only while no request is in flight: restarting CLIProxyAPI drops every open request.
+IDLE_WAIT = int(os.environ.get('UPDATER_IDLE_WAIT', 480))      # seconds to watch for an idle moment per run
+IDLE_POLL = 5
+MAX_DEFER = int(os.environ.get('UPDATER_MAX_DEFER', 86400))    # after this long, update even if busy
 PUBLISH = os.environ.get('UPDATER_PUBLISH_DIR','')
 
 def log(msg):
@@ -219,6 +223,22 @@ def public_probe(inst):
     log('WARN public probe failed for '+inst['service']+'; local health passed')
     return {'http':'failed'}
 
+def inflight(inst):
+    """Requests being served = established connections on the local port (Nginx does not keep idle upstream connections)."""
+    port=urllib.parse.urlsplit(inst['local_url']).port
+    out=run(['ss','-Htn','state','established','( sport = :%d )'%port],timeout=10)
+    return len([l for l in out.splitlines() if l.strip()])
+
+def wait_idle(inst, seconds):
+    """True once two consecutive checks a second apart see no request in flight."""
+    deadline=time.monotonic()+seconds
+    while True:
+        if inflight(inst)==0:
+            time.sleep(1)
+            if inflight(inst)==0:return True
+        if time.monotonic()>=deadline:return False
+        time.sleep(IDLE_POLL)
+
 def extract_binary(archive, tmp):
     dest=tmp/'cli-proxy-api'
     with tarfile.open(archive,'r:gz') as t:
@@ -240,13 +260,30 @@ def update_instance(inst, target, latest, force=False):
         failure=json.loads(failfile.read_text())
         if failure.get('tag')==latest and time.time()-failure.get('time',0)<86400:
             result['status']='failed-release-backoff';log(svc+' failed version backoff: '+latest);return result
-    backup=b.parent/'backups'/'auto-update'/datetime.datetime.now(datetime.timezone.utc).strftime('%Y%m%dT%H%M%SZ')
-    backup.mkdir(parents=True,mode=0o700); old=backup/'cli-proxy-api'
-    shutil.copy2(b,old);shutil.copy2(inst['config'],backup/'config.yaml');(backup/'config.yaml').chmod(0o600)
-    confhash=sha(inst['config']);start=time.monotonic()
+    deferfile=STATE/(svc+'.deferred.json')
+    deferred=json.loads(deferfile.read_text()) if deferfile.exists() else {}
+    if deferred.get('tag')!=latest:deferred={'tag':latest,'since':time.time()}
+    overdue=time.time()-deferred['since']>=MAX_DEFER
+    # Stage the new binary beside the old one first, so the swap itself is one rename + restart (~1s).
+    staged=b.parent/('.'+b.name+'.next')
+    atomic_copy(target,staged,0o755)
     try:
-        # Atomic rename avoids ETXTBSY and leaves the old process serving during downloads.
-        atomic_copy(target,b,0o755)
+        if not force and not wait_idle(inst,IDLE_WAIT):
+            if not overdue:
+                deferred.update(checked=time.time(),inflight=inflight(inst));write_json(deferfile,deferred)
+                result['status']='deferred-busy'
+                log(svc+' busy; update to '+latest+' deferred (waiting for an idle moment, at most 24h)');return result
+            log(svc+' busy for 24h; updating to '+latest+' anyway')
+        backup=b.parent/'backups'/'auto-update'/datetime.datetime.now(datetime.timezone.utc).strftime('%Y%m%dT%H%M%SZ')
+        backup.mkdir(parents=True,mode=0o700); old=backup/'cli-proxy-api'
+        shutil.copy2(b,old);shutil.copy2(inst['config'],backup/'config.yaml');(backup/'config.yaml').chmod(0o600)
+        confhash=sha(inst['config']);start=time.monotonic()
+        # Atomic rename avoids ETXTBSY; the old process kept serving during download and the idle wait.
+        os.replace(staged,b)
+    finally:
+        if staged.exists():staged.unlink()
+    if deferfile.exists():deferfile.unlink()
+    try:
         run(['systemctl','restart',svc],timeout=65)
         if not active(svc):raise RuntimeError('service is inactive after restart')
         result['local']=healthy(inst)
