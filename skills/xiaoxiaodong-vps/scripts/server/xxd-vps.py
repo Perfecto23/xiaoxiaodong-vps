@@ -1186,8 +1186,14 @@ def cmd_verify(a):
     check(f"时区为 {d['timezone']}", tz == d['timezone'])
     check('至少有一份配置备份', any(BACKUPS.glob('config-*.tar.gz')))
     if a.full:
-        p = run([str(CERTBOT / 'bin/certbot'), 'renew', '--dry-run', '--run-deploy-hooks', '--cert-name', ip], check=False, timeout=300)
-        check('证书续期演练（certbot renew --dry-run）', p.returncode == 0)
+        # without a TTY certbot sleeps up to 8 min before renewing, past this timeout
+        try:
+            p = run([str(CERTBOT / 'bin/certbot'), 'renew', '--dry-run', '--no-random-sleep-on-renew',
+                     '--run-deploy-hooks', '--cert-name', ip], check=False, timeout=300)
+            ok = p.returncode == 0
+        except subprocess.TimeoutExpired:
+            ok = False
+        check('证书续期演练（certbot renew --dry-run）', ok)
     for name, ok, hint in rows:
         print(f"{'PASS' if ok else 'FAIL'}  {name}{'  ' + hint if hint and not ok else ''}")
     failed = [r for r in rows if not r[1]]
