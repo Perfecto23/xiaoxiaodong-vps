@@ -729,7 +729,7 @@ rules:
 - RULE-SET,ChinaCIDR,DIRECT,no-resolve
 - RULE-SET,cn-domain,DIRECT
 - RULE-SET,cn-ip,DIRECT,no-resolve
-- GEOIP,CN,DIRECT
+- GEOIP,CN,DIRECT,no-resolve
 - IP-ASN,132203,DIRECT,no-resolve
 - MATCH,PROXY-代理
 find-process-mode: 'off'

@@ -97,7 +97,7 @@ Clash 订阅自带完整规则（模板在 `scripts/server/files/clash-template.
 2. **Gemini / Google AI 相关域名**（含登录、静态资源）→ `AI-人工智能`；
 3. OpenAI、Claude、Gemini 规则集，以及 ChatGPT、Claude、Grok / xAI、Perplexity、Copilot、Cursor、Midjourney、Hugging Face、Muse 等域名，再加 `claude`、`anthropic`、`openai`、`generativelanguage` 四个关键词兜底 → `AI-人工智能`；
 4. MetaCubeX 的 `category-ai-!cn` 兜底其他海外 AI 服务；
-5. 国内域名和国内 IP 直连（国内 IP 段规则带 `no-resolve`，不为了匹配规则去做 DNS 解析）；YouTube、Netflix、Telegram、Apple、Microsoft、Google 各自分组；
+5. 国内域名和国内 IP 直连（国内 IP 段规则和 `GEOIP,CN` 都带 `no-resolve`，不为了匹配规则去做 DNS 解析）；YouTube、Netflix、Telegram、Apple、Microsoft、Google 各自分组；
 6. 腾讯海外网络（`IP-ASN,132203`）直连；
 7. 最后 `MATCH` 走代理。
 
@@ -110,6 +110,8 @@ AI 规则必须排在通用规则前面，否则 Gemini 的登录、静态资源
 **规则文件放在你自己的服务器上**：服务器每天从 ACL4SSR（`Clash/*.list`，转换成规则集格式）、MetaCubeX、misakaio/chnroutes2 的公开地址下载一次（`rule-sources.json`），保存到 `/var/lib/xxd-vps/rules/`，客户端只从 `https://你的IP:2096/rules/` 下载。好处是路由器在国内也不用直连 GitHub；某个上游下载失败时保留上一份，不会出现空规则。部署和验收时还会检查每个规则集声明的格式和文件实际内容一致（上游改过格式时会被发现）。
 
 DNS 使用 fake-ip，国内域名走阿里 / 腾讯 DoH。Grok、x.ai、Muse、ChatGPT、Claude、Gemini 等 87 个 AI 域名单独用 Cloudflare / Google 的 DoH 解析，并开启 `respect-rules`，让这些 DNS 查询本身也按规则走代理，不暴露给本地网络。
+
+**防 DNS 泄露**：所有 IP 类规则都带 `no-resolve`。不在任何名单里的海外域名会直接按域名交给服务器解析，不会先用国内 DoH 查一遍。如果 `GEOIP,CN` 不带 `no-resolve`，这类域名（包括 DNS 泄露测试网站用的随机子域名）会先被阿里 / 腾讯 DoH 解析，测试网站就能看到你所在省份的国内 DNS。加上之后，泄露测试只会显示服务器那一侧的海外 DNS。代价是：没有收录进国内名单、却托管在国内的网站会走代理，仍然能打开，只是绕路。用 220 个常见国内网站和 AI 域名对比过，加不加分流结果都一样。
 
 ## CLIProxyAPI
 
