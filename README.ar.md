@@ -93,7 +93,7 @@ cp -R xiaoxiaodong-vps/skills/xiaoxiaodong-vps ~/.codex/skills/
 - **الآيفون**: استورد رابط اشتراك Shadowrocket في تطبيق Shadowrocket.
 - **الراوتر**: استورد رابط اشتراك Clash في OpenClash.
 
-ثم افتح <https://ipinfo.io>؛ إذا ظهر عنوان IP خادمك فأنت متصل.
+ثم افتح <https://ip.net.coffee/claude/>؛ إذا ظهر عنوان IP خادمك فأنت متصل.
 
 ## قبل السفر
 

@@ -88,7 +88,7 @@ Danach genügt es, der KI „richte meinen neuen Server mit xiaoxiaodong-vps ein
 - **iPhone**: die Shadowrocket-Abo-URL in Shadowrocket importieren.
 - **Router**: die Clash-Abo-URL in OpenClash importieren.
 
-Öffnen Sie dann <https://ipinfo.io>. Wird die IP Ihres Servers angezeigt, sind Sie verbunden.
+Öffnen Sie dann <https://ip.net.coffee/claude/>. Wird die IP Ihres Servers angezeigt, sind Sie verbunden.
 
 ## Vor der Reise
 

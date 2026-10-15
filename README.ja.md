@@ -88,7 +88,7 @@ cp -R xiaoxiaodong-vps/skills/xiaoxiaodong-vps ~/.codex/skills/
 - **iPhone**：Shadowrocket で Shadowrocket 購読 URL を読み込みます。
 - **ルーター**：OpenClash で Clash 購読 URL を読み込みます。
 
-最後に <https://ipinfo.io> を開き、自分のサーバーの IP が表示されればつながっています。
+最後に <https://ip.net.coffee/claude/> を開き、自分のサーバーの IP が表示されればつながっています。
 
 ## 出張の前に
 

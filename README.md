@@ -86,7 +86,7 @@ cp -R xiaoxiaodong-vps/skills/xiaoxiaodong-vps ~/.codex/skills/
 - **iPhone**：在 Shadowrocket 里导入 Shadowrocket 订阅地址。
 - **路由器**：在 OpenClash 里导入 Clash 订阅地址。
 
-导入后打开 <https://ipinfo.io>，显示的是你服务器的 IP 就说明通了。
+导入后打开 <https://ip.net.coffee/claude/>，显示的是你服务器的 IP 就说明通了。
 
 更详细的设置见 [客户端与使用建议](./docs/客户端与使用建议.md)。
 

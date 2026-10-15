@@ -88,7 +88,7 @@ Depois disso, basta dizer à IA "use xiaoxiaodong-vps para configurar meu servid
 - **iPhone**: importe a URL de assinatura do Shadowrocket no Shadowrocket.
 - **Roteador**: importe a URL de assinatura do Clash no OpenClash.
 
-Depois abra <https://ipinfo.io>. Se aparecer o IP do seu servidor, você está conectado.
+Depois abra <https://ip.net.coffee/claude/>. Se aparecer o IP do seu servidor, você está conectado.
 
 ## Antes de viajar
 

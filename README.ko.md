@@ -87,7 +87,7 @@ cp -R xiaoxiaodong-vps/skills/xiaoxiaodong-vps ~/.codex/skills/
 - **iPhone**: Shadowrocket에서 Shadowrocket 구독 주소를 가져오세요.
 - **공유기**: OpenClash에서 Clash 구독 주소를 가져오세요.
 
-그다음 <https://ipinfo.io>를 열어 내 서버의 IP가 보이면 연결된 것입니다.
+그다음 <https://ip.net.coffee/claude/>를 열어 내 서버의 IP가 보이면 연결된 것입니다.
 
 ## 출장 전에
 

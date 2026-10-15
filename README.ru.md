@@ -88,7 +88,7 @@ cp -R xiaoxiaodong-vps/skills/xiaoxiaodong-vps ~/.codex/skills/
 - **iPhone**: импортируйте адрес подписки Shadowrocket в Shadowrocket.
 - **Роутер**: импортируйте адрес подписки Clash в OpenClash.
 
-Затем откройте <https://ipinfo.io>. Если там отображается IP вашего сервера, всё подключено.
+Затем откройте <https://ip.net.coffee/claude/>. Если там отображается IP вашего сервера, всё подключено.
 
 ## Перед поездкой
 
