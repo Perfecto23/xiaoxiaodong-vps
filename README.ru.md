@@ -84,7 +84,7 @@ cp -R xiaoxiaodong-vps/skills/xiaoxiaodong-vps ~/.codex/skills/
 
 ### 3. Импортируйте подписку
 
-- **Компьютер**: установите [Clash Verge Rev](https://github.com/clash-verge-rev/clash-verge-rev/releases), импортируйте адрес подписки Clash, выберите режим **Правила (Rule)** и включите **системный прокси**.
+- **Компьютер**: установите [Clash Verge Rev](https://github.com/clash-verge-rev/clash-verge-rev/releases), импортируйте адрес подписки Clash, выберите режим **Правила (Rule)** и включите **режим TUN** (виртуальный сетевой адаптер; при запросе установите службу). Если включён только системный прокси, WebRTC в браузере может раскрыть ваш настоящий IP — см. [руководство по устранению утечки WebRTC](./docs/Clash-Verge-WebRTC泄露修复手册.md) (на китайском, написано так, чтобы ИИ-ассистент мог выполнить его шаг за шагом).
 - **iPhone**: импортируйте адрес подписки Shadowrocket в Shadowrocket.
 - **Роутер**: импортируйте адрес подписки Clash в OpenClash.
 

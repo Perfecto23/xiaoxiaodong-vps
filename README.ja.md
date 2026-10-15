@@ -84,7 +84,7 @@ cp -R xiaoxiaodong-vps/skills/xiaoxiaodong-vps ~/.codex/skills/
 
 ### 3. 購読を読み込む
 
-- **パソコン**：[Clash Verge Rev](https://github.com/clash-verge-rev/clash-verge-rev/releases) をインストールして Clash 購読 URL を読み込み、**ルール**モードを選び、**システムプロキシ**をオンにします。
+- **パソコン**：[Clash Verge Rev](https://github.com/clash-verge-rev/clash-verge-rev/releases) をインストールして Clash 購読 URL を読み込み、**ルール**モードを選び、**TUN モード**（仮想ネットワークアダプター。求められたらサービスをインストール）をオンにします。システムプロキシだけだと、ブラウザの WebRTC から実際の IP が漏れることがあります。[WebRTC 漏洩の修正ガイド](./docs/Clash-Verge-WebRTC泄露修复手册.md)（中国語。AI アシスタントがそのまま手順どおりに進められるように書かれています）を参照してください。
 - **iPhone**：Shadowrocket で Shadowrocket 購読 URL を読み込みます。
 - **ルーター**：OpenClash で Clash 購読 URL を読み込みます。
 

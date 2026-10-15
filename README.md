@@ -82,7 +82,7 @@ cp -R xiaoxiaodong-vps/skills/xiaoxiaodong-vps ~/.codex/skills/
 
 ### 3. 导入订阅
 
-- **电脑**：安装 [Clash Verge Rev](https://github.com/clash-verge-rev/clash-verge-rev/releases)，导入 Clash 订阅地址，选 **规则模式**，打开 **系统代理**。
+- **电脑**：安装 [Clash Verge Rev](https://github.com/clash-verge-rev/clash-verge-rev/releases)，导入 Clash 订阅地址，选 **规则模式**，打开 **虚拟网卡模式**（TUN，第一次会提示安装服务，按提示装上）。只开系统代理时，浏览器的 WebRTC 会暴露你的真实 IP，详见 [WebRTC 泄露修复手册](./docs/Clash-Verge-WebRTC泄露修复手册.md)（可以直接交给 AI 助手照做）。
 - **iPhone**：在 Shadowrocket 里导入 Shadowrocket 订阅地址。
 - **路由器**：在 OpenClash 里导入 Clash 订阅地址。
 

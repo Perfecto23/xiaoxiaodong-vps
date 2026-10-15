@@ -111,7 +111,7 @@ bash "$R" 名称 verify --full
 4. 用简短的话告诉用户：
    - 以后用 `ssh 名称` 登录；
    - 登录信息文件的路径（让用户自己打开，你不要读出来）；
-   - 电脑装 Clash Verge Rev，导入文件里的 **Clash 订阅**，选"规则"模式并打开"系统代理"；iPhone 用 Shadowrocket 导入 **Shadowrocket 订阅**；路由器 OpenClash 用 Clash 订阅；
+   - 电脑装 Clash Verge Rev，导入文件里的 **Clash 订阅**，选"规则"模式并打开"虚拟网卡模式"（TUN，第一次按提示安装服务；只开系统代理时，浏览器的 WebRTC 会暴露真实 IP）；iPhone 用 Shadowrocket 导入 **Shadowrocket 订阅**；路由器 OpenClash 用 Clash 订阅；
    - CLIProxyAPI 现在是空的，要在管理中心添加自己的上游账号或供应商 Key；
    - 导入后打开 <https://ipinfo.io>，显示服务器的 IP 就说明通了；要出差的话，出发前在手机和电脑上都测一遍。
 
@@ -121,4 +121,5 @@ bash "$R" 名称 verify --full
 
 - CLIProxyAPI 和管理中心每 30 分钟自动检查新版：SHA-256 校验 → 等到没有在途请求的空闲时刻（最多推迟 24 小时）→ 原子替换并重启（约 1 秒）→ 健康检查 → 失败自动回滚，同一坏版本 24 小时内不重试。日志：`journalctl -u cliproxy-auto-update`。
 - 3x-ui 和 Xray **不自动升级**。
+- 用户说检测网站提示 **WebRTC 泄露**、显示国内 IP：这是客户端只开了系统代理造成的，服务器和订阅都不用改。按仓库里的 `docs/Clash-Verge-WebRTC泄露修复手册.md`（<https://github.com/nevertoday/xiaoxiaodong-vps/blob/main/docs/Clash-Verge-WebRTC泄露修复手册.md>）一步步带用户修。只用虚拟网卡模式，不要禁用或限制 WebRTC。
 - 服务器上的工具副本在 `/opt/xxd-vps/tool/`，命令 `xxd-vps verify` / `xxd-vps backup` 可直接在服务器上运行。

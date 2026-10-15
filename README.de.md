@@ -84,7 +84,7 @@ Danach genügt es, der KI „richte meinen neuen Server mit xiaoxiaodong-vps ein
 
 ### 3. Abo importieren
 
-- **Computer**: [Clash Verge Rev](https://github.com/clash-verge-rev/clash-verge-rev/releases) installieren, die Clash-Abo-URL importieren, den Modus **Regel (Rule)** wählen und den **System-Proxy** einschalten.
+- **Computer**: [Clash Verge Rev](https://github.com/clash-verge-rev/clash-verge-rev/releases) installieren, die Clash-Abo-URL importieren, den Modus **Regel (Rule)** wählen und den **TUN-Modus** (virtuelle Netzwerkkarte; bei Nachfrage den Dienst installieren) einschalten. Mit nur dem System-Proxy kann WebRTC im Browser Ihre echte IP verraten – siehe die [Anleitung gegen WebRTC-Lecks](./docs/Clash-Verge-WebRTC泄露修复手册.md) (auf Chinesisch, so geschrieben, dass ein KI-Assistent sie Schritt für Schritt befolgen kann).
 - **iPhone**: die Shadowrocket-Abo-URL in Shadowrocket importieren.
 - **Router**: die Clash-Abo-URL in OpenClash importieren.
 

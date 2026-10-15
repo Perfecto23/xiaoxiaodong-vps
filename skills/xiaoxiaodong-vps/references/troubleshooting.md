@@ -52,6 +52,8 @@
 
 **Clash for Windows 报 `yaml: unmarshal errors ... cannot unmarshal !!seq into string`**：客户端太旧，不支持 Mihomo 的配置字段。改用 Clash Verge Rev。
 
+**检测网站提示 WebRTC 泄露，UDP 出口是国内 IP**：Clash Verge 只开了系统代理。系统代理只接管 TCP，浏览器 WebRTC 的 UDP 直接从本地出去。改开「虚拟网卡模式」（TUN），Windows 再开「严格路由」；Clash 设置里的「IPv6」保持开启（Clash Verge 用它覆盖订阅里的 `ipv6: false`，关掉后 IPv6 会绕过虚拟网卡）。节点本身支持 UDP（订阅里 `udp: true`），STUN 实测出口就是服务器 IP。不要用禁用或限制 WebRTC 的扩展代替。完整步骤、检测命令和故障表见仓库 `docs/Clash-Verge-WebRTC泄露修复手册.md`。
+
 **国内连不上（超时），国外网络正常**
 - 先在用户电脑上测：`curl -sS -o /dev/null -w '%{http_code}\n' --max-time 10 https://IP:2096/`。超时说明用户的网络到这个 IP 不通，与配置无关。
 - 分别用 Wi-Fi、手机流量、不同运营商测试。只有某个运营商不通，多半是线路问题。

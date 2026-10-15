@@ -84,7 +84,7 @@ A partir de ahí, basta con decirle a la IA "usa xiaoxiaodong-vps para configura
 
 ### 3. Importa la suscripción
 
-- **Ordenador**: instala [Clash Verge Rev](https://github.com/clash-verge-rev/clash-verge-rev/releases), importa la URL de suscripción de Clash, elige el modo **Regla (Rule)** y activa el **proxy del sistema**.
+- **Ordenador**: instala [Clash Verge Rev](https://github.com/clash-verge-rev/clash-verge-rev/releases), importa la URL de suscripción de Clash, elige el modo **Regla (Rule)** y activa el **modo TUN** (tarjeta de red virtual; instala el servicio cuando lo pida). Con solo el proxy del sistema, el WebRTC del navegador puede revelar tu IP real: consulta la [guía para corregir fugas de WebRTC](./docs/Clash-Verge-WebRTC泄露修复手册.md) (en chino, escrita para que un asistente de IA pueda seguirla paso a paso).
 - **iPhone**: importa la URL de suscripción de Shadowrocket en Shadowrocket.
 - **Router**: importa la URL de suscripción de Clash en OpenClash.
 

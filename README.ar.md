@@ -89,7 +89,7 @@ cp -R xiaoxiaodong-vps/skills/xiaoxiaodong-vps ~/.codex/skills/
 
 ### 3. استورد الاشتراك
 
-- **الحاسوب**: ثبّت [Clash Verge Rev](https://github.com/clash-verge-rev/clash-verge-rev/releases)، واستورد رابط اشتراك Clash، واختر وضع **القواعد (Rule)**، وفعّل **بروكسي النظام**.
+- **الحاسوب**: ثبّت [Clash Verge Rev](https://github.com/clash-verge-rev/clash-verge-rev/releases)، واستورد رابط اشتراك Clash، واختر وضع **القواعد (Rule)**، وفعّل **وضع TUN** (بطاقة الشبكة الافتراضية؛ ثبّت الخدمة عند الطلب). مع بروكسي النظام وحده قد يكشف WebRTC في المتصفح عنوان IP الحقيقي، راجع [دليل إصلاح تسرّب WebRTC](./docs/Clash-Verge-WebRTC泄露修复手册.md) (بالصينية، مكتوب بحيث يستطيع مساعد ذكاء اصطناعي اتباعه خطوة بخطوة).
 - **الآيفون**: استورد رابط اشتراك Shadowrocket في تطبيق Shadowrocket.
 - **الراوتر**: استورد رابط اشتراك Clash في OpenClash.
 
