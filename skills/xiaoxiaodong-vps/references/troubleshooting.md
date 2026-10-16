@@ -17,6 +17,10 @@
 
 **ssh 名称已被占用**：`~/.ssh/config` 里同名条目指向了别的服务器。换一个名称，不要改动原条目。
 
+**密码登录成功，但密钥登录报 `Permission denied (password)`**：服务商的系统镜像在 `sshd_config` 里写了 `PubkeyAuthentication no`（括号里只列出 password，说明服务器根本不接受密钥）。connect.sh 用密码登录时会自动检测并改成 `yes`（原文件备份为 `sshd_config.bak-xxd-pubkey`，`sshd -t` 检查通过才重载）。登录用户不是 root 时改不了，请用户在服务商后台把它打开。
+
+**服务商后台重装系统后，原来的 ssh 名称连不上**：重装会换主机密钥，SSH 端口也可能变。先 `ssh-keygen -R IP`（非 22 端口用 `ssh-keygen -R "[IP]:端口"`）删掉旧主机密钥；端口变了就把 `~/.ssh/config` 里这个名称那一段的 `Port` 改成新端口（connect.sh 看到名称已存在且 IP 相同时不会改写配置），再用新密码重跑 connect.sh。
+
 ## init
 
 - **公网 IP 不是用户给的 IP**：连错了服务器，或者 IP 抄错了。停下来和用户核对，不要加参数强行继续。

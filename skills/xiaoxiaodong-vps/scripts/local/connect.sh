@@ -90,9 +90,18 @@ else
   XXD_PW_FILE="$PWFILE" SSH_ASKPASS="$TMP/askpass" SSH_ASKPASS_REQUIRE=force DISPLAY="${DISPLAY:-none}" \
     ssh "${SSH_BASE[@]}" -o PubkeyAuthentication=no -o PreferredAuthentications=password,keyboard-interactive \
         -o NumberOfPasswordPrompts=1 "$USER_NAME@$HOST" \
-        'umask 077; mkdir -p ~/.ssh; IFS= read -r K; touch ~/.ssh/authorized_keys; grep -qxF "$K" ~/.ssh/authorized_keys || printf "%s\n" "$K" >> ~/.ssh/authorized_keys' \
+        'umask 077; mkdir -p ~/.ssh; IFS= read -r K; touch ~/.ssh/authorized_keys; grep -qxF "$K" ~/.ssh/authorized_keys || printf "%s\n" "$K" >> ~/.ssh/authorized_keys
+         if [ "$(id -u)" = 0 ] && /usr/sbin/sshd -T 2>/dev/null | grep -qi "^pubkeyauthentication no"; then
+           cp -a /etc/ssh/sshd_config /etc/ssh/sshd_config.bak-xxd-pubkey
+           sed -i -E "s/^[[:space:]]*PubkeyAuthentication[[:space:]]+no[[:space:]]*$/PubkeyAuthentication yes/I" /etc/ssh/sshd_config /etc/ssh/sshd_config.d/*.conf 2>/dev/null
+           /usr/sbin/sshd -t && { systemctl reload ssh 2>/dev/null || systemctl reload sshd 2>/dev/null || systemctl restart ssh; }
+           echo "XXD_PUBKEY_ENABLED" >&2
+         fi' \
         < "$IDFILE.pub" 2>"$TMP/err" \
     || fail "密码登录失败：$(tail -n 2 "$TMP/err" | tr '\n' ' ')（密码错误、服务商要求首次改密码，或服务器禁止了密码登录）"
+  if grep -q XXD_PUBKEY_ENABLED "$TMP/err"; then
+    say "服务器原本关闭了 SSH 密钥登录（服务商镜像默认），已打开（原配置备份为 sshd_config.bak-xxd-pubkey）"
+  fi
 fi
 
 say "验证密钥登录"
