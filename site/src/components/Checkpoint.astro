@@ -1,0 +1,12 @@
+---
+// 检查点：做到这里应该满足的几条，可以打勾（打勾记在这个浏览器里，见 Site.astro）
+interface Props { id: string; items: string[]; done?: string }
+const { id, items, done = "都勾上了，可以去下一步。" } = Astro.props;
+---
+<div class="checkpoint" data-checkpoint={id}>
+  <p class="checkpoint__title"><i data-xxd-icon="ListChecks" data-size="16"></i>做到这里，检查一下</p>
+  <ul>
+    {items.map((t) => <li><label><input type="checkbox" class="xxd-check" /><span set:html={t} /></label></li>)}
+  </ul>
+  <p class="checkpoint__done" hidden>✓ {done}</p>
+</div>

@@ -1,0 +1,31 @@
+---
+// 主线教程的一步：进度、标题、预计时间，正文，上一步 / 下一步
+import Site from "./Site.astro";
+import { STEPS, stepHref } from "../data/nav.js";
+const { frontmatter, headings = [] } = Astro.props;
+const i = STEPS.findIndex((s) => s.n === frontmatter.step);
+const s = STEPS[i];
+const prev = STEPS[i - 1];
+const next = STEPS[i + 1];
+const last = STEPS[STEPS.length - 1].n;
+---
+<Site title={`第 ${s.n} 步：${s.title}`} description={frontmatter.description ?? s.sum} headings={headings}>
+  <header class="step-head">
+    <div class="step-head__eyebrow"><span>主线教程 · 第 {s.n} 步，共 {last} 步</span><span>{s.minutes}</span></div>
+    <progress class="xxd-progress" value={s.n} max={last} aria-label={`进度：第 ${s.n} 步，共 ${last} 步`}></progress>
+    <h1>{s.title}</h1>
+    <div class="step-head__meta">
+      {frontmatter.need && <span class="xxd-badge">要准备：{frontmatter.need}</span>}
+      <span class="xxd-badge">{s.sum}</span>
+    </div>
+  </header>
+  <article class="xxd-prose"><slot /></article>
+  <nav class="prevnext" aria-label="上一步和下一步">
+    {prev && (prev.ready
+      ? <a href={stepHref(prev)} data-dir="prev"><small>上一步</small>{prev.n}. {prev.title}</a>
+      : <span data-dir="prev"><small>上一步</small>{prev.n}. {prev.title}</span>)}
+    {next && (next.ready
+      ? <a href={stepHref(next)} data-dir="next"><small>下一步</small>{next.n}. {next.title}</a>
+      : <span data-dir="next"><small>下一步（编写中）</small>{next.n}. {next.title}</span>)}
+  </nav>
+</Site>

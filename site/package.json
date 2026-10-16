@@ -1,0 +1,17 @@
+{
+  "name": "xiaoxiaodong-vps-site",
+  "private": true,
+  "license": "MIT",
+  "description": "小小东 VPS 教程站：把 xiaoxiaodong-vps 方案讲给第一次接触的人。界面用 xxd-ui-kit。",
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev --port 4410",
+    "build": "astro build",
+    "preview": "astro preview --port 4410",
+    "sync-xxd": "node scripts/sync-xxd.mjs"
+  },
+  "dependencies": {
+    "@astrojs/mdx": "7.0.3",
+    "astro": "7.2.8"
+  }
+}

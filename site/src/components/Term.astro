@@ -1,0 +1,9 @@
+---
+// 术语：虚线下划线，悬停或键盘聚焦时出一句话解释（解释写在 data/nav.js 的 GLOSSARY）
+import { GLOSSARY } from "../data/nav.js";
+interface Props { k: string; text?: string }
+const { k, text } = Astro.props;
+const tip = GLOSSARY[k];
+if (!tip) throw new Error(`GLOSSARY 里没有「${k}」`);
+---
+<span class="term" tabindex="0" data-tooltip={tip}>{text ?? k}</span>

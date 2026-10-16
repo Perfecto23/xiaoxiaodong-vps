@@ -1,0 +1,19 @@
+---
+// 提示框：ok 你应该看到 · warn 注意 · no 别这样做 · tip 小提示。用 xxd 的 Banner。
+interface Props { type?: "ok" | "warn" | "no" | "tip"; title?: string }
+const KINDS = {
+  ok: { tone: "success", icon: "CircleCheck", title: "你应该看到" },
+  warn: { tone: "warning", icon: "TriangleAlert", title: "注意" },
+  no: { tone: "danger", icon: "CircleX", title: "别这样做" },
+  tip: { tone: undefined, icon: "Lightbulb", title: "小提示" },
+};
+const { type = "tip", title } = Astro.props;
+const k = KINDS[type];
+---
+<div class="xxd-banner" data-tone={k.tone}>
+  <i data-xxd-icon={k.icon}></i>
+  <div>
+    <p class="xxd-banner__title">{title ?? k.title}</p>
+    <div class="xxd-banner__text"><slot /></div>
+  </div>
+</div>

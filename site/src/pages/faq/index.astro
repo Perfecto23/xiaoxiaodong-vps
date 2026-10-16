@@ -1,0 +1,31 @@
+---
+import Site from "../../layouts/Site.astro";
+import Q from "../../components/Q.astro";
+const groups = [
+  { id: "cost", title: "费用", items: [
+    ["一共要花多少钱？", "只有服务器是必须花的钱，按季或按年付，以商家官网为准。电脑客户端免费，iPhone 的 Shadowrocket 大约 3 美元一次性付费。证书和软件都免费，不需要买域名。"],
+    ["流量用完了会怎样？", "多数商家会限速或暂停到下个月重置。家用一般每月几百 G 到 1T 就够；配置好以后，客户端会显示本月用了多少（需要你告诉 AI 额度和重置日）。"],
+  ]},
+  { id: "safe", title: "安全和隐私", items: [
+    ["服务器商家能看到我在做什么吗？", "访问网站大多是 HTTPS 加密的，商家看不到网页内容，但能看到服务器的流量大小。选口碑好的商家，别用它做违法的事。"],
+    ["AI 帮我配置，会不会把密码泄露出去？", "方案规定 AI 不在聊天里显示密码、订阅地址和 Key；登录信息只保存在你自己电脑的一个文件里。配好以后服务器只能用你电脑上的密钥登录。"],
+  ]},
+  { id: "speed", title: "速度和稳定", items: [
+    ["为什么晚上会变慢？", "晚上是国内到国外线路最拥挤的时候，就像下班高峰堵车。服务器本身的带宽通常不是瓶颈。"],
+    ["突然连不上了怎么办？", "先换个网络试（手机流量、别的 Wi-Fi）。都连不上，多半是这个 IP 在当地被限制了，配置改不好，要找商家换 IP。"],
+  ]},
+];
+const headings = groups.map((g) => ({ slug: g.id, text: g.title, depth: 2 }));
+---
+<Site title="常见问题" headings={headings}>
+  <article class="xxd-prose">
+    <h1>常见问题</h1>
+    <p>按话题分组，点开看答案。没找到你的问题？到 <a href="https://github.com/nevertoday/xiaoxiaodong-vps/issues">GitHub</a> 提一个。</p>
+    {groups.map((g) => (
+      <>
+        <h2 id={g.id}>{g.title}</h2>
+        {g.items.map(([q, a]) => <Q q={q} group={g.id}><p>{a}</p></Q>)}
+      </>
+    ))}
+  </article>
+</Site>
