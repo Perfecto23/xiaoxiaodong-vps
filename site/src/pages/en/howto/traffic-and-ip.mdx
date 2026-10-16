@@ -16,7 +16,7 @@ import Checkpoint from "../../../components/Checkpoint.astro";
 ## Checking traffic
 
 - **Provider dashboard**: BandwagonHost's KiwiVM home page shows this month's traffic and reset date; other providers show it on the server page.
-- **In your apps**: tell the AI your monthly quota and reset day when deploying (manual route: add `--quota-gb 1000 --reset-day 1` to the `init` line) and Clash Verge and Shadowrocket show your usage. Forgot? Ask the AI to add it.
+- **In your apps**: Clash Verge and Shadowrocket show this month's usage against 1 TB by default, with the reset day worked out from the provisioning date. The server can't look up your plan, so if the quota or reset day differs from the provider's dashboard, tell the AI the real numbers (manual route: rerun `init` with `--quota-gb QUOTA --reset-day DAY`, then `sub`).
 
 <Callout type="tip">
 Speed tests are very data-hungry — one run can use several to tens of GB. Video uses a lot too. A few hundred GB to 1 TB a month is usually enough for a household.

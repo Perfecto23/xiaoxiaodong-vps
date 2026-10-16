@@ -201,7 +201,7 @@ export const WIKI_EN = {
     title: "Traffic and bandwidth", group: "Server",
     one: "Traffic is how much data you can transfer per month (for example 1 TB); bandwidth is how fast it can flow at any moment (for example 1 Gbps).",
     like: "Traffic is the total on the water meter; bandwidth is the width of the pipe.",
-    here: "For yourself and family, a few hundred GB to 1 TB per month is usually enough; lots of HD video uses more. Tell AI your monthly quota and reset day, and the apps will show how much you have used.",
+    here: "For yourself and family, a few hundred GB to 1 TB per month is usually enough; lots of HD video uses more. Apps show this month's usage against 1 TB by default, with the reset day worked out from the provisioning date; tell AI if your plan differs.",
     myths: ["\"One speed test doesn't matter\": speed tests are data-hungry — one run can use several to tens of GB."],
   },
 };

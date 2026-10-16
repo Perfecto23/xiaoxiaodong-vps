@@ -116,7 +116,7 @@ bash $R bwg sub
 bash $R bwg cliproxy
 bash $R bwg maint`} />
 
-Each stage ends with `xxx 完成` ("xxx done"), e.g. `cert 完成`. To show traffic usage in your apps, add `--quota-gb 1000 --reset-day 1` to the end of the `init` line (1000 GB a month, resetting on the 1st — use your plan's numbers).
+Each stage ends with `xxx 完成` ("xxx done"), e.g. `cert 完成`. Apps show traffic against 1000 GB a month by default, with the reset day worked out from the provisioning date. If your plan differs, add `--quota-gb QUOTA --reset-day DAY` to the end of the `init` line (e.g. `--quota-gb 500 --reset-day 1`).
 
 <Callout type="warn" title="If you see 停止： (stopped)">
 When a stage stops, it prints `停止：` ("stopped:") and a reason. Fix the cause and **rerun the same stage** — every stage can be run again. Common causes and fixes: [troubleshooting notes](https://github.com/nevertoday/xiaoxiaodong-vps/blob/main/skills/xiaoxiaodong-vps/references/troubleshooting.md) (in Chinese).

@@ -190,6 +190,28 @@ def public_ipv4():
 
 
 # ---------------------------------------------------------------- init
+DEFAULT_QUOTA_GB = 1000
+
+
+def provision_day(tz):
+    """服务商开通这台机器是每月几号（流量通常在这一天重置）。服务器里查不到账单，只能从开通时刻推算：
+    DMIT 等用 NoCloud 配置盘的服务商，盘的卷 UUID 就是创建时间；其他的用 SSH 主机密钥的生成时间（第一次开机）。
+    29–31 号按 28 号算（客户端按月计算，二月没有这几天）。"""
+    from zoneinfo import ZoneInfo
+    ts = None
+    seed = subprocess.run(['blkid', '-t', 'LABEL=cidata', '-o', 'value', '-s', 'UUID'], capture_output=True, text=True).stdout
+    m = re.match(r'(\d{4})-(\d\d)-(\d\d)-(\d\d)-(\d\d)-(\d\d)', seed.strip())
+    if m:
+        ts = datetime.datetime(*map(int, m.groups()), tzinfo=datetime.timezone.utc).timestamp()
+    else:
+        key = pathlib.Path('/etc/ssh/ssh_host_ed25519_key')
+        if key.exists():
+            birth = subprocess.run(['stat', '-c', '%W', str(key)], capture_output=True, text=True).stdout.strip()
+            ts = int(birth) if birth.isdigit() and int(birth) > 0 else key.stat().st_mtime
+    day = datetime.datetime.fromtimestamp(ts or time.time(), ZoneInfo(tz)).day
+    return min(day, 28)
+
+
 def cmd_init(a):
     if os.geteuid() != 0:
         die('需要 root 权限运行')
@@ -221,8 +243,14 @@ def cmd_init(a):
     if mem < 900:
         say(f'提示：内存只有 {mem} MB，CLIProxyAPI 并发较多时余量很小，建议 2 GB')
     ssh_port = a.ssh_port or int(os.environ.get('SSH_CONNECTION', '0 0 0 22').split()[3])
+    old = load(DEPLOY) if DEPLOY.exists() else {}
+    # 额度和重置日只用于客户端显示：没给就沿用上次的值；从没设过时默认每月 1000G、重置日按开通日推算
+    quota_gb = a.quota_gb if a.quota_gb is not None else (old.get('quota_gb') or DEFAULT_QUOTA_GB)
+    reset_day = a.reset_day if a.reset_day is not None else (old.get('reset_day') or provision_day(a.timezone))
+    if not 1 <= reset_day <= 28:
+        die('--reset-day 必须在 1–28 之间')
     d = {'ip': a.ip, 'alias': a.alias, 'timezone': a.timezone, 'ssh_port': ssh_port,
-         'quota_gb': a.quota_gb, 'reset_day': a.reset_day, 'os': f"{os_id} {osr.get('VERSION_ID', '').strip(chr(34))}",
+         'quota_gb': quota_gb, 'reset_day': reset_day, 'os': f"{os_id} {osr.get('VERSION_ID', '').strip(chr(34))}",
          'arch': arch(), 'memory_mb': mem, 'done': load(DEPLOY).get('done', {}) if DEPLOY.exists() else {}}
     ETC.mkdir(mode=0o700, exist_ok=True)
     write(DEPLOY, json.dumps(d, indent=2, ensure_ascii=False), 0o600)
@@ -243,6 +271,7 @@ def cmd_init(a):
     else:
         say('沿用这台服务器已有的凭据')
     say(f"初始化完成：{d['os']} / {d['arch']} / {mem} MB / SSH 端口 {ssh_port}")
+    say(f"客户端流量显示：每月 {d['quota_gb']} GB，每月 {d['reset_day']} 号重置（只用于显示；和服务商不一致时用 --quota-gb / --reset-day 改）")
 
 
 # ---------------------------------------------------------------- base
@@ -1270,8 +1299,8 @@ def main():
     i.add_argument('--alias', required=True)
     i.add_argument('--timezone', required=True)
     i.add_argument('--ssh-port', type=int)
-    i.add_argument('--quota-gb', type=int, help='每月流量额度（GB），只用于客户端显示')
-    i.add_argument('--reset-day', type=int, help='流量每月重置日（1–28）')
+    i.add_argument('--quota-gb', type=int, help='每月流量额度（GB），只用于客户端显示；不填默认 1000')
+    i.add_argument('--reset-day', type=int, help='流量每月重置日（1–28）；不填按开通日自动推算')
     for name in PHASES + ['all', 'backup']:
         sp.add_parser(name)
     v = sp.add_parser('verify')

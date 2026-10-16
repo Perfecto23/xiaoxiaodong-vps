@@ -15,7 +15,7 @@ import Tabs from "../../components/Tabs.astro";
 ## 查看流量
 
 - **商家后台**：搬瓦工 KiwiVM 首页有本月流量和重置日期；其他商家在服务器详情页。
-- **客户端里**：部署时告诉 AI 每月流量额度和重置日（手动路线是 `init` 那一行加 `--quota-gb 1000 --reset-day 1`），Clash Verge、Shadowrocket 里就能看到本月用量。部署时没加，可以让 AI 补上。
+- **客户端里**：Clash Verge、Shadowrocket 里默认按每月 1T 显示本月用量，重置日按服务器开通日自动推算。服务器自己查不到你的套餐，所以额度或重置日和商家后台不一致时，告诉 AI 实际数字（手动路线是重跑 `init` 并加上 `--quota-gb 额度 --reset-day 几号`，再跑一次 `sub`）。
 
 <Callout type="tip">
 测速特别费流量，一次可能就是几 G 甚至几十 G。看视频也用得快。家用一般每月几百 G 到 1T 就够。

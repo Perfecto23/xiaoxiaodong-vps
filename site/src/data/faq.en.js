@@ -2,7 +2,7 @@
 export const FAQ_EN = [
   { id: "cost", title: "Costs", items: [
     ["How much does it cost in total?", "Only the server is a required cost, paid quarterly or yearly — check the provider's site for prices. Clash Verge Rev on computers is free; Shadowrocket on iPhone is a one-off purchase of about US$3 on the US App Store. Certificates, rules and the AI API software are all free, and you don't need a domain."],
-    ["What happens when I run out of traffic?", "Most providers throttle or pause the server until the next reset day. A few hundred GB to 1 TB a month is usually plenty for a household; tell AI your quota and reset day and the apps will show this month's usage."],
+    ["What happens when I run out of traffic?", "Most providers throttle or pause the server until the next reset day. A few hundred GB to 1 TB a month is usually plenty for a household. Apps show usage against 1 TB a month by default, with the reset day worked out from when the server was provisioned; if your plan differs, tell AI the real quota and reset day."],
     ["What if the server expires without renewal?", "The provider suspends it, then deletes it after a while — and the IP is taken back, so you'd have to buy and set up again. Turn on auto-renew in the provider's dashboard or put the expiry date in your calendar."],
     ["Can I get a refund?", "It depends on the provider; many only refund within a short period after purchase. Check before buying."],
   ]},
