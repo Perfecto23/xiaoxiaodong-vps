@@ -30,6 +30,7 @@ export const HOWTO = [
   { group: "账号和付款", en: { group: "Accounts and payment" }, items: [
     { slug: "gmail", title: "注册 Google 邮箱（Gmail）", en: { title: "Create a Google account (Gmail)" } },
     { slug: "gmail-change-address", title: "更换 Gmail 地址", en: { title: "Change your Gmail address" } },
+    { slug: "google-account-security", title: "Google 账号安全设置", en: { title: "Secure your Google account" } },
     { slug: "apple-id", title: "注册境外 Apple ID", en: { title: "Create a non-China Apple ID" } },
     { slug: "github", title: "注册 GitHub", en: { title: "Create a GitHub account" } },
     { slug: "payment", title: "在国外网站付款", en: { title: "Paying on overseas websites" } },
