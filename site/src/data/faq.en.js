@@ -27,6 +27,7 @@ export const FAQ_EN = [
   { id: "device", title: "Devices and usage", items: [
     ["How many devices can use one subscription?", "There is no hard limit — your and your family's phones, computers and tablets can all be connected at once. More devices use traffic faster."],
     ["Which mode should Clash Verge use on a computer?", "Choose \"Rule\" mode and turn on \"Tun Mode\". Don't use \"Global\" — Chinese sites would take a detour abroad too."],
+    ["I already have Gmail. Can I switch to a new address?", "Yes. In your Google Account open Personal info → Email → Google Account email (or go straight to myaccount.google.com/google-account-email). Eligible accounts can change to a new @gmail.com address — once a year, up to three times; the old address becomes an alias that still receives mail, and your data stays in the same account. It changes the address rather than adding a second mailbox; if you need a separate mailbox, create a new account. See the how-to “Create a Google account”."],
     ["I can't find Shadowrocket on the China App Store.", "It isn't listed there. Download it from another region's App Store (for example the US) with a non-China Apple ID — see the how-to \"Create a non-China Apple ID\"."],
   ]},
   { id: "tech", title: "Technical", items: [

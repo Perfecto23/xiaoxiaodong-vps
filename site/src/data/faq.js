@@ -27,6 +27,7 @@ export const FAQ = [
   { id: "device", title: "设备和使用", items: [
     ["一个订阅能同时用在几台设备上？", "没有硬性限制，你和家人的手机、电脑、平板可以同时用。设备多了流量用得快一些。"],
     ["电脑上的 Clash Verge 要选什么模式？", "选「规则」模式，打开「虚拟网卡模式」。不要用「全局」，那样国内网站也会绕到国外。"],
+    ["已经有 Gmail，能换一个新地址吗？", "能。在 Google 账号里打开「个人信息 → 电子邮件 → Google 账号电子邮件」（或直接打开 myaccount.google.com/google-account-email），符合条件的账号可以换一个新的 @gmail.com 地址：一年一次、最多三次，旧地址变成别名继续收信，数据都在同一个账号里。它是换地址，不是多开一个邮箱；需要独立邮箱就另外注册。详见 How-to「注册 Google 邮箱」。"],
     ["Shadowrocket 在中国区 App Store 搜不到？", "中国区没有上架，要用境外 Apple ID 在美区等商店下载。看 How-to「注册境外 Apple ID」。"],
   ]},
   { id: "tech", title: "技术问题", items: [
