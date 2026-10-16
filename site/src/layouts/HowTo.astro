@@ -1,0 +1,28 @@
+---
+// How-to 一篇：面包屑、标题、适用于谁、正文、相关链接
+import Site from "./Site.astro";
+import { HOWTO_FLAT, howtoHref, stepHref, STEPS, link } from "../data/nav.js";
+const { frontmatter, headings = [] } = Astro.props;
+const me = HOWTO_FLAT.find((h) => h.slug === frontmatter.slug);
+if (!me) throw new Error(`HOWTO 里没有 ${frontmatter.slug}`);
+const sameGroup = HOWTO_FLAT.filter((h) => h.group === me.group && h.slug !== me.slug);
+const step = frontmatter.step !== undefined ? STEPS.find((s) => s.n === frontmatter.step) : null;
+---
+<Site title={me.title} description={frontmatter.description} headings={headings}>
+  <header class="step-head">
+    <ol class="xxd-breadcrumbs" data-size="sm"><li><a href={link("/howto/")}>How-to</a></li><li>{me.group}</li><li aria-current="page">{me.title}</li></ol>
+    <h1>{me.title}</h1>
+    <div class="step-head__meta">
+      {frontmatter.time && <span class="xxd-badge">{frontmatter.time}</span>}
+      {frontmatter.for && <span class="xxd-badge">适用：{frontmatter.for}</span>}
+      {step && <a class="xxd-badge" href={stepHref(step)}>主线第 {step.n} 步：{step.title}</a>}
+    </div>
+  </header>
+  <article class="xxd-prose"><slot /></article>
+  {sameGroup.length > 0 && (
+    <nav class="related" aria-label="同类文章">
+      <p class="related__title">「{me.group}」的其他文章</p>
+      <ul>{sameGroup.map((h) => <li><a href={howtoHref(h.slug)}>{h.title}</a></li>)}</ul>
+    </nav>
+  )}
+</Site>

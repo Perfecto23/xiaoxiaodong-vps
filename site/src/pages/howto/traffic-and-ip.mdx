@@ -1,0 +1,39 @@
+---
+layout: ../../layouts/HowTo.astro
+slug: traffic-and-ip
+time: 5 分钟
+for: 配置完成的人
+step: 7
+description: 查看本月流量用了多少；IP 在当地被限制时怎么换 IP。
+---
+import Callout from "../../components/Callout.astro";
+import Term from "../../components/Term.astro";
+import Q from "../../components/Q.astro";
+import Copy from "../../components/Copy.astro";
+import Tabs from "../../components/Tabs.astro";
+
+## 查看流量
+
+- **商家后台**：搬瓦工 KiwiVM 首页有本月流量和重置日期；其他商家在服务器详情页。
+- **客户端里**：部署时告诉 AI 每月流量额度和重置日（手动路线是 `init` 那一行加 `--quota-gb 1000 --reset-day 1`），Clash Verge、Shadowrocket 里就能看到本月用量。部署时没加，可以让 AI 补上。
+
+<Callout type="tip">
+测速特别费流量，一次可能就是几 G 甚至几十 G。看视频也用得快。家用一般每月几百 G 到 1T 就够。
+</Callout>
+
+## 什么时候需要换 IP
+
+**先确认是不是 IP 的问题**：换了几种网络（手机流量、不同的 Wi-Fi、不同运营商）都连不上，而让 AI 体检服务器又显示一切正常，那多半是这个 IP 在当地被限制了。这种情况改配置没用，要换 IP。
+
+## 怎么换
+
+- 有的商家后台有付费或免费的换 IP 功能；
+- 没有的话，开工单问商家能不能换。
+
+## 换完以后
+
+证书和订阅地址都和 IP 绑定在一起，换了 IP 必须重新配置：
+
+1. 把新 IP 告诉 AI，让它按方案重新配置这台服务器（或者走第 3 步的手动路线，用新 IP）。
+2. 在所有设备上**删掉旧订阅、重新导入新订阅**（订阅地址里的 IP 变了）。
+3. 按第 5 步检查一遍。

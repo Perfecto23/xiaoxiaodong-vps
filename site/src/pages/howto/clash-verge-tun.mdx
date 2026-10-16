@@ -1,0 +1,60 @@
+---
+layout: ../../layouts/HowTo.astro
+slug: clash-verge-tun
+time: 5 分钟
+for: Windows、Mac 上用 Clash Verge Rev 的人
+step: 4
+description: 为什么要开虚拟网卡模式、怎么开、开完怎么验证。WebRTC 照常可用，只是出口变成服务器 IP。
+---
+import Callout from "../../components/Callout.astro";
+import Term from "../../components/Term.astro";
+import Q from "../../components/Q.astro";
+import Copy from "../../components/Copy.astro";
+import Tabs from "../../components/Tabs.astro";
+
+## 为什么要开
+
+Clash Verge 的「系统代理」只接管浏览器的网页流量（TCP）。浏览器的 <Term k="WebRTC" /> 用 UDP 向外报告你的 IP，这部分不走系统代理，检测网站就能看到你的真实 IP。
+
+<Term k="虚拟网卡" text="虚拟网卡模式" />（TUN）让电脑上所有软件、所有流量都先进 Clash，再按规则分流：国内网站照样直连，WebRTC 照常可用，只是出口变成你的服务器 IP。
+
+## 怎么开
+
+1. 「订阅」页面里先把订阅「更新」一次，拿到最新规则。
+2. 「设置」→「系统设置」里，打开「虚拟网卡模式」。
+3. 提示「TUN 模式需要服务模式，请先安装服务」时，点「安装服务」：Windows 点「是」，Mac 输入开机密码。看到「已成功安装服务」就行。
+4. **只有 Windows**：点「虚拟网卡模式」旁边的齿轮，打开「严格路由」，其他选项不要改，保存。
+5. 「Clash 设置」里确认：「IPv6」是**打开**的，「DNS 覆写」是**关闭**的。
+6. **完全退出浏览器**再重新打开（Mac 按 ⌘Q；Windows 连托盘里的也要退出）。
+
+「系统代理」开着或关着都可以，不影响。
+
+<Callout type="warn" title="IPv6 为什么要开着">
+Clash Verge 会用它自己的「IPv6」开关决定虚拟网卡接不接管 IPv6。关掉的话，IPv6 流量会绕过虚拟网卡，可能暴露你的国内 IPv6 地址。
+</Callout>
+
+## 开完怎么验证
+
+- 首页显示「TUN 模式已启用」；
+- 打开 [browserleaks.com/webrtc](https://browserleaks.com/webrtc)：「RTCPeerConnection」是 ✔，「Public IP Address」是你服务器的 IP。
+
+<Callout type="no" title="不要用禁用 WebRTC 来代替">
+不要装 WebRTC Network Limiter 这类扩展，也不要改浏览器里 WebRTC 相关的设置。那样检测网站会显示「检测不到 IP」，看起来像修好了，其实是把网页的视频、语音功能弄坏了。
+</Callout>
+
+## 卡住了？
+
+<Q q="出现「由于服务不可用，TUN 模式已自动关闭」？">
+在设置里先「卸载服务」，再「安装服务」，然后重新打开虚拟网卡模式。
+</Q>
+<Q q="出现「已切换到普通模式（Sidecar），普通权限下无法使用 TUN」？">
+点提示里的「查看修复方法」照做。Windows 也可以右键「以管理员身份运行」Clash Verge。
+</Q>
+<Q q="检测网站显示的是国内 IPv6 地址？">
+先确认「IPv6」开关是打开的。仍然是国内 IPv6，就在系统里关掉 IPv6：Windows 在网卡属性里取消勾选「Internet 协议版本 6」；Mac 在「系统设置 → 网络 → 当前网络 → 详细信息 → TCP/IP」里把「配置 IPv6」改成「仅本地链接」。
+</Q>
+<Q q="有的国内检测网站还是显示国内 IP？">
+如果那个网站用的是国内的 STUN 服务器，在「规则」模式下本来就直连，这是正常的。用 browserleaks.com/webrtc 确认即可，不要为此去禁用 WebRTC 或切全局模式。
+</Q>
+
+一步一步的完整排查（包括给 AI 助手照做的检测命令），见方案仓库里的 [WebRTC 泄露修复手册](https://github.com/nevertoday/xiaoxiaodong-vps/blob/main/docs/Clash-Verge-WebRTC泄露修复手册.md)。

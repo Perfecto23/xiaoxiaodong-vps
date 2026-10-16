@@ -1,7 +1,7 @@
 # 小小东 VPS 教程站
 
 把 xiaoxiaodong-vps 方案讲给第一次接触的人：主线教程（按顺序 0–7 步）、How-to（具体怎么做）、Wiki（这是什么）、常见问题。
-计划上线到 <https://vps.xiaoxiaodong.ai>。界面用 [xxd-ui-kit](https://github.com/nevertoday/xxd-ui-kit)（MIT）。
+线上：<https://vps.xiaoxiaodong.ai>（Cloudflare）；备用：<https://nevertoday.github.io/xiaoxiaodong-vps/>（GitHub Pages）。界面用 [xxd-ui-kit](https://github.com/nevertoday/xxd-ui-kit)（MIT）。
 
 ```bash
 cd site
@@ -19,7 +19,16 @@ npm run build      # 输出到 dist/
   - `Term`：术语，悬停出一句话解释，`k` 对应 `GLOSSARY` 里的词
   - `Checkpoint`：步骤结尾的检查点，可以打勾，打勾记在读者自己的浏览器里
   - `Q`：「卡住了？」里的一条，可以展开
+  - `Tabs`：按设备或路线切换（`items={[["win","Windows"],["mac","Mac"]]}`，内容放在 `<div slot="win">` 里）
+  - `Copy`：带复制按钮的命令或话术块
+- **How-to** 是 `src/pages/howto/<slug>.mdx`（`layout: ../../layouts/HowTo.astro`，`slug` 要和 `HOWTO` 里一致）；**Wiki** 和 **常见问题** 只改数据：`src/data/wiki.js`、`src/data/faq.js`。
+- **搜索**（⌘K）自动收录主线每一步、每篇 How-to、每个 Wiki 条目和每条常见问题。
 - **xxd-ui-kit 的 CSS 和 JS** 在 `public/xxd/` 里自带一份，不走 CDN（国内打开不会卡在外部资源上）。升级时在 xxd-ui-kit 里先 `pnpm xxd:build`，再在这里跑 `npm run sync-xxd`。
+
+## 部署
+
+- 主站：`npm run release`（构建后 `wrangler deploy`，需要先 `npx wrangler login`），配置在 `wrangler.jsonc`。
+- 备用：推送到 main 且改了 `site/` 时，`.github/workflows/site-pages.yml` 自动构建到 GitHub Pages（子路径 `/xiaoxiaodong-vps/`；组件里的链接用 `link()`，正文里手写的 `/xxx` 链接由 `scripts/base-links.mjs` 在构建后补前缀）。
 
 ## 写作规矩
 

@@ -157,6 +157,45 @@
 
   .pending-list { columns: 2; column-gap: var(--space-6); margin: 0; padding-left: 1.2em; font-size: var(--text-sm); line-height: 28px; }
 
+
+  /* ---------- 搜索、侧栏分组、列表链接 ---------- */
+  .site-search {
+    display: inline-flex; flex: 0 1 260px; align-items: center; gap: 8px;
+    height: 32px; margin-left: var(--space-4); padding: 0 8px 0 10px;
+    border: 1px solid var(--line); border-radius: var(--r-sm); background: var(--bg);
+    color: var(--muted); font: var(--text-sm) var(--font-body); cursor: pointer;
+  }
+  .site-search:hover { border-color: var(--line-strong); }
+  .site-search span { flex: 1; text-align: left; }
+  .site-nav__more { margin-top: 2px; }
+  .site-nav__more summary {
+    padding: 5px 8px; color: var(--muted); font-size: var(--text-xs); cursor: pointer; list-style: none;
+  }
+  .site-nav__more summary::-webkit-details-marker { display: none; }
+  .site-nav__more summary::before { content: "▸ "; }
+  .site-nav__more[open] summary::before { content: "▾ "; }
+  .site-nav__more ul { padding-left: 10px; }
+  .list-link { display: flex; flex-direction: column; color: var(--ink); text-decoration: none !important; }
+  .xxd-prose .xxd-list { padding-left: 0; }
+  .xxd-prose .xxd-list__item { margin: 0; }
+
+  /* ---------- 教程部件 ---------- */
+  a.term { color: inherit; text-decoration: none; border-bottom: 1px dashed var(--muted-2); cursor: help; }
+  a.term:hover { border-bottom-color: var(--ink); }
+  .tabs-block { margin: var(--space-4) 0; }
+  .tabs-block__panel { padding-top: var(--space-3); }
+  .tabs-block__panel > :first-child { margin-top: 0; }
+  .copy-block { margin: var(--space-4) 0; }
+  .copy-block .xxd-code { white-space: pre-wrap; word-break: break-word; }
+  .copy-block .xxd-code__head .xxd-btn { gap: 4px; }
+  .wiki__one { font-size: var(--text-md); line-height: 28px; }
+  .wiki__see { color: var(--muted); }
+  .related { max-width: var(--read-width, 680px); margin-top: var(--space-8); padding-top: var(--space-4); border-top: 1px solid var(--line); }
+  .related__title { margin: 0 0 6px; color: var(--muted); font-size: var(--text-xs); }
+  .related ul { margin: 0; padding-left: 1.2em; font-size: var(--text-sm); line-height: 28px; }
+  .step-head .xxd-breadcrumbs { margin-bottom: var(--space-3); }
+  a.xxd-badge { text-decoration: none; color: inherit; }
+
   /* ---------- 响应式 ---------- */
   @media (max-width: 1180px) {
     .site-body { grid-template-columns: 232px minmax(0, 1fr); }
@@ -178,6 +217,8 @@
     }
     .site-nav-scrim[data-open] { opacity: 1; pointer-events: auto; }
     .site-main { padding: var(--space-6) var(--space-4) 96px; }
+    .site-search span, .site-search kbd { display: none; }
+    .site-search { flex: none; width: 32px; margin-left: 0; padding: 0; justify-content: center; }
     .flow { grid-template-columns: 1fr; }
     .flow__arrow { flex-direction: row; padding: 2px 0; }
     .flow__arrow > :first-child { transform: rotate(90deg); }

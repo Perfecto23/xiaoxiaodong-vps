@@ -1,0 +1,28 @@
+---
+import Site from "../../layouts/Site.astro";
+import { WIKI } from "../../data/wiki.js";
+import { wikiHref, howtoHref, HOWTO_FLAT, link } from "../../data/nav.js";
+import { inline } from "../../lib/md.js";
+export function getStaticPaths() { return WIKI.map((w) => ({ params: { slug: w.slug }, props: { w } })); }
+const { w } = Astro.props;
+const bySlug = Object.fromEntries(WIKI.map((x) => [x.slug, x]));
+const howto = w.howto && HOWTO_FLAT.find((h) => h.slug === w.howto);
+const headings = [{ slug: "like", text: "打个比方", depth: 2 }, { slug: "here", text: "在这套方案里", depth: 2 }, { slug: "myths", text: "常见误区", depth: 2 }];
+---
+<Site title={`${w.title} · Wiki`} description={w.one} headings={headings}>
+  <article class="xxd-prose wiki">
+    <ol class="xxd-breadcrumbs" data-size="sm"><li><a href={link("/wiki/")}>Wiki</a></li><li>{w.group}</li><li aria-current="page">{w.title}</li></ol>
+    <h1>{w.title}</h1>
+    <p class="wiki__one" set:html={inline(w.one)} />
+    <h2 id="like">打个比方</h2>
+    <p set:html={inline(w.like)} />
+    <h2 id="here">在这套方案里</h2>
+    <p set:html={inline(w.here)} />
+    <h2 id="myths">常见误区</h2>
+    <ul>{w.myths.map((m) => <li set:html={inline(m)} />)}</ul>
+    {howto && <p>动手操作：<a href={howtoHref(howto.slug)}>{howto.title}</a></p>}
+    {w.see?.length > 0 && (
+      <p class="wiki__see">相关条目：{w.see.map((s, i) => <>{i > 0 && "、"}<a href={wikiHref(s)}>{bySlug[s].title}</a></>)}</p>
+    )}
+  </article>
+</Site>

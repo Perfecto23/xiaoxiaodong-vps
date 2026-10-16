@@ -1,6 +1,6 @@
 ---
 import Site from "../layouts/Site.astro";
-import { STEPS, stepHref } from "../data/nav.js";
+import { STEPS, stepHref, link } from "../data/nav.js";
 ---
 <Site title="小小东 VPS 教程" wide>
   <div class="home">
@@ -8,7 +8,7 @@ import { STEPS, stepHref } from "../data/nav.js";
     <p class="home__lead">做法：自己租一台海外服务器，让 AI 按这套方案配好，手机和电脑导入订阅就能用。线路只给你和家人用，不和陌生人共享。跟着下面 7 步做，第一次大约一个小时。</p>
     <div class="home__cta">
       <a class="xxd-btn" data-variant="primary" href={stepHref(STEPS[0])}>从第 0 步开始<i data-xxd-icon="ArrowRight" data-size="16"></i></a>
-      <a class="xxd-btn" href="/faq/">先看常见问题</a>
+      <a class="xxd-btn" href={link("/faq/")}>先看常见问题</a>
     </div>
 
     <section aria-labelledby="h-flow">

@@ -1,9 +1,9 @@
 ---
-// 术语：虚线下划线，悬停或键盘聚焦时出一句话解释（解释写在 data/nav.js 的 GLOSSARY）
-import { GLOSSARY } from "../data/nav.js";
+// 术语：虚线下划线，悬停或键盘聚焦时出一句话解释；点一下进对应的 Wiki 条目
+import { GLOSSARY, wikiHref } from "../data/nav.js";
 interface Props { k: string; text?: string }
 const { k, text } = Astro.props;
-const tip = GLOSSARY[k];
-if (!tip) throw new Error(`GLOSSARY 里没有「${k}」`);
+const g = GLOSSARY[k];
+if (!g) throw new Error(`GLOSSARY 里没有「${k}」`);
 ---
-<span class="term" tabindex="0" data-tooltip={tip}>{text ?? k}</span>
+<a class="term" href={wikiHref(g.wiki)} data-tooltip={g.tip}>{text ?? k}</a>
