@@ -114,6 +114,7 @@ bash "$R" 名称 verify --full
    - 电脑装 Clash Verge Rev，导入文件里的 **Clash 订阅**，选"规则"模式并打开"虚拟网卡模式"（TUN，第一次按提示安装服务；只开系统代理时，浏览器的 WebRTC 会暴露真实 IP）；iPhone 用 Shadowrocket 导入 **Shadowrocket 订阅**；路由器 OpenClash 用 Clash 订阅；
    - CLIProxyAPI 现在是空的，要在管理中心添加自己的上游账号或供应商 Key；
    - 导入后打开 <https://ip.net.coffee/claude/>，显示服务器的 IP 就说明通了；要出差的话，出发前在手机和电脑上都测一遍。
+   - 每个客户端怎么装、怎么检查泄露、AI 接口怎么用，都有图文教程：<https://vps.xiaoxiaodong.ai>（备用 <https://nevertoday.github.io/xiaoxiaodong-vps/>）。
 
 ## 以后的复核和维护
 
