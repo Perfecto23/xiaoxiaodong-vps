@@ -1,0 +1,18 @@
+---
+// 页面末尾的反馈入口：在 GitHub 上新建一条带模板的反馈（真人试用时，卡住的地方都会汇总到这里）
+import { langOf } from "../data/nav.js";
+interface Props { page: string }
+const en = langOf(Astro.url.pathname) === "en";
+const site = Astro.site ? Astro.site.href.replace(/\/$/, "") : "";
+const url = site + Astro.url.pathname;
+const title = en ? `[Guide feedback] ${Astro.props.page}` : `[教程反馈] ${Astro.props.page}`;
+const body = en
+  ? `Page: ${url}\n\nWhere I got stuck:\n\nWhat I saw (paste the text; blur IPs, subscription URLs and passwords in screenshots):\n\nWhat I tried:\n\nDevice and system:\n`
+  : `页面：${url}\n\n卡在哪一步：\n\n看到了什么（文字直接复制；截图请先把 IP、订阅地址、密码打码）：\n\n试过什么：\n\n设备和系统：\n`;
+const href = `https://github.com/nevertoday/xiaoxiaodong-vps/issues/new?title=${encodeURIComponent(title)}&body=${encodeURIComponent(body)}`;
+---
+<aside class="feedback">
+  <i data-xxd-icon="MessageCircle" data-size="16"></i>
+  <span>{en ? "Something unclear or not working on this page?" : "这一页有没看懂、或者照做不成功的地方？"}</span>
+  <a href={href} rel="noopener">{en ? "Tell us on GitHub" : "到 GitHub 告诉我们"}</a>
+</aside>

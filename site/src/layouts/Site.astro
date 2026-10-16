@@ -1,8 +1,11 @@
 ---
-// 外壳：顶栏（主题切换 + GitHub）、左侧导航（主线 7 步 + 栏目）、正文、右侧目录。界面全部用 xxd-ui-kit。
-import { STEPS, stepHref, HOWTO, HOWTO_FLAT, howtoHref, wikiHref, link } from "../data/nav.js";
+// 外壳：顶栏（搜索、主题、语言、GitHub）、左侧导航（主线 8 步 + 栏目）、正文、右侧目录。界面全部用 xxd-ui-kit。
+// 中文在根路径，英文在 /en/ 下；语言看路径（langOf），界面文字在下面的 UI 里。
+import { STEPS, stepHref, HOWTO, HOWTO_FLAT, howtoHref, wikiHref, link, langOf, counterpart, t } from "../data/nav.js";
 import { WIKI } from "../data/wiki.js";
+import { WIKI_EN } from "../data/wiki.en.js";
 import { FAQ } from "../data/faq.js";
+import { FAQ_EN } from "../data/faq.en.js";
 
 interface Props {
   title: string;
@@ -10,29 +13,47 @@ interface Props {
   headings?: { slug: string; text: string; depth: number }[];
   wide?: boolean;
 }
-const BRAND = "小小东 VPS 教程";
-const { title, description = "从买服务器到用上自己的线路和 AI 接口：一步一步、看得懂、照着做就会。", headings = [], wide = false } = Astro.props;
+const UI = {
+  zh: { html: "zh-CN", brand: "小小东 VPS 教程", desc: "从买服务器到用上自己的线路和 AI 接口：一步一步、看得懂、照着做就会。", skip: "跳到正文", menu: "打开目录", search: "搜索教程",
+    searchPh: "搜步骤、How-to、名词、问题……", searchEmpty: "没找到，换个词试试", theme: "主题", light: "亮色", dark: "暗色", system: "跟随系统", repo: "GitHub 仓库",
+    navLabel: "网站目录", start: "开始", home: "首页：一张图看懂", main: "主线教程（按顺序做）", pending: "编写中", ref: "查资料", howto: "How-to：具体怎么做",
+    wiki: "Wiki：这是什么", faq: "常见问题", toc: "本页", tocLabel: "本页目录", hintMain: "主线教程", hintFaq: "常见问题", switchTo: "English", switchLabel: "Switch to English",
+    foot: '这套方案只给自己和家人用，请遵守当地法律和各网站、AI 工具的使用规定。内容开源（MIT），源码和问题反馈在 <a href="https://github.com/nevertoday/xiaoxiaodong-vps">GitHub</a>。' },
+  en: { html: "en", brand: "XXD VPS Guide", desc: "From buying a server to using your own line and AI API — step by step, easy to follow.", skip: "Skip to content", menu: "Open menu", search: "Search the guide",
+    searchPh: "Search steps, how-tos, terms, questions…", searchEmpty: "Nothing found — try another word", theme: "Theme", light: "Light", dark: "Dark", system: "System", repo: "GitHub repository",
+    navLabel: "Site navigation", start: "Start", home: "Home: the big picture", main: "Main guide (in order)", pending: "In progress", ref: "Reference", howto: "How-to: how exactly",
+    wiki: "Wiki: what is it", faq: "FAQ", toc: "On this page", tocLabel: "On this page", hintMain: "Main guide", hintFaq: "FAQ", switchTo: "中文", switchLabel: "切换到中文",
+    foot: 'This setup is for you and your family only. Follow local laws and each site\'s and AI tool\'s terms of use. Open source (MIT) — code and feedback on <a href="https://github.com/nevertoday/xiaoxiaodong-vps">GitHub</a>.' },
+};
+const lang = langOf(Astro.url.pathname);
+const L = UI[lang];
+const { title, description = L.desc, headings = [], wide = false } = Astro.props;
 const path = Astro.url.pathname.replace(/\/$/, "") || "/";
 const cur = (href) => (href.replace(/\/$/, "") || "/") === path;
 const toc = headings.filter((h) => h.depth === 2); // 只列二级标题：标签页里的小标题不进目录
+// 语言切换：404 页没有对应页面，切到另一种语言的首页
+const other = /\/404\/?$/.test(Astro.url.pathname) ? link("/", lang === "en" ? "zh" : "en") : counterpart(Astro.url.pathname);
 const REPO = "https://github.com/nevertoday/xiaoxiaodong-vps";
+const wikiItems = WIKI.map((w) => (lang === "en" ? { ...w, ...WIKI_EN[w.slug] } : w));
+const faqGroups = lang === "en" ? FAQ_EN : FAQ;
 // 搜索：主线每一步、每篇 How-to、每个 Wiki 条目、每条常见问题（xxd 的命令面板，⌘K 打开）
 const searchIndex = JSON.stringify([
-  ...STEPS.map((x) => ({ label: `${x.n}. ${x.title}`, hint: "主线教程", keywords: x.sum, href: stepHref(x) })),
-  ...HOWTO_FLAT.map((x) => ({ label: x.title, hint: `How-to · ${x.group}`, keywords: x.group, href: howtoHref(x.slug) })),
-  ...WIKI.map((x) => ({ label: x.title, hint: `Wiki · ${x.group}`, keywords: x.one, href: wikiHref(x.slug) })),
-  ...FAQ.flatMap((g) => g.items.map(([q, a]) => ({ label: q, hint: `常见问题 · ${g.title}`, keywords: a.slice(0, 80), href: link(`/faq/#${g.id}`) }))),
+  ...STEPS.map((x) => ({ label: `${x.n}. ${t(x, "title", lang)}`, hint: L.hintMain, keywords: t(x, "sum", lang), href: stepHref(x, lang) })),
+  ...HOWTO_FLAT.map((x) => ({ label: t(x, "title", lang), hint: `How-to · ${lang === "en" ? x.groupEn : x.group}`, keywords: lang === "en" ? x.groupEn : x.group, href: howtoHref(x.slug, lang) })),
+  ...wikiItems.map((x) => ({ label: x.title, hint: `Wiki · ${x.group}`, keywords: x.one, href: wikiHref(x.slug, lang) })),
+  ...faqGroups.flatMap((g) => g.items.map(([q, a]) => ({ label: q, hint: `${L.hintFaq} · ${g.title}`, keywords: a.slice(0, 80), href: link(`/faq/#${g.id}`, lang) }))),
 ]);
 const GITHUB_MARK = '<svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" focusable="false"><path d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"/></svg>';
 ---
 
 <!doctype html>
-<html lang="zh-CN">
+<html lang={L.html}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{title === BRAND ? title : `${title} · ${BRAND}`}</title>
+    <title>{title === L.brand ? title : `${title} · ${L.brand}`}</title>
     <meta name="description" content={description} />
+    <link rel="alternate" hreflang={lang === "en" ? "zh-CN" : "en"} href={other} />
     <link rel="icon" href={link("/favicon.svg")} type="image/svg+xml" />
     <style is:inline>@layer base, xxd, components, site;</style>
     <script is:inline src={link("/xxd/boot.js")} data-key="xxd-vps-site" data-default-theme="system"></script>
@@ -42,77 +63,76 @@ const GITHUB_MARK = '<svg width="16" height="16" viewBox="0 0 16 16" fill="curre
     <script is:inline src={link("/xxd/xxd.js")}></script>
   </head>
   <body class="xxd-page">
-    <a class="xxd-sr-only-focusable" href="#main">跳到正文</a>
+    <a class="xxd-sr-only-focusable" href="#main">{L.skip}</a>
     <header class="site-top">
-      <button class="xxd-btn site-menu" data-variant="ghost" data-icon-only aria-label="打开目录" id="site-menu" aria-controls="site-nav" aria-expanded="false"><i data-xxd-icon="Menu" data-size="18"></i></button>
-      <a class="site-brand" href={link("/")}><span class="site-mark" aria-hidden="true"></span><span class="site-brand__name">{BRAND}</span></a>
-      <button class="site-search" id="site-search" type="button"><i data-xxd-icon="Search" data-size="14"></i><span>搜索教程</span><kbd class="xxd-kbd">⌘K</kbd></button>
+      <button class="xxd-btn site-menu" data-variant="ghost" data-icon-only aria-label={L.menu} id="site-menu" aria-controls="site-nav" aria-expanded="false"><i data-xxd-icon="Menu" data-size="18"></i></button>
+      <a class="site-brand" href={link("/", lang)}><span class="site-mark" aria-hidden="true"></span><span class="site-brand__name">{L.brand}</span></a>
+      <button class="site-search" id="site-search" type="button"><i data-xxd-icon="Search" data-size="14"></i><span>{L.search}</span><kbd class="xxd-kbd">⌘K</kbd></button>
       <span class="site-top__spacer"></span>
       <div class="site-appearance">
-        <div class="xxd-segmented" data-xxd-segmented data-name="theme" aria-label="主题" id="site-theme">
-          <button role="radio" data-value="light" aria-label="亮色" data-tooltip="亮色" data-tooltip-placement="bottom"><i data-xxd-icon="Sun" data-size="14"></i></button>
-          <button role="radio" data-value="dark" aria-label="暗色" data-tooltip="暗色" data-tooltip-placement="bottom"><i data-xxd-icon="Moon" data-size="14"></i></button>
-          <button role="radio" data-value="system" aria-label="跟随系统" data-tooltip="跟随系统" data-tooltip-placement="bottom"><i data-xxd-icon="Contrast" data-size="14"></i></button>
+        <div class="xxd-segmented" data-xxd-segmented data-name="theme" aria-label={L.theme} id="site-theme">
+          <button role="radio" data-value="light" aria-label={L.light} data-tooltip={L.light} data-tooltip-placement="bottom"><i data-xxd-icon="Sun" data-size="14"></i></button>
+          <button role="radio" data-value="dark" aria-label={L.dark} data-tooltip={L.dark} data-tooltip-placement="bottom"><i data-xxd-icon="Moon" data-size="14"></i></button>
+          <button role="radio" data-value="system" aria-label={L.system} data-tooltip={L.system} data-tooltip-placement="bottom"><i data-xxd-icon="Contrast" data-size="14"></i></button>
         </div>
-        <a class="xxd-btn" data-size="sm" data-variant="ghost" data-icon-only href={REPO} aria-label="GitHub 仓库" data-tooltip="GitHub 仓库" data-tooltip-placement="bottom-end" set:html={GITHUB_MARK} />
+        <a class="xxd-btn site-lang" data-size="sm" data-variant="ghost" href={other} hreflang={lang === "en" ? "zh-CN" : "en"} aria-label={L.switchLabel}>{L.switchTo}</a>
+        <a class="xxd-btn" data-size="sm" data-variant="ghost" data-icon-only href={REPO} aria-label={L.repo} data-tooltip={L.repo} data-tooltip-placement="bottom-end" set:html={GITHUB_MARK} />
       </div>
     </header>
 
     <div class="site-body">
-      <nav class="site-nav" id="site-nav" aria-label="网站目录">
+      <nav class="site-nav" id="site-nav" aria-label={L.navLabel}>
         <section class="site-nav__group">
-          <h2>开始</h2>
-          <ul><li><a href={link("/")} aria-current={cur(link("/")) ? "page" : undefined}><span class="site-nav__label">首页：一张图看懂</span></a></li></ul>
+          <h2>{L.start}</h2>
+          <ul><li><a href={link("/", lang)} aria-current={cur(link("/", lang)) ? "page" : undefined}><span class="site-nav__label">{L.home}</span></a></li></ul>
         </section>
         <section class="site-nav__group">
-          <h2>主线教程（按顺序做）</h2>
+          <h2>{L.main}</h2>
           <ul>
             {STEPS.map((s) => (
               <li>
                 {s.ready ? (
-                  <a href={stepHref(s)} aria-current={cur(stepHref(s)) ? "page" : undefined}>
-                    <span class="site-nav__num">{s.n}</span><span class="site-nav__label">{s.title}</span>
+                  <a href={stepHref(s, lang)} aria-current={cur(stepHref(s, lang)) ? "page" : undefined}>
+                    <span class="site-nav__num">{s.n}</span><span class="site-nav__label">{t(s, "title", lang)}</span>
                   </a>
                 ) : (
-                  <span class="is-pending"><span class="site-nav__num">{s.n}</span><span class="site-nav__label">{s.title}</span><span class="site-nav__tag">编写中</span></span>
+                  <span class="is-pending"><span class="site-nav__num">{s.n}</span><span class="site-nav__label">{t(s, "title", lang)}</span><span class="site-nav__tag">{L.pending}</span></span>
                 )}
               </li>
             ))}
           </ul>
         </section>
         <section class="site-nav__group">
-          <h2>查资料</h2>
+          <h2>{L.ref}</h2>
           <ul>
-            <li><a href={link("/howto/")} aria-current={cur(link("/howto/")) ? "page" : undefined}><span class="site-nav__label">How-to：具体怎么做</span></a></li>
-            <li><a href={link("/wiki/")} aria-current={cur(link("/wiki/")) ? "page" : undefined}><span class="site-nav__label">Wiki：这是什么</span></a></li>
-            <li><a href={link("/faq/")} aria-current={cur(link("/faq/")) ? "page" : undefined}><span class="site-nav__label">常见问题</span></a></li>
+            <li><a href={link("/howto/", lang)} aria-current={cur(link("/howto/", lang)) ? "page" : undefined}><span class="site-nav__label">{L.howto}</span></a></li>
+            <li><a href={link("/wiki/", lang)} aria-current={cur(link("/wiki/", lang)) ? "page" : undefined}><span class="site-nav__label">{L.wiki}</span></a></li>
+            <li><a href={link("/faq/", lang)} aria-current={cur(link("/faq/", lang)) ? "page" : undefined}><span class="site-nav__label">{L.faq}</span></a></li>
           </ul>
         </section>
         {HOWTO.map((g) => (
-          <details class="site-nav__more" open={g.items.some((t) => cur(howtoHref(t.slug)))}>
-            <summary>{g.group}</summary>
-            <ul>{g.items.map((t) => <li><a href={howtoHref(t.slug)} aria-current={cur(howtoHref(t.slug)) ? "page" : undefined}><span class="site-nav__label">{t.title}</span></a></li>)}</ul>
+          <details class="site-nav__more" open={g.items.some((it) => cur(howtoHref(it.slug, lang)))}>
+            <summary>{t(g, "group", lang)}</summary>
+            <ul>{g.items.map((it) => <li><a href={howtoHref(it.slug, lang)} aria-current={cur(howtoHref(it.slug, lang)) ? "page" : undefined}><span class="site-nav__label">{t(it, "title", lang)}</span></a></li>)}</ul>
           </details>
         ))}
       </nav>
 
       <main id="main" class:list={["site-main", { "site-main--wide": wide }]}>
         <slot />
-        <footer class="site-foot">
-          <p>这套方案只给自己和家人用，请遵守当地法律和各网站、AI 工具的使用规定。内容开源（MIT），源码和问题反馈在 <a href={REPO}>GitHub</a>。</p>
-        </footer>
+        <footer class="site-foot"><p set:html={L.foot} /></footer>
       </main>
 
       {toc.length > 1 && (
-        <aside class="site-toc" aria-label="本页目录">
-          <h2>本页</h2>
-          <ul>{toc.map((h) => <li class={h.depth === 3 ? "is-sub" : undefined}><a href={`#${h.slug}`}>{h.text}</a></li>)}</ul>
+        <aside class="site-toc" aria-label={L.tocLabel}>
+          <h2>{L.toc}</h2>
+          <ul>{toc.map((h) => <li><a href={`#${h.slug}`}>{h.text}</a></li>)}</ul>
         </aside>
       )}
     </div>
     <div class="site-nav-scrim" id="site-nav-scrim"></div>
 
-    <script type="application/json" id="site-search-index" set:html={searchIndex} />
+    <script type="application/json" id="site-search-index" data-opts={JSON.stringify({ placeholder: L.searchPh, empty: L.searchEmpty })} set:html={searchIndex} />
     <script is:inline>
       (() => {
         const T = window.XxdTheme, X = window.Xxd;
@@ -134,7 +154,7 @@ const GITHUB_MARK = '<svg width="16" height="16" viewBox="0 0 16 16" fill="curre
         // 搜索：⌘K / 点按钮，用 xxd 的命令面板
         const pages = JSON.parse(document.getElementById("site-search-index").textContent);
         const items = pages.map((p) => ({ label: p.label, hint: p.hint, keywords: p.keywords, run: () => { location.href = p.href; } }));
-        const opts = { placeholder: "搜步骤、How-to、名词、问题……", empty: "没找到，换个词试试" };
+        const opts = JSON.parse(document.getElementById("site-search-index").dataset.opts);
         document.getElementById("site-search").addEventListener("click", () => X.openCommandPalette({ items, ...opts }));
         X.bindCommandPalette(items, opts);
 

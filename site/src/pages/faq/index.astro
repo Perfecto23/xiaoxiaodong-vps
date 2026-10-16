@@ -1,19 +1,4 @@
 ---
-import Site from "../../layouts/Site.astro";
-import Q from "../../components/Q.astro";
-import { FAQ } from "../../data/faq.js";
-import { inline } from "../../lib/md.js";
-const headings = FAQ.map((g) => ({ slug: g.id, text: g.title, depth: 2 }));
+import V from "../../views/FaqPage.astro";
 ---
-<Site title="常见问题" headings={headings}>
-  <article class="xxd-prose">
-    <h1>常见问题</h1>
-    <p>按话题分组，点开看答案。没找到你的问题？到 <a href="https://github.com/nevertoday/xiaoxiaodong-vps/issues">GitHub</a> 提一个，或者按 <kbd class="xxd-kbd">⌘K</kbd> 搜索全站。</p>
-    {FAQ.map((g) => (
-      <>
-        <h2 id={g.id}>{g.title}</h2>
-        {g.items.map(([q, a]) => <Q q={q} group={g.id}><p set:html={inline(a)} /></Q>)}
-      </>
-    ))}
-  </article>
-</Site>
+<V />

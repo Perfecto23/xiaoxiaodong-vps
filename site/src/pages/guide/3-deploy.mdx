@@ -52,6 +52,10 @@ import Copy from "../../components/Copy.astro";
 
 AI 会请你在终端里**自己输入**服务器的 root 密码（输入时屏幕不显示，是正常的）。
 
+<Callout type="tip" title="看到以 ! 开头的命令">
+在 Claude Code 里，AI 可能让你输入一条以 `!` 开头的命令。直接把整行粘贴到 Claude Code 的输入框，回车，它会在终端里提示你输入密码。`!` 的意思是「这条命令由你亲自运行」，密码因此不会经过 AI。
+</Callout>
+
 <Callout type="no">
 不要把密码直接发在聊天框里。AI 会给你一条命令，让你自己在终端里输入密码，这样密码不会进入聊天记录。
 </Callout>
@@ -68,6 +72,10 @@ AI 下载不了项目的话，可以手动 [下载 ZIP](https://github.com/never
 <div slot="manual">
 
 下面每一段都是：复制 → 粘贴到终端 → 回车 → 等它结束，再做下一段。**把命令里的 `你的IP` 和 `bwg` 换成你自己的。**
+
+<Callout type="warn" title="全程用同一个终端窗口">
+后面的命令要在「下载方案」进入的那个目录里运行，还用到了 `R=…` 这个变量。中途关了终端的话，重新打开后先运行 `cd xiaoxiaodong-vps/skills/xiaoxiaodong-vps` 和 `R=scripts/local/remote.sh`，再接着做。
+</Callout>
 
 ### 1. 下载方案
 
@@ -133,6 +141,8 @@ bash $R bwg save --lang zh`} />
 - **Windows（WSL）**：WSL 里没有桌面，文件在 Ubuntu 的主目录里。在终端输入 `explorer.exe .` 就能用文件管理器打开这个文件夹。
 
 文件里有：Clash 订阅地址、Shadowrocket 订阅地址、3x-ui 面板账号、CLIProxyAPI 的地址和 Key。**下一步就要用到订阅地址。**
+
+**怎么打开这个文件**：它是一个纯文本文件。Mac 上右键 →「打开方式」→「文本编辑」；Windows 上右键 →「打开方式」→「记事本」。订阅地址是一长串以 `https://` 开头的网址，复制时要整行复制完整。
 
 <Callout type="no">
 这个文件包含全部密码和 Key，只保存在你自己的电脑上，不要发群、截图或上传。

@@ -1,23 +1,4 @@
 ---
-import Site from "../../layouts/Site.astro";
-import { WIKI, WIKI_GROUPS } from "../../data/wiki.js";
-import { wikiHref } from "../../data/nav.js";
-const headings = WIKI_GROUPS.map((g, i) => ({ slug: `g${i}`, text: g, depth: 2 }));
+import V from "../../views/WikiIndex.astro";
 ---
-<Site title="Wiki：这是什么" headings={headings}>
-  <article class="xxd-prose">
-    <h1>Wiki：这是什么</h1>
-    <p>讲清楚教程里出现的每个概念。每篇都是同样的结构：一句话解释 → 打个比方 → 在这套方案里 → 常见误区。</p>
-    <p>不想看完整文章的话：教程正文里带虚线的词，鼠标停在上面就能看到一句话解释，点一下进到这里。</p>
-    {WIKI_GROUPS.map((g, i) => (
-      <>
-        <h2 id={`g${i}`}>{g}</h2>
-        <ul class="xxd-list" data-interactive>
-          {WIKI.filter((w) => w.group === g).map((w) => (
-            <li class="xxd-list__item"><a class="xxd-list__main list-link" href={wikiHref(w.slug)}><span class="xxd-list__title">{w.title}</span><span class="xxd-list__meta">{w.one}</span></a></li>
-          ))}
-        </ul>
-      </>
-    ))}
-  </article>
-</Site>
+<V />

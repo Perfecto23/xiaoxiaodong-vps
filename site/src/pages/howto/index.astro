@@ -1,19 +1,4 @@
 ---
-import Site from "../../layouts/Site.astro";
-import { HOWTO, howtoHref } from "../../data/nav.js";
-const headings = HOWTO.map((g, i) => ({ slug: `g${i}`, text: g.group, depth: 2 }));
+import V from "../../views/HowtoIndex.astro";
 ---
-<Site title="How-to：具体怎么做" headings={headings}>
-  <article class="xxd-prose">
-    <h1>How-to：具体怎么做</h1>
-    <p>一篇只讲一件事。主线教程里遇到「这一步具体怎么点」，就来这里找。</p>
-    {HOWTO.map((g, i) => (
-      <>
-        <h2 id={`g${i}`}>{g.group}</h2>
-        <ul class="xxd-list" data-interactive>
-          {g.items.map((t) => <li class="xxd-list__item"><a class="xxd-list__main list-link" href={howtoHref(t.slug)}><span class="xxd-list__title">{t.title}</span></a></li>)}
-        </ul>
-      </>
-    ))}
-  </article>
-</Site>
+<V />

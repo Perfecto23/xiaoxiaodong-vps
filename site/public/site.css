@@ -179,6 +179,8 @@
   .xxd-prose .xxd-list { padding-left: 0; }
   .xxd-prose .xxd-list__item { margin: 0; }
 
+  .site-lang { min-width: 3em; }
+
   /* ---------- 教程部件 ---------- */
   a.term { color: inherit; text-decoration: none; border-bottom: 1px dashed var(--muted-2); cursor: help; }
   a.term:hover { border-bottom-color: var(--ink); }
@@ -195,6 +197,18 @@
   .related ul { margin: 0; padding-left: 1.2em; font-size: var(--text-sm); line-height: 28px; }
   .step-head .xxd-breadcrumbs { margin-bottom: var(--space-3); }
   a.xxd-badge { text-decoration: none; color: inherit; }
+
+  .shot { margin: var(--space-4) 0; }
+  .shot img { display: block; max-width: 100%; height: auto; border: 1px solid var(--line); background: #fff; }
+  .shot figcaption { margin-top: 6px; color: var(--muted); font-size: var(--text-xs); line-height: 20px; }
+  .shot__stamp { color: var(--muted-2); }
+
+  .feedback {
+    display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; max-width: var(--read-width, 680px);
+    margin-top: var(--space-6); padding: var(--space-3) var(--space-4); background: var(--wash);
+    color: var(--muted); font-size: var(--text-sm); line-height: 20px;
+  }
+  .feedback a { color: var(--ink); }
 
   /* ---------- 响应式 ---------- */
   @media (max-width: 1180px) {

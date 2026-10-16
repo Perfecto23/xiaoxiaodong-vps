@@ -12,12 +12,15 @@ import Q from "../../components/Q.astro";
 import Copy from "../../components/Copy.astro";
 import Tabs from "../../components/Tabs.astro";
 import Checkpoint from "../../components/Checkpoint.astro";
+import Shot from "../../components/Shot.astro";
 
 ## 怎么测
 
 1. 打开 [browserleaks.com/webrtc](https://browserleaks.com/webrtc)。
 2. 看「RTCPeerConnection」：应该是 ✔，说明 WebRTC 能正常用。
 3. 看「Public IP Address」：应该是你服务器的 IP。
+
+<Shot src="browserleaks-webrtc.webp" w={931} h={139} alt="browserleaks WebRTC 检测结果示例" caption="browserleaks 的两处：RTCPeerConnection 是 ✔，Public IP Address 是服务器 IP（图中换成了示例地址）。" />
 
 也可以看 [ip.net.coffee/claude/](https://ip.net.coffee/claude/) 里的「WebRTC UDP 泄露检测」。
 

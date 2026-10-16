@@ -10,6 +10,15 @@ npm run dev        # http://localhost:4410
 npm run build      # 输出到 dist/
 ```
 
+## 中英双语
+
+中文在根路径，英文在 `/en/` 下，页面一一对应（构建时检查过）。语言看路径（`data/nav.js` 的 `langOf`），切换按钮在顶栏。
+
+- 主线和 How-to：中文 `src/pages/guide|howto/*.mdx`，英文 `src/pages/en/guide|howto/*.mdx`，**改一边要同步改另一边**。
+- Wiki、常见问题：中文 `data/wiki.js`、`data/faq.js`，英文 `data/wiki.en.js`、`data/faq.en.js`。
+- 首页、Wiki 页、常见问题页、How-to 目录：`src/views/` 里一份，中英文路由共用。
+- 步骤、How-to 标题、术语：`data/nav.js` 里每项的 `en` 字段。
+
 ## 怎么改
 
 - **站点结构**只在 `src/data/nav.js` 改：主线 7 步、How-to 和 Wiki 清单、术语解释（`GLOSSARY`）。步骤写完后把 `ready` 改成 `true`，导航和首页会自动给它加链接。
@@ -21,6 +30,8 @@ npm run build      # 输出到 dist/
   - `Q`：「卡住了？」里的一条，可以展开
   - `Tabs`：按设备或路线切换（`items={[["win","Windows"],["mac","Mac"]]}`，内容放在 `<div slot="win">` 里）
   - `Copy`：带复制按钮的命令或话术块
+  - `Shot`：配图（`public/img/`），自动带截图日期。截图里的 IP、账号、所在地一律打码或换成示例地址 `203.0.113.10`，只截不用登录的公开页面
+  - 每一步和每篇 How-to 末尾自动带反馈入口（`Feedback`），在 GitHub 上新建一条带模板的 Issue
 - **How-to** 是 `src/pages/howto/<slug>.mdx`（`layout: ../../layouts/HowTo.astro`，`slug` 要和 `HOWTO` 里一致）；**Wiki** 和 **常见问题** 只改数据：`src/data/wiki.js`、`src/data/faq.js`。
 - **搜索**（⌘K）自动收录主线每一步、每篇 How-to、每个 Wiki 条目和每条常见问题。
 - **xxd-ui-kit 的 CSS 和 JS** 在 `public/xxd/` 里自带一份，不走 CDN（国内打开不会卡在外部资源上）。升级时在 xxd-ui-kit 里先 `pnpm xxd:build`，再在这里跑 `npm run sync-xxd`。
@@ -29,6 +40,10 @@ npm run build      # 输出到 dist/
 
 - 主站：`npm run release`（构建后 `wrangler deploy`，需要先 `npx wrangler login`），配置在 `wrangler.jsonc`。
 - 备用：推送到 main 且改了 `site/` 时，`.github/workflows/site-pages.yml` 自动构建到 GitHub Pages（子路径 `/xiaoxiaodong-vps/`；组件里的链接用 `link()`，正文里手写的 `/xxx` 链接由 `scripts/base-links.mjs` 在构建后补前缀）。
+
+## 新手实测
+
+按 [TESTING.md](./TESTING.md) 的规程找人试用；每次大改后都要做一遍。
 
 ## 写作规矩
 

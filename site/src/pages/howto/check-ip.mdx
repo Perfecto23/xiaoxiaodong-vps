@@ -12,6 +12,7 @@ import Q from "../../components/Q.astro";
 import Copy from "../../components/Copy.astro";
 import Tabs from "../../components/Tabs.astro";
 import Checkpoint from "../../components/Checkpoint.astro";
+import Shot from "../../components/Shot.astro";
 
 ## 怎么看
 
@@ -25,6 +26,8 @@ import Checkpoint from "../../components/Checkpoint.astro";
 | 信任评分 | Claude 对这个 IP 的打分 | 越高越好；机房 IP 不会是满分 |
 | DNS 泄露检测 | 你查网址时用的 DNS 在哪 | 不在中国 |
 | WebRTC UDP 泄露检测 | 浏览器 WebRTC 报出去的 IP | 你服务器的 IP（只有电脑需要看） |
+
+<Shot src="ip-net-coffee.webp" w={982} h={832} alt="ip.net.coffee/claude 检测结果示例" caption="检测结果示例：红框依次是 Claude 看到的出口 IP、DNS 泄露状态、WebRTC 的 UDP 出口。图中的 IP 已换成示例地址 203.0.113.10，个人信息已隐藏。" />
 
 <Callout type="ok">
 出口 IP 是你的服务器，DNS 出口和 WebRTC 出口都不在中国。

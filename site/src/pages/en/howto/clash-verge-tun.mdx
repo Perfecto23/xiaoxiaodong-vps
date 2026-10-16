@@ -1,0 +1,64 @@
+---
+layout: ../../../layouts/HowTo.astro
+slug: clash-verge-tun
+time: 5 minutes
+for: Clash Verge Rev users on Windows or Mac
+step: 4
+description: Why to turn on Tun Mode, how, and how to verify it. WebRTC keeps working — it just exits via your server.
+---
+import Callout from "../../../components/Callout.astro";
+import Term from "../../../components/Term.astro";
+import Q from "../../../components/Q.astro";
+import Copy from "../../../components/Copy.astro";
+import Tabs from "../../../components/Tabs.astro";
+import Checkpoint from "../../../components/Checkpoint.astro";
+import Shot from "../../../components/Shot.astro";
+
+## Why
+
+Clash Verge's "System Proxy" only takes over the browser's web traffic (TCP). The browser's <Term k="WebRTC" /> reports your IP over UDP, which doesn't go through the system proxy — so test sites can see your real IP.
+
+<Term k="虚拟网卡" text="Tun Mode" /> sends all traffic from every app through Clash first, then routes it by the rules: Chinese sites still go direct, WebRTC keeps working, and it exits via your server.
+
+## How
+
+1. On **Profiles**, "Update" the subscription once to get the latest rules.
+2. In **Settings**, turn on **Tun Mode**.
+3. When it says "TUN Mode Service Required", click **Install Service**: "Yes" on Windows, login password on Mac. "Service Installed Successfully" means done.
+4. **Windows only**: click the gear next to Tun Mode, turn on **Strict Route**, leave everything else, and save.
+5. In the Clash settings, check **IPv6** is **on** and **DNS Overwrite** is **off**.
+6. **Fully quit the browser** and reopen it (⌘Q on Mac; on Windows quit it from the tray too).
+
+"System Proxy" can be on or off — it doesn't matter.
+
+<Callout type="warn" title="Why IPv6 stays on">
+Clash Verge uses its own IPv6 switch to decide whether Tun Mode captures IPv6. With it off, IPv6 traffic bypasses Tun Mode and may expose your Chinese IPv6 address.
+</Callout>
+
+## How to verify
+
+- Home shows "TUN Mode Enabled";
+- At [browserleaks.com/webrtc](https://browserleaks.com/webrtc), "RTCPeerConnection" shows ✔ and "Public IP Address" is your server's IP.
+
+<Shot src="browserleaks-webrtc.webp" w={931} h={139} alt="Example browserleaks WebRTC result" caption="Two parts of browserleaks: RTCPeerConnection shows ✔, and Public IP Address is the server IP (replaced with an example here)." />
+
+<Callout type="no" title="Don't disable WebRTC instead">
+Don't install extensions like WebRTC Network Limiter or change the browser's WebRTC settings. Test sites would then say "no IP detected" — which looks fixed but has actually broken web video and voice.
+</Callout>
+
+## Stuck?
+
+<Q q="“TUN Mode automatically disabled due to service unavailable”?">
+In Settings, click Uninstall Service, then Install Service, then turn Tun Mode on again.
+</Q>
+<Q q="“Switched to normal mode (Sidecar); TUN requires administrator privileges”?">
+Click "View repair instructions" in the message and follow them. On Windows you can also right-click Clash Verge and "Run as administrator".
+</Q>
+<Q q="The test site shows a Chinese IPv6 address?">
+First check the IPv6 switch is on. If it's still a Chinese IPv6 address, turn IPv6 off in the system: on Windows, untick "Internet Protocol Version 6" in the network adapter's properties; on Mac, set "Configure IPv6" to "Link-local only" under System Settings → Network → your network → Details → TCP/IP.
+</Q>
+<Q q="Some Chinese test sites still show a Chinese IP?">
+If that site uses a Chinese STUN server, Rule mode connects to it directly — expected behaviour. Confirm with browserleaks.com/webrtc; don't disable WebRTC or switch to Global mode for this.
+</Q>
+
+The full step-by-step troubleshooting (including test commands an AI assistant can run) is in the setup repository's [WebRTC leak fix guide](https://github.com/nevertoday/xiaoxiaodong-vps/blob/main/docs/Clash-Verge-WebRTC泄露修复手册.md) (in Chinese).

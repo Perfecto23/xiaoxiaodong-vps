@@ -11,6 +11,7 @@ import Term from "../../components/Term.astro";
 import Q from "../../components/Q.astro";
 import Copy from "../../components/Copy.astro";
 import Tabs from "../../components/Tabs.astro";
+import Shot from "../../components/Shot.astro";
 
 ## 为什么要开
 
@@ -37,6 +38,8 @@ Clash Verge 会用它自己的「IPv6」开关决定虚拟网卡接不接管 IPv
 
 - 首页显示「TUN 模式已启用」；
 - 打开 [browserleaks.com/webrtc](https://browserleaks.com/webrtc)：「RTCPeerConnection」是 ✔，「Public IP Address」是你服务器的 IP。
+
+<Shot src="browserleaks-webrtc.webp" w={931} h={139} alt="browserleaks WebRTC 检测结果示例" caption="browserleaks 的两处：RTCPeerConnection 是 ✔，Public IP Address 是服务器 IP（图中换成了示例地址）。" />
 
 <Callout type="no" title="不要用禁用 WebRTC 来代替">
 不要装 WebRTC Network Limiter 这类扩展，也不要改浏览器里 WebRTC 相关的设置。那样检测网站会显示「检测不到 IP」，看起来像修好了，其实是把网页的视频、语音功能弄坏了。
