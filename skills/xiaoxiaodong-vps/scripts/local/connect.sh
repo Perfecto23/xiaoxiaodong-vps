@@ -112,7 +112,8 @@ fi
 
 uid=$(ssh -o BatchMode=yes "$ALIAS" 'id -u' 2>/dev/null) || fail "ssh $ALIAS 无法免密登录，请检查 ~/.ssh/config"
 [ "$uid" = 0 ] || say "注意：登录用户不是 root，后续命令需要加 sudo"
-fp=$( { ssh-keygen -F "[$HOST]:$PORT" -l; ssh-keygen -F "$HOST" -l; } 2>/dev/null | grep -v '^#' | awk '{print $2" "$NF}' | head -n1)
+# a non-22 port is stored as [host]:port, so the plain-host lookup finds nothing; never let that abort the script
+fp=$( { ssh-keygen -F "[$HOST]:$PORT" -l; ssh-keygen -F "$HOST" -l; } 2>/dev/null | grep -v '^#' | awk '{print $2" "$NF}' | head -n1) || true
 say "完成：以后用 ssh $ALIAS 登录（密钥：~${IDFILE#"$HOME"}）"
 [ -n "$fp" ] && say "服务器主机指纹：$fp"
 exit 0
