@@ -19,7 +19,7 @@ const ISSUES = "https://github.com/nevertoday/xiaoxiaodong-vps/issues";
     {groups.map((g) => (
       <>
         <h2 id={g.id}>{g.title}</h2>
-        {g.items.map(([q, a]) => <Q q={q} group={g.id}><p set:html={inline(a)} /></Q>)}
+        {g.items.map(([q, a], i) => <Q q={q} group={g.id} id={`${g.id}-${i + 1}`}><p set:html={inline(a)} /></Q>)}
       </>
     ))}
   </article>
