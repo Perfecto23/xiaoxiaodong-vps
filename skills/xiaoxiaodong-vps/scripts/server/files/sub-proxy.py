@@ -67,6 +67,16 @@ def sampler():
         time.sleep(30)
 
 
+
+def yaml_filename(v):
+    """3x-ui 给 Clash 订阅的文件名没有后缀，浏览器下载下来认不出是 YAML；补上 .yaml。
+    客户端里显示的名字来自 Profile-Title，不受影响。"""
+    def fix(m):
+        name = m.group(2)
+        return m.group(1) + (name if name.lower().endswith(('.yaml', '.yml')) else name + '.yaml') + m.group(3)
+    v = re.sub(r"(filename\*=UTF-8'')([^;\s]+)()", fix, v)
+    return re.sub(r'(filename=")([^"]+)(")', fix, v)
+
 class Handler(http.server.BaseHTTPRequestHandler):
     protocol_version = 'HTTP/1.1'
 
@@ -98,7 +108,10 @@ class Handler(http.server.BaseHTTPRequestHandler):
             self.send_error(502)
             return
         self.send_response(status)
+        is_yaml = 'yaml' in (upheaders.get('Content-Type') or '')
         for k, v in upheaders.items():
+            if k.lower() == 'content-disposition' and is_yaml:
+                v = yaml_filename(v)
             if k.lower() not in HOP:
                 self.send_header(k, v)
         self.send_header('Content-Length', str(len(body)))
