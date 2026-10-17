@@ -13,6 +13,7 @@ So geht's: Sie kaufen einen eigenen Server im Ausland, lassen ihn von einer KI m
 - **Ihre eigene Verbindung** für Computer, Handy und Router. Es gibt einen Haupt- und einen Reserveknoten: Fällt einer aus, wird automatisch auf den anderen umgeschaltet.
 - **Sofort nutzbar nach dem Import.** Regeln für gängige Websites und KI-Tools sind schon eingerichtet. Websites aus Festlandchina werden direkt verbunden, alles andere läuft über Ihren Server.
 - **CLIProxyAPI**: Ihr eigener API-Zugang mit Verwaltungsoberfläche, der sich automatisch auf die neueste Version aktualisiert.
+  - ⚠️ **Verbinden Sie kein Claude-Konto mit CLIProxyAPI**: Die Richtlinien von Anthropic erlauben das nicht. OpenAI hat erklärt, dass ChatGPT-Konten so genutzt werden dürfen – ich nutze das selbst sehr gern zum Erstellen von Bildern.
 - **Sicher**: Der Server akzeptiert nur den Schlüssel auf Ihrem Computer und nutzt ein echtes HTTPS-Zertifikat, der Browser warnt also nie mit „nicht sicher“.
 - **Kaum Wartung**: Zertifikate, Regeln und CLIProxyAPI aktualisieren sich selbst, die Konfiguration wird täglich gesichert.
 

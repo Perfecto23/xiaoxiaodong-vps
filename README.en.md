@@ -13,6 +13,7 @@ How it works: buy your own overseas server, let an AI set it up with this projec
 - **Your own connection** for your computer, phone and router. A main node and a backup node: if one fails, it switches to the other automatically.
 - **Works right after import.** Routing rules for common websites and AI tools are already set. Websites in mainland China connect directly; everything else goes through your server.
 - **CLIProxyAPI**: your own API endpoint and admin panel, updated to the latest version automatically.
+  - ⚠️ **Don't connect a Claude account to CLIProxyAPI**: Anthropic's policy doesn't allow it. OpenAI has said ChatGPT accounts can be used this way — I personally love using it to make images.
 - **Secure**: the server only accepts the key on your computer, and uses a proper HTTPS certificate, so browsers never warn "not secure".
 - **Almost no upkeep**: certificates, rules and CLIProxyAPI update themselves, and the configuration is backed up every day.
 

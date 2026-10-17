@@ -17,10 +17,14 @@ import Checkpoint from "../../components/Checkpoint.astro";
 
 ## 方式一：用账号登录（OAuth）
 
-适合有 ChatGPT（Codex）、Claude 等订阅账号的人。
+适合有 ChatGPT（Codex）等订阅账号的人。
+
+<Callout type="warn" title="不要把 Claude 账号接进来">
+Anthropic 的政策不允许把 Claude 账号接进 CLIProxyAPI 这类工具使用。ChatGPT 之类的 OpenAI 官方表示可以，作者个人很喜欢用它来做图。用 Claude Code 这个工具连接口（背后是你的 ChatGPT 账号）不受影响。
+</Callout>
 
 1. 登录管理中心，进入「OAuth 登录」页面。
-2. 选择对应的服务（比如 Codex、Claude），点开始登录。
+2. 选择对应的服务（比如 Codex），点开始登录。
 3. 浏览器会打开那家服务的授权页，登录你的账号并同意授权。
 4. 授权完成后，如果浏览器跳到一个打不开的 `localhost` 网址，不要关：按管理中心页面上的提示，把地址栏里的**完整网址**复制回去提交。
 5. 回到「认证文件」页面，能看到新增的一项。

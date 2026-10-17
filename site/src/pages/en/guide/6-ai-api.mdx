@@ -12,7 +12,11 @@ import Copy from "../../../components/Copy.astro";
 
 ## What this step is
 
-Your server already runs <Term k="CLIProxyAPI" />: it turns your own AI accounts (such as ChatGPT or Claude) into a standard API for all kinds of AI tools. It starts empty; this step adds your accounts.
+Your server already runs <Term k="CLIProxyAPI" />: it turns your own AI accounts (such as ChatGPT) into a standard API for all kinds of AI tools. It starts empty; this step adds your accounts.
+
+<Callout type="warn" title="Don't connect a Claude account">
+Anthropic's policy doesn't allow connecting a Claude account to tools like CLIProxyAPI. OpenAI has said ChatGPT accounts can be used this way — the author loves using it to make images. Using the Claude Code app as a client (backed by your ChatGPT account) is fine.
+</Callout>
 
 **This step is optional.** If you only want the line, skip ahead to step 7.
 
@@ -41,7 +45,7 @@ Details: [Log in to the CLIProxyAPI management center](/en/howto/cpa-login/).
 
 Two ways, depending on what you have:
 
-- **Log in with your account (OAuth)**: you have a subscription such as ChatGPT (Codex) or Claude. Go to the OAuth login section, choose the service, and log in and authorize in the browser as prompted. A new entry then appears under auth files.
+- **Log in with your account (OAuth)**: you have a subscription such as ChatGPT (Codex) (not a Claude account — see the warning above). Go to the OAuth login section, choose the service, and log in and authorize in the browser as prompted. A new entry then appears under auth files.
 - **Enter an API key**: you have an API key from an AI service. Go to **AI providers**, add the service and paste the key.
 
 <Callout type="warn">

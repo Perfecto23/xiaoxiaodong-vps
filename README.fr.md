@@ -13,6 +13,7 @@ Le principe : vous achetez votre propre serveur à l'étranger, une IA le config
 - **Votre propre connexion** pour ordinateur, téléphone et routeur. Un nœud principal et un nœud de secours : si l'un tombe, l'autre prend le relais automatiquement.
 - **Prêt dès l'import.** Les règles pour les sites et outils d'IA courants sont déjà en place. Les sites de Chine continentale se connectent directement ; tout le reste passe par votre serveur.
 - **CLIProxyAPI** : votre propre point d'accès API et son panneau d'administration, mis à jour automatiquement vers la dernière version.
+  - ⚠️ **Ne connectez pas de compte Claude à CLIProxyAPI** : la politique d'Anthropic ne l'autorise pas. OpenAI a indiqué que les comptes ChatGPT peuvent être utilisés ainsi — personnellement, j'adore m'en servir pour créer des images.
 - **Sécurisé** : le serveur n'accepte que la clé de votre ordinateur et utilise un vrai certificat HTTPS, donc pas d'avertissement « non sécurisé » dans le navigateur.
 - **Presque aucun entretien** : certificats, règles et CLIProxyAPI se mettent à jour tout seuls, et la configuration est sauvegardée chaque jour.
 

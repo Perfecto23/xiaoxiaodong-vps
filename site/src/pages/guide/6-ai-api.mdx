@@ -12,7 +12,11 @@ import Copy from "../../components/Copy.astro";
 
 ## 这一步做什么
 
-你的服务器上已经装好了 <Term k="CLIProxyAPI" />：它能把你自己的 AI 账号（比如 ChatGPT、Claude）变成一个标准接口，给各种 AI 工具用。刚装好时它是空的，这一步把你的账号加进去。
+你的服务器上已经装好了 <Term k="CLIProxyAPI" />：它能把你自己的 AI 账号（比如 ChatGPT）变成一个标准接口，给各种 AI 工具用。刚装好时它是空的，这一步把你的账号加进去。
+
+<Callout type="warn" title="不要把 Claude 账号接进来">
+Anthropic 的政策不允许把 Claude 账号接进 CLIProxyAPI 这类工具使用。ChatGPT 之类的 OpenAI 官方表示可以，作者个人很喜欢用它来做图。用 Claude Code 这个工具连接口（背后是你的 ChatGPT 账号）不受影响。
+</Callout>
 
 **这一步是可选的。** 只想要一条线路的话，可以跳过，直接看第 7 步。
 
@@ -41,7 +45,7 @@ import Copy from "../../components/Copy.astro";
 
 有两种方式，按你手上有什么来选：
 
-- **用账号登录（OAuth）**：你有 ChatGPT（Codex）、Claude 等订阅账号。进入「OAuth 登录」，选对应的服务，按提示在浏览器里登录、授权。完成后，「认证文件」页面里会多出一项。
+- **用账号登录（OAuth）**：你有 ChatGPT（Codex）等订阅账号（不要用 Claude 账号，见上面的提醒）。进入「OAuth 登录」，选对应的服务，按提示在浏览器里登录、授权。完成后，「认证文件」页面里会多出一项。
 - **填 API Key**：你有某家 AI 服务的 API Key。进入「AI 提供商」，添加对应的服务，粘贴 Key。
 
 <Callout type="warn">
