@@ -34,6 +34,9 @@ export const HOWTO = [
     { slug: "apple-id", title: "注册境外 Apple ID", en: { title: "Create a non-China Apple ID" } },
     { slug: "github", title: "注册 GitHub", en: { title: "Create a GitHub account" } },
     { slug: "payment", title: "在国外网站付款", en: { title: "Paying on overseas websites" } },
+    { slug: "google-payment-card", title: "给 Google 账号绑定付款卡", en: { title: "Add a payment card to your Google account" } },
+    { slug: "claude-app-store", title: "在 iPhone 上订阅 Claude（App Store）", en: { title: "Subscribe to Claude on iPhone (App Store)" } },
+    { slug: "claude-google-play", title: "在安卓上订阅 Claude（Google Play）", en: { title: "Subscribe to Claude on Android (Google Play)" } },
   ]},
   { group: "服务器", en: { group: "Server" }, items: [
     { slug: "buy-bandwagonhost", title: "在搬瓦工买服务器", en: { title: "Buy a server from BandwagonHost" } },
