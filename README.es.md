@@ -62,7 +62,7 @@ Luego espera a que la IA termine, normalmente entre 10 y 20 minutos. En algún m
 
 Si la IA no puede descargar el proyecto, [descarga el ZIP](https://github.com/nevertoday/xiaoxiaodong-vps/archive/refs/heads/main.zip) tú mismo, descomprímelo y añade una línea al texto: "El proyecto ya está en: ruta de la carpeta".
 
-Al terminar aparecerá en tu escritorio el archivo `XXD-VPS-tu-nombre-login-es.md` con:
+Al terminar aparecerá en tu escritorio el archivo `my-server-tu-nombre-subscriptions-and-accounts-es.md` con:
 
 - la **URL de suscripción de Clash** para ordenador y router, y la **URL de suscripción de Shadowrocket** para iPhone;
 - la dirección, el usuario y la contraseña del panel 3x-ui;

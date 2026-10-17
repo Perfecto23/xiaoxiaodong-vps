@@ -97,7 +97,7 @@ bash "$R" 名称 verify --full
 2. 保存登录信息到本机（不会显示在终端）：
 
    ```bash
-   bash "$R" 名称 save --lang zh   # → 桌面「小小东VPS-名称-登录信息.md」；其他语言是「XXD-VPS-名称-login-语言.md」。权限 600，没有桌面目录时放在主目录
+   bash "$R" 名称 save --lang zh   # → 桌面「我的服务器-名称-订阅和账号.md」；其他语言是「my-server-名称-subscriptions-and-accounts-语言.md」。权限 600，没有桌面目录时放在主目录
    ```
 
 3. 从用户这台电脑测一下能不能连到服务器（返回 404 表示连通、证书正常）：

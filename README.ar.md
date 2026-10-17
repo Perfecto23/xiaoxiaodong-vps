@@ -63,7 +63,7 @@ skills/xiaoxiaodong-vps/SKILL.md كاملًا، واتبع خطواته وقوا
 
 إذا لم يستطع الذكاء الاصطناعي تنزيل المشروع، [فنزّل ملف ZIP](https://github.com/nevertoday/xiaoxiaodong-vps/archive/refs/heads/main.zip) بنفسك وفك ضغطه، وأضف إلى النص أعلاه سطرًا: "المشروع موجود هنا: مسار المجلد".
 
-عند الانتهاء يظهر على سطح المكتب ملف باسم `XXD-VPS-الاسم-login-ar.md` يحتوي على:
+عند الانتهاء يظهر على سطح المكتب ملف باسم `my-server-الاسم-subscriptions-and-accounts-ar.md` يحتوي على:
 
 - **رابط اشتراك Clash** للحاسوب والراوتر، و**رابط اشتراك Shadowrocket** للآيفون؛
 - عنوان لوحة 3x-ui واسم المستخدم وكلمة المرور؛

@@ -62,7 +62,7 @@ skills/xiaoxiaodong-vps/SKILL.md を最後まで読んでください。
 
 AI がプロジェクトをダウンロードできない場合は、自分で [ZIP をダウンロード](https://github.com/nevertoday/xiaoxiaodong-vps/archive/refs/heads/main.zip)して解凍し、上の文章に「プロジェクトはここにあります：フォルダのパス」と一行足してください。
 
-完了すると、デスクトップに `XXD-VPS-名前-login-ja.md` というファイルができます。中身は：
+完了すると、デスクトップに `my-server-名前-subscriptions-and-accounts-ja.md` というファイルができます。中身は：
 
 - パソコン・ルーター用の **Clash 購読 URL**、iPhone 用の **Shadowrocket 購読 URL**
 - 3x-ui パネルの URL、ユーザー名、パスワード

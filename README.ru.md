@@ -62,7 +62,7 @@ skills/xiaoxiaodong-vps/SKILL.md. Строго следуй его шагам и
 
 Если ИИ не может скачать проект, [скачайте ZIP](https://github.com/nevertoday/xiaoxiaodong-vps/archive/refs/heads/main.zip) сами, распакуйте и добавьте в текст строку: «Проект уже лежит здесь: путь к папке».
 
-По завершении на рабочем столе появится файл `XXD-VPS-ваше-имя-login-ru.md`, в нём:
+По завершении на рабочем столе появится файл `my-server-ваше-имя-subscriptions-and-accounts-ru.md`, в нём:
 
 - **адрес подписки Clash** для компьютера и роутера и **адрес подписки Shadowrocket** для iPhone;
 - адрес, имя пользователя и пароль панели 3x-ui;

@@ -61,7 +61,7 @@
 
 AI가 프로젝트를 내려받지 못하면 직접 [ZIP을 내려받아](https://github.com/nevertoday/xiaoxiaodong-vps/archive/refs/heads/main.zip) 압축을 풀고, 위 문구에 "프로젝트는 이미 여기 있습니다: 폴더 경로"라고 한 줄 추가하세요.
 
-완료되면 바탕화면에 `XXD-VPS-이름-login-ko.md` 파일이 생깁니다. 안에는:
+완료되면 바탕화면에 `my-server-이름-subscriptions-and-accounts-ko.md` 파일이 생깁니다. 안에는:
 
 - 컴퓨터·공유기용 **Clash 구독 주소**, iPhone용 **Shadowrocket 구독 주소**
 - 3x-ui 패널 주소, 사용자 이름, 비밀번호

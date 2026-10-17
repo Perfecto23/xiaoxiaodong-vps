@@ -62,7 +62,7 @@ Then wait for the AI to finish, usually 10–20 minutes. At one point it will as
 
 If the AI can't download the project, [download the ZIP](https://github.com/nevertoday/xiaoxiaodong-vps/archive/refs/heads/main.zip) yourself, unzip it, and add a line to the text above: "The project is already at: folder path".
 
-When it's done, a new file `XXD-VPS-your-name-login-en.md` appears on your desktop with:
+When it's done, a new file `my-server-your-name-subscriptions-and-accounts-en.md` appears on your desktop with:
 
 - the **Clash subscription URL** for computer and router, and the **Shadowrocket subscription URL** for iPhone;
 - the 3x-ui panel address, username and password;

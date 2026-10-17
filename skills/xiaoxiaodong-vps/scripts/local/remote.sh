@@ -4,7 +4,7 @@
 #   remote.sh <ssh名称> upload
 #   remote.sh <ssh名称> init --ip 1.2.3.4 --alias bwg --timezone America/Los_Angeles [--quota-gb 1000 --reset-day 1]
 #   remote.sh <ssh名称> base | cert | xui | sub | cliproxy | maint | verify [--full]
-#   remote.sh <ssh名称> save [--lang en]   # 把登录信息保存到桌面（中文「小小东VPS-<名称>-登录信息.md」，其他语言「XXD-VPS-<名称>-login-<语言>.md」），不在终端显示
+#   remote.sh <ssh名称> save [--lang en]   # 把登录信息保存到桌面（中文「我的服务器-<名称>-订阅和账号.md」，其他语言「my-server-<名称>-subscriptions-and-accounts-<语言>.md」），不在终端显示
 set -euo pipefail
 ALIAS="${1:?用法：remote.sh <ssh名称> <阶段> [参数]}"; shift
 CMD="${1:?缺少阶段名}"; shift
@@ -24,7 +24,7 @@ case "$CMD" in
     umask 077
     # 放在桌面方便找到；没有桌面目录（如 Linux 服务器、WSL）时放在主目录
     dir="$HOME/Desktop"; [ -d "$dir" ] || dir="$HOME"
-    if [ "$LANG_CODE" = zh ]; then out="$dir/小小东VPS-${ALIAS}-登录信息.md"; else out="$dir/XXD-VPS-${ALIAS}-login-${LANG_CODE}.md"; fi
+    if [ "$LANG_CODE" = zh ]; then out="$dir/我的服务器-${ALIAS}-订阅和账号.md"; else out="$dir/my-server-${ALIAS}-subscriptions-and-accounts-${LANG_CODE}.md"; fi
     tmp=$(mktemp "$dir/.xxd-vps-$ALIAS.XXXXXX")
     if ! ssh -o BatchMode=yes "$ALIAS" "$SUDO python3 $REMOTE/server/xxd-vps.py export --lang $(printf '%q' "$LANG_CODE")" > "$tmp" || [ ! -s "$tmp" ]; then
       rm -f "$tmp"; echo "[remote] 导出失败" >&2; exit 2

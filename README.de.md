@@ -62,7 +62,7 @@ Dann warten Sie, bis die KI fertig ist, meist 10–20 Minuten. Zwischendurch bit
 
 Kann die KI das Projekt nicht herunterladen, [laden Sie das ZIP](https://github.com/nevertoday/xiaoxiaodong-vps/archive/refs/heads/main.zip) selbst herunter, entpacken Sie es und ergänzen Sie den Text um die Zeile: „Das Projekt liegt bereits hier: Ordnerpfad“.
 
-Danach liegt auf Ihrem Schreibtisch die Datei `XXD-VPS-ihr-name-login-de.md` mit:
+Danach liegt auf Ihrem Schreibtisch die Datei `my-server-ihr-name-subscriptions-and-accounts-de.md` mit:
 
 - der **Clash-Abo-URL** für Computer und Router und der **Shadowrocket-Abo-URL** fürs iPhone;
 - Adresse, Benutzername und Passwort des 3x-ui-Panels;
