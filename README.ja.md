@@ -24,6 +24,8 @@
 
 **[BandwagonHost を購入する](https://bandwagonhost.com/aff.php?aff=83651&a=add&pid=87&billingcycle=quarterly&configoption%5B17%5D=55)**
 
+このリンクのプランは**毎月 1TB の転送量**付きで、家族で使っても十分です。
+
 [DMIT](https://www.dmit.io/aff.php?aff=23544) も良いのですが、現在は在庫切れです。待つ必要はありません。
 
 > どちらも私の紹介リンクです。リンク経由で購入されると私に紹介料が入る場合があり、その収入は慈善活動に使います。価格と在庫は公式サイトをご確認ください。

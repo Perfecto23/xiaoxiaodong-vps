@@ -24,6 +24,8 @@ No momento, vá de **BandwagonHost**. A rede é estável e é o que eu mesmo uso
 
 **[Comprar BandwagonHost](https://bandwagonhost.com/aff.php?aff=83651&a=add&pid=87&billingcycle=quarterly&configoption%5B17%5D=55)**
 
+O plano deste link inclui **1 TB de tráfego por mês**, o suficiente para você e sua família.
+
 [DMIT](https://www.dmit.io/aff.php?aff=23544) também é bom, mas está sem estoque agora. Não precisa esperar.
 
 > Os dois são meus links de indicação. Posso receber uma comissão se você comprar por eles, e vou usar essa renda em trabalhos de caridade. Preços e estoque conforme os sites oficiais.

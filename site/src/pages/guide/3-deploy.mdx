@@ -115,7 +115,7 @@ bash $R bwg sub
 bash $R bwg cliproxy
 bash $R bwg maint`} />
 
-每一段跑完会显示 `xxx 完成`，比如 `cert 完成`。客户端默认按每月 1000G 显示流量，重置日按开通日自动推算。和你的套餐不一样的话，在 `init` 那一行末尾加上 `--quota-gb 额度 --reset-day 几号`（比如 `--quota-gb 500 --reset-day 1`）。
+每一段跑完会显示 `xxx 完成`，比如 `cert 完成`。客户端默认按每月 1000G 显示流量（正好是推荐的搬瓦工套餐的流量），重置日按开通日自动推算。和你的套餐不一样的话，在 `init` 那一行末尾加上 `--quota-gb 额度 --reset-day 几号`（比如 `--quota-gb 500 --reset-day 1`）。
 
 <Callout type="warn" title="看到「停止：」怎么办">
 某一段停下来时，会显示 `停止：` 和原因。按原因修好后，**重新运行同一段**就行，每一段都可以重复运行。常见原因和修法见 [排错说明](https://github.com/nevertoday/xiaoxiaodong-vps/blob/main/skills/xiaoxiaodong-vps/references/troubleshooting.md)。

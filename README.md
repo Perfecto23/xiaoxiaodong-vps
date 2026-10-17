@@ -24,6 +24,8 @@
 
 **[购买搬瓦工 BandwagonHost](https://bandwagonhost.com/aff.php?aff=83651&a=add&pid=87&billingcycle=quarterly&configoption%5B17%5D=55)**
 
+这个链接里的套餐每月 **1T 流量**，个人和家人日常使用足够。
+
 [DMIT](https://www.dmit.io/aff.php?aff=23544) 也不错，但现在缺货，不用等。
 
 > 两个都是我的邀请链接，通过它们购买我可能获得佣金，这部分收入我会用于慈善相关工作。价格和库存以官网为准。

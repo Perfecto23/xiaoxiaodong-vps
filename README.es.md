@@ -24,6 +24,8 @@ Ahora mismo, elige **BandwagonHost**. La red es estable y es el que uso yo:
 
 **[Comprar BandwagonHost](https://bandwagonhost.com/aff.php?aff=83651&a=add&pid=87&billingcycle=quarterly&configoption%5B17%5D=55)**
 
+El plan de este enlace incluye **1 TB de tráfico al mes**, suficiente para ti y tu familia.
+
 [DMIT](https://www.dmit.io/aff.php?aff=23544) también es bueno, pero ahora está agotado. No hace falta esperar.
 
 > Los dos son enlaces de referido míos. Puede que reciba una comisión si compras a través de ellos, y destinaré ese dinero a labores benéficas. Precios y disponibilidad según las webs oficiales.

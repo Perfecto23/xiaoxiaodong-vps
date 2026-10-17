@@ -24,6 +24,8 @@ En ce moment, prenez **BandwagonHost**. Le réseau est stable, c'est celui que j
 
 **[Acheter BandwagonHost](https://bandwagonhost.com/aff.php?aff=83651&a=add&pid=87&billingcycle=quarterly&configoption%5B17%5D=55)**
 
+L'offre de ce lien inclut **1 To de trafic par mois**, largement assez pour vous et votre famille.
+
 [DMIT](https://www.dmit.io/aff.php?aff=23544) est bien aussi, mais il est en rupture de stock. Inutile d'attendre.
 
 > Ce sont mes deux liens de parrainage. Je peux toucher une commission si vous achetez par leur biais, et je consacrerai ce revenu à des actions caritatives. Prix et disponibilité selon les sites officiels.

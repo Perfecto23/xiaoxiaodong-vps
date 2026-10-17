@@ -24,6 +24,8 @@ Nehmen Sie derzeit **BandwagonHost**. Das Netz ist stabil, und ich nutze es selb
 
 **[BandwagonHost kaufen](https://bandwagonhost.com/aff.php?aff=83651&a=add&pid=87&billingcycle=quarterly&configoption%5B17%5D=55)**
 
+Der Tarif hinter diesem Link enthält **1 TB Datenvolumen pro Monat** – genug für Sie und Ihre Familie.
+
 [DMIT](https://www.dmit.io/aff.php?aff=23544) ist auch gut, aber im Moment ausverkauft. Warten lohnt sich nicht.
 
 > Beides sind meine Empfehlungslinks. Wenn Sie darüber kaufen, erhalte ich unter Umständen eine Provision; diese Einnahmen verwende ich für wohltätige Zwecke. Preise und Verfügbarkeit laut den offiziellen Websites.

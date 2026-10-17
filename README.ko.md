@@ -24,6 +24,8 @@
 
 **[BandwagonHost 구매하기](https://bandwagonhost.com/aff.php?aff=83651&a=add&pid=87&billingcycle=quarterly&configoption%5B17%5D=55)**
 
+이 링크의 요금제는 **매월 1TB 트래픽**이 포함되어 있어 가족이 함께 써도 충분합니다.
+
 [DMIT](https://www.dmit.io/aff.php?aff=23544)도 좋지만 현재 품절입니다. 기다릴 필요는 없습니다.
 
 > 두 링크 모두 제 추천 링크입니다. 이 링크로 구매하면 제가 수수료를 받을 수 있으며, 그 수입은 자선 활동에 쓰겠습니다. 가격과 재고는 공식 사이트 기준입니다.
