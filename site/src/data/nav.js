@@ -32,6 +32,8 @@ export const HOWTO = [
     { slug: "gmail-change-address", title: "更换 Gmail 地址", en: { title: "Change your Gmail address" } },
     { slug: "google-account-security", title: "Google 账号安全设置", en: { title: "Secure your Google account" } },
     { slug: "apple-id", title: "注册境外 Apple ID", en: { title: "Create a non-China Apple ID" } },
+    { slug: "apple-gift-card", title: "用礼品卡给美区 Apple ID 充值", en: { title: "Top up a US Apple ID with a gift card" } },
+    { slug: "apple-paypal", title: "注册 PayPal 并绑定美区 Apple ID", en: { title: "Open PayPal and link it to a US Apple ID" } },
     { slug: "github", title: "注册 GitHub", en: { title: "Create a GitHub account" } },
     { slug: "payment", title: "在国外网站付款", en: { title: "Paying on overseas websites" } },
     { slug: "google-payment-card", title: "给 Google 账号绑定付款卡", en: { title: "Add a payment card to your Google account" } },
