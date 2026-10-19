@@ -678,6 +678,8 @@ rules:
 - DOMAIN,cdn.usefathom.com,AI-人工智能
 - DOMAIN,challenges.cloudflare.com,AI-人工智能
 - DOMAIN-SUFFIX,statsig.com,AI-人工智能
+- DOMAIN-SUFFIX,statsigapi.net,AI-人工智能
+- DOMAIN-SUFFIX,segment.io,AI-人工智能
 - DOMAIN-SUFFIX,featuregates.org,AI-人工智能
 - DOMAIN-SUFFIX,featureassets.org,AI-人工智能
 - DOMAIN-KEYWORD,claude,AI-人工智能
