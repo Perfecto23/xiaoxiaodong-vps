@@ -157,7 +157,7 @@ export const WIKI_EN = {
     title: "System proxy vs TUN", group: "Parts of this setup",
     one: "A system proxy only takes over web traffic from apps that respect system settings (mainly browsers); TUN mode takes over all traffic from every app, including UDP.",
     like: "A system proxy is a guide standing at the main door — only people who choose to follow get guided. TUN reroutes every exit of the building through the guide.",
-    here: "This setup recommends turning on \"Tun Mode\" in Clash Verge: it stops the browser's WebRTC from exposing your real IP, and apps that ignore the system proxy still follow the rules. The first time, \"Install Service\" when prompted. Also keep the \"IPv6\" switch in Clash Verge's settings on — otherwise IPv6 traffic bypasses TUN.",
+    here: "This setup recommends turning on \"Tun Mode\" in Clash Verge: it stops the browser's WebRTC from exposing your real IP, and apps that ignore the system proxy still follow the rules. The first time, \"Install Service\" when prompted. Also set the \"IPv6\" switch in Clash Verge's settings by your network: on if the network has IPv6, or IPv6 traffic bypasses TUN; off if it doesn't, or WeChat may fail to send images.",
     myths: [
       "\"With TUN on, Chinese sites take a detour too\": no, routing rules still apply.",
       "\"Only one of System Proxy and TUN can be on\": both can be on without conflict; with TUN on, System Proxy can be either.",

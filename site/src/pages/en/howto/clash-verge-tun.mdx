@@ -26,13 +26,35 @@ Clash Verge's "System Proxy" only takes over the browser's web traffic (TCP). Th
 2. In **Settings**, turn on **Tun Mode**.
 3. When it says "TUN Mode Service Required", click **Install Service**: "Yes" on Windows, login password on Mac. "Service Installed Successfully" means done.
 4. **Windows only**: click the gear next to Tun Mode, turn on **Strict Route**, leave everything else, and save.
-5. In the Clash settings, check **IPv6** is **on** and **DNS Overwrite** is **off**.
+5. In the Clash settings, turn **DNS Overwrite** **off**; set **IPv6** after the check below.
 6. **Fully quit the browser** and reopen it (⌘Q on Mac; on Windows quit it from the tray too).
 
 "System Proxy" can be on or off — it doesn't matter.
 
-<Callout type="warn" title="Why IPv6 stays on">
-Clash Verge uses its own IPv6 switch to decide whether Tun Mode captures IPv6. With it off, IPv6 traffic bypasses Tun Mode and may expose your Chinese IPv6 address.
+## IPv6 on or off
+
+First check whether the network you're on has IPv6. Open Terminal (Mac) or PowerShell (Windows), paste this line and press Enter:
+
+<Tabs id="v6" label="Choose system" items={[["mac", "Mac"], ["win", "Windows"]]}>
+<div slot="mac">
+
+<Copy id="v6-mac" lang="bash" title="Check for IPv6 (Mac Terminal)" code={`ifconfig | awk '/^[a-z]/{i=$1} $1=="inet6" && i!~/^(utun|lo|bridge|awdl|llw|gif|stf|anpi|ap)/ && $2!~/^(fe80|fd|fc|::1|2001:0:|2002:)/ {print i, $2}'`} />
+
+</div>
+<div slot="win">
+
+<Copy id="v6-win" lang="powershell" title="Check for IPv6 (Windows PowerShell)" code={`Get-NetIPAddress -AddressFamily IPv6 -PrefixOrigin RouterAdvertisement, Dhcp -ErrorAction SilentlyContinue | Where-Object { $_.IPAddress -notmatch '^(fe80|fd|fc|2001:0:|2002:)' } | Select-Object InterfaceAlias, IPAddress`} />
+
+</div>
+</Tabs>
+
+| Result | IPv6 switch | Why |
+|---|---|---|
+| Lists addresses (starting with `2`) | **On** | The network has IPv6. With the switch off, IPv6 traffic bypasses Tun Mode and may expose your Chinese IPv6 address |
+| Prints nothing | **Off** | The network has no IPv6, so there's no IPv6 traffic to leak. Leaving it on makes apps like WeChat try IPv6 addresses they can't reach, without falling back to IPv4 — **text sends, images don't** |
+
+<Callout type="warn" title="This switch overrides the subscription">
+Clash Verge's IPv6 switch overrides the subscription's IPv6 setting, so set it by the check above. Afterwards, fully quit WeChat and QQ and reopen them. Check again when you change networks (home to office, or a phone hotspot).
 </Callout>
 
 ## How to verify
@@ -55,7 +77,17 @@ In Settings, click Uninstall Service, then Install Service, then turn Tun Mode o
 Click "View repair instructions" in the message and follow them. On Windows you can also right-click Clash Verge and "Run as administrator".
 </Q>
 <Q q="The test site shows a Chinese IPv6 address?">
-First check the IPv6 switch is on. If it's still a Chinese IPv6 address, turn IPv6 off in the system: on Windows, untick "Internet Protocol Version 6" in the network adapter's properties; on Mac, set "Configure IPv6" to "Link-local only" under System Settings → Network → your network → Details → TCP/IP.
+Seeing a Chinese IPv6 address means your network has IPv6, so the IPv6 switch should be on — check that first. If it's still a Chinese IPv6 address, turn IPv6 off in the system: on Windows, untick "Internet Protocol Version 6" in the network adapter's properties; on Mac, set "Configure IPv6" to "Link-local only" under System Settings → Network → your network → Details → TCP/IP.
+</Q>
+<Q q="With Tun Mode on, WeChat sends text but not images?">
+Try these in order. After each one, fully quit WeChat, reopen it and send an image:
+
+1. Redo the check in "IPv6 on or off" above. If the network has no IPv6 but the switch is on, turn it off. This is the most common cause.
+2. On **Profiles**, "Update" the subscription once.
+3. Click the gear next to Tun Mode, set **Stack** to Mixed, and save.
+4. Windows only: in the same window, turn off **Strict Route** and save.
+
+Still failing? Open **Connections** on the left in Clash Verge, send an image, screenshot the WeChat connections, and send it to whoever set this up for you.
 </Q>
 <Q q="Some Chinese test sites still show a Chinese IP?">
 If that site uses a Chinese STUN server, Rule mode connects to it directly — expected behaviour. Confirm with browserleaks.com/webrtc; don't disable WebRTC or switch to Global mode for this.
