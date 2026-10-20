@@ -18,6 +18,20 @@ import Checkpoint from "../../../components/Checkpoint.astro";
 - **Provider dashboard**: BandwagonHost's KiwiVM home page shows this month's traffic and reset date; other providers show it on the server page.
 - **In your apps**: Clash Verge and Shadowrocket show this month's usage against 1 TB by default, with the reset day worked out from the provisioning date. The server can't look up your plan, so if the quota or reset day differs from the provider's dashboard, tell the AI the real numbers (manual route: rerun `init` with `--quota-gb QUOTA --reset-day DAY`, then `sub`).
 
+### BandwagonHost: show the dashboard's real usage in your apps
+
+BandwagonHost has an official API, so the server can read KiwiVM's used traffic, plan quota and reset time directly. Your apps then show exactly what the dashboard shows (refreshed every 10 minutes). You need two things:
+
+1. Open this server's KiwiVM control panel (see step 2 of [Buy from BandwagonHost](/en/howto/buy-bandwagonhost/)).
+2. In the left menu, open **API**.
+3. The page says **Your VEID: a number** — that's the VEID.
+4. The API Key is hidden at first; use the button at the top of the page to show it. It starts with `private_` — that's the API Key.
+5. Give the VEID and API Key to the AI and ask it to "read subscription usage from KiwiVM" (manual route: after `sub`, run `remote.sh NAME kiwivm --veid VEID --key-file FILE-CONTAINING-THE-KEY`).
+
+<Callout type="warn">
+The API Key can control the server (including reboot and reinstall) — treat it like a password and don't share it. It is stored only on your own server, and the setup uses it only to read traffic. If the button generates a new key, the old one stops working, so update anything that used it.
+</Callout>
+
 <Callout type="tip">
 Speed tests are very data-hungry — one run can use several to tens of GB. Video uses a lot too. A few hundred GB to 1 TB a month is usually enough for a household.
 </Callout>
