@@ -90,7 +90,7 @@ cp -R xiaoxiaodong-vps/skills/xiaoxiaodong-vps ~/.codex/skills/
 
 - **컴퓨터**: [Clash Verge Rev](https://github.com/clash-verge-rev/clash-verge-rev/releases)를 설치하고 Clash 구독 주소를 가져온 뒤, **규칙(Rule)** 모드를 고르고 **TUN 모드**(가상 네트워크 어댑터, 안내가 나오면 서비스 설치)를 켜세요. 시스템 프록시만 켜면 브라우저의 WebRTC로 실제 IP가 드러날 수 있습니다. [WebRTC 유출 해결 가이드](./docs/Clash-Verge-WebRTC泄露修复手册.md)(중국어, AI 도우미가 단계별로 따라 할 수 있게 작성됨)를 참고하세요.
 - **iPhone**: Shadowrocket에서 Shadowrocket 구독 주소를 가져오세요.
-- **공유기**: OpenClash에서 Clash 구독 주소를 가져오세요.
+- **공유기(OpenClash)**: 같은 Clash 구독 주소를 그대로 쓸 수 있어 집 안의 모든 기기가 이 회선을 씁니다. '구성 구독'에 주소를 추가하세요(YAML 파일을 업로드하면 사용량이 표시되지 않고 규칙도 자동 업데이트되지 않습니다). '온라인 구독 변환'은 끄고 코어는 Meta를 고르세요.
 
 그다음 <https://ip.net.coffee/claude/>를 열어 내 서버의 IP가 보이면 연결된 것입니다.
 

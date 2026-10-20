@@ -91,7 +91,7 @@ cp -R xiaoxiaodong-vps/skills/xiaoxiaodong-vps ~/.codex/skills/
 
 - **パソコン**：[Clash Verge Rev](https://github.com/clash-verge-rev/clash-verge-rev/releases) をインストールして Clash 購読 URL を読み込み、**ルール**モードを選び、**TUN モード**（仮想ネットワークアダプター。求められたらサービスをインストール）をオンにします。システムプロキシだけだと、ブラウザの WebRTC から実際の IP が漏れることがあります。[WebRTC 漏洩の修正ガイド](./docs/Clash-Verge-WebRTC泄露修复手册.md)（中国語。AI アシスタントがそのまま手順どおりに進められるように書かれています）を参照してください。
 - **iPhone**：Shadowrocket で Shadowrocket 購読 URL を読み込みます。
-- **ルーター**：OpenClash で Clash 購読 URL を読み込みます。
+- **ルーター（OpenClash）**：同じ Clash 購読 URL がそのまま使え、家中の端末がこの回線を通ります。「設定の購読」に URL を追加してください（YAML ファイルをアップロードすると、通信量が表示されずルールも自動更新されません）。「オンライン購読変換」はオフ、コアは Meta を選びます。
 
 最後に <https://ip.net.coffee/claude/> を開き、自分のサーバーの IP が表示されればつながっています。
 

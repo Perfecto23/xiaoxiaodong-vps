@@ -91,7 +91,7 @@ Danach genügt es, der KI „richte meinen neuen Server mit xiaoxiaodong-vps ein
 
 - **Computer**: [Clash Verge Rev](https://github.com/clash-verge-rev/clash-verge-rev/releases) installieren, die Clash-Abo-URL importieren, den Modus **Regel (Rule)** wählen und den **TUN-Modus** (virtuelle Netzwerkkarte; bei Nachfrage den Dienst installieren) einschalten. Mit nur dem System-Proxy kann WebRTC im Browser Ihre echte IP verraten – siehe die [Anleitung gegen WebRTC-Lecks](./docs/Clash-Verge-WebRTC泄露修复手册.md) (auf Chinesisch, so geschrieben, dass ein KI-Assistent sie Schritt für Schritt befolgen kann).
 - **iPhone**: die Shadowrocket-Abo-URL in Shadowrocket importieren.
-- **Router**: die Clash-Abo-URL in OpenClash importieren.
+- **Router (OpenClash)**: dieselbe Clash-Abo-URL funktioniert, so nutzen alle Geräte zu Hause die Leitung. Unter Konfigurations-Abo hinzufügen (die YAML-Datei nicht hochladen, sonst fehlt die Verbrauchsanzeige und die Regeln aktualisieren sich nicht), die Online-Abo-Konvertierung ausschalten und den Meta-Kern verwenden.
 
 Öffnen Sie dann <https://ip.net.coffee/claude/>. Wird die IP Ihres Servers angezeigt, sind Sie verbunden.
 
