@@ -22,10 +22,14 @@ import Tabs from "../../components/Tabs.astro";
 
 ## 步骤
 
-1. 在 OpenClash 的配置订阅页面添加一个订阅，地址填登录信息文件里的 **Clash 订阅地址**。
-2. 更新订阅，在配置文件管理里选中它。
+1. 在 OpenClash 的配置订阅页面添加一个订阅，地址填登录信息文件里的 **Clash 订阅地址**。**关闭「在线订阅转换」**，否则 Reality 节点的参数会丢失，所有节点都连不上。
+2. 更新订阅，在配置文件管理里选中它。内核选 **Meta**，老的 Clash 内核不支持 VLESS + Reality。
 3. 运行模式选 fake-ip（增强）模式，启动 OpenClash。
 4. 在一台设备上打开 ip.net.coffee/claude/，确认出口 IP 是你的服务器。
+
+<Callout type="tip" title="用订阅，别上传 yaml 文件">
+把订阅内容另存成 yaml 再上传也能用，但上传的文件不带订阅地址：OpenClash 显示不了流量用量进度条，规则和节点也不会自动更新。
+</Callout>
 
 OpenClash 的界面各版本差别较大，具体按钮以你的版本为准，可以参考 [OpenClash 项目](https://github.com/vernesong/OpenClash) 的说明。
 

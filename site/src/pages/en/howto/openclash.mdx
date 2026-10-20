@@ -23,10 +23,14 @@ Every device at home — TVs, tablets, consoles — follows the routing rules wi
 
 ## Steps
 
-1. Add a subscription on OpenClash's config subscription page, using the **Clash subscription URL** from the login-info file.
-2. Update the subscription and select it in config management.
+1. Add a subscription on OpenClash's config subscription page, using the **Clash subscription URL** from the login-info file. **Turn off online subscription conversion** — it drops the Reality parameters and every node stops working.
+2. Update the subscription and select it in config management. Use the **Meta** core; the old Clash core doesn't support VLESS + Reality.
 3. Choose fake-ip (enhanced) mode and start OpenClash.
 4. On a device, open ip.net.coffee/claude/ and check the exit IP is your server.
+
+<Callout type="tip" title="Subscribe — don't upload a yaml file">
+Saving the subscription as a yaml file and uploading it works, but the uploaded file has no subscription URL: OpenClash can't show the data-usage bar, and rules and nodes never update automatically.
+</Callout>
 
 OpenClash's interface differs a lot between versions; follow your version's labels and the [OpenClash project](https://github.com/vernesong/OpenClash).
 
