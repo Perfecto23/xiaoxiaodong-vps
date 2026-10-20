@@ -1,12 +1,17 @@
 #!/usr/bin/env python3
 """Subscription front for 3x-ui: forwards only known subscription paths, adds traffic usage
 headers (Subscription-Userinfo) from the server NIC counters, and never logs request URLs.
-On BandwagonHost (KiwiVM) servers with /etc/xxd-vps/kiwivm.json, used/total/reset come from the KiwiVM API."""
+On BandwagonHost (KiwiVM) servers with /etc/xxd-vps/kiwivm.json, used/total/reset come from the KiwiVM API.
+Elsewhere the count follows the provider's billing mode (both directions / outbound / inbound / the larger one)
+and can be calibrated once against the provider dashboard (/etc/xxd-vps/traffic-calibration.json)."""
 import base64, datetime as dt, http.server, json, os, pathlib, re, threading, time, urllib.error, urllib.parse, urllib.request
 
 CFG = json.loads(pathlib.Path('/etc/xxd-vps/sub-proxy.json').read_text())
 STATE = pathlib.Path('/var/lib/xxd-vps-sub/traffic.json')
 LOCK = threading.Lock()
+CAL_CFG = pathlib.Path('/etc/xxd-vps/traffic-calibration.json')
+# 商家的计费方式：rx = 进服务器，tx = 出服务器
+COUNT = {'both': lambda rx, tx: rx + tx, 'out': lambda rx, tx: tx, 'in': lambda rx, tx: rx, 'max': max}
 KIWI_CFG = pathlib.Path('/etc/xxd-vps/kiwivm.json')
 KIWI_CACHE = STATE.with_name('kiwivm.json')
 KIWI_LOCK = threading.Lock()
@@ -17,7 +22,8 @@ HOP = {'connection', 'keep-alive', 'proxy-authenticate', 'proxy-authorization', 
 
 
 def cycle_dates(now=None):
-    now = now or dt.datetime.now(dt.timezone.utc)
+    # 按服务器本地时区（base 阶段设成机房所在地）的零点切换周期，和商家后台的日期一致
+    now = now or dt.datetime.now()
     day = CFG.get('reset_day')
     if not day:
         return 'since-install', ''
@@ -58,8 +64,22 @@ def sample():
         s['rx'] += max(0, rx - s['last_rx']) if same else rx
         s['tx'] += max(0, tx - s['last_tx']) if same else tx
         s.update(last_rx=rx, last_tx=tx, boot=boot, updated=int(time.time()))
+        # 校准：记下"后台读数 + 当时的计数"，之后只累加增量；只在校准所在的周期内有效
+        try:
+            cal = json.loads(CAL_CFG.read_text())
+        except (FileNotFoundError, ValueError):
+            cal = None
+        if cal and cal.get('id') != (s.get('cal') or {}).get('id') \
+                and cycle_dates(dt.datetime.fromtimestamp(cal['at']))[0] == start:
+            s['cal'] = {'id': cal['id'], 'used': int(cal['used_bytes']), 'rx': s['rx'], 'tx': s['tx']}
         save(s)
-        return {'upload': s['rx'], 'download': s['tx'], 'total': CFG.get('total_bytes') or 0,
+        count = COUNT.get(CFG.get('count'), COUNT['both'])
+        c = s.get('cal')
+        used = c['used'] + count(s['rx'] - c['rx'], s['tx'] - c['tx']) if c else count(s['rx'], s['tx'])
+        # 客户端显示的已用量 = upload + download，按本机进出比例拆开
+        local = s['rx'] + s['tx']
+        up = used * s['rx'] // local if local else 0
+        return {'upload': up, 'download': used - up, 'total': CFG.get('total_bytes') or 0,
                 'expire': 0, 'cycle_start': start, 'next_reset': reset}
 
 

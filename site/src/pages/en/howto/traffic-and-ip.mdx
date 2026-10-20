@@ -18,6 +18,15 @@ import Checkpoint from "../../../components/Checkpoint.astro";
 - **Provider dashboard**: BandwagonHost's KiwiVM home page shows this month's traffic and reset date; other providers show it on the server page.
 - **In your apps**: Clash Verge and Shadowrocket show this month's usage against 1 TB by default, with the reset day worked out from the provisioning date. The server can't look up your plan, so if the quota or reset day differs from the provider's dashboard, tell the AI the real numbers (manual route: rerun `init` with `--quota-gb QUOTA --reset-day DAY`, then `sub`).
 
+### Make your apps match the dashboard (any provider)
+
+The server counts its own network traffic, keeps adding across reboots, and resets at local midnight on the reset day. When it disagrees with the provider's dashboard, it's usually one of these:
+
+- **Billing mode**: by default both directions count. If your provider bills outbound only, or the larger of in/out, tell the AI to change the billing mode — otherwise usage shows nearly double.
+- **Starting point**: the server can't know traffic used before setup, and a reinstall clears its record. Read "used this month" from the provider's dashboard and give it to the AI once to calibrate; the server then keeps counting from that number. If it drifts again after a few months, calibrate again.
+
+Manual route: `remote.sh NAME traffic --used-gb DASHBOARD_GB --count both` (`--count` can be `both`, `out` for outbound only, `in` for inbound only, `max` for the larger one; with no options it just shows the current numbers). This only restarts the subscription service — nodes in use stay connected.
+
 ### BandwagonHost: show the dashboard's real usage in your apps
 
 BandwagonHost has an official API, so the server can read KiwiVM's used traffic, plan quota and reset time directly. Your apps then show exactly what the dashboard shows (refreshed every 10 minutes). You need two things:

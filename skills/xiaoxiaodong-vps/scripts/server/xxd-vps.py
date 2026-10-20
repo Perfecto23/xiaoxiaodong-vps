@@ -250,7 +250,7 @@ def cmd_init(a):
     if not 1 <= reset_day <= 28:
         die('--reset-day 必须在 1–28 之间')
     d = {'ip': a.ip, 'alias': a.alias, 'timezone': a.timezone, 'ssh_port': ssh_port,
-         'quota_gb': quota_gb, 'reset_day': reset_day, 'os': f"{os_id} {osr.get('VERSION_ID', '').strip(chr(34))}",
+         'quota_gb': quota_gb, 'reset_day': reset_day, 'traffic_count': old.get('traffic_count', 'both'), 'os': f"{os_id} {osr.get('VERSION_ID', '').strip(chr(34))}",
          'arch': arch(), 'memory_mb': mem, 'done': load(DEPLOY).get('done', {}) if DEPLOY.exists() else {}}
     ETC.mkdir(mode=0o700, exist_ok=True)
     write(DEPLOY, json.dumps(d, indent=2, ensure_ascii=False), 0o600)
@@ -837,7 +837,8 @@ def cmd_sub(a):
     iface = json.loads(run(['ip', '-j', 'route', 'show', 'default'], quiet=True).stdout)[0]['dev']
     cfg = {'interface': iface, 'total_bytes': int(d['quota_gb']) * 1024 ** 3 if d.get('quota_gb') else 0,
            'reset_day': d.get('reset_day'), 'upstream': f"http://127.0.0.1:{PORT['xui_sub']}", 'upstream_host': ip,
-           'paths': [c['sub_path'], c['json_path'], c['clash_path']], 'profile_title': d['alias']}
+           'paths': [c['sub_path'], c['json_path'], c['clash_path']], 'profile_title': d['alias'],
+           'count': d.get('traffic_count', 'both')}
     write(ETC / 'sub-proxy.json', json.dumps(cfg, indent=2), 0o640, owner=('root', 'xxd-sub'))
     ETC.chmod(0o711)
     (OPT / 'sub-proxy').mkdir(parents=True, exist_ok=True)
@@ -1287,6 +1288,43 @@ def cmd_export(a):
     return 0
 
 
+COUNT_NAMES = {'both': '进出双向都算', 'out': '只算出站', 'in': '只算入站', 'max': '进出取大的一边'}
+
+
+def shown_usage(c):
+    """读订阅中间层此刻返回给客户端的用量（GB）和重置日。"""
+    req = urllib.request.Request('http://127.0.0.1:2097' + c['clash_path'] + c['sub_id_clash'], headers={'User-Agent': 'clash.meta'})
+    with urllib.request.urlopen(req, timeout=15) as r:
+        info = dict(kv.strip().split('=', 1) for kv in r.headers['Subscription-Userinfo'].split(';'))
+        reset = r.headers.get('X-Subscription-Reset') or '无'
+    return (int(info['upload']) + int(info['download'])) / 1024 ** 3, int(info['total']) / 1024 ** 3, reset
+
+
+def cmd_traffic(a):
+    """客户端用量显示：改计费方式（--count），或按商家后台读数校准一次（--used-gb）。只重启订阅中间层，不碰 Xray。"""
+    d = load(DEPLOY)
+    if 'sub' not in d.get('done', {}):
+        die('请先完成 sub 阶段')
+    if a.count:
+        d['traffic_count'] = a.count
+        write(DEPLOY, json.dumps(d, indent=2, ensure_ascii=False), 0o600)
+        cfg = load(ETC / 'sub-proxy.json')
+        cfg['count'] = a.count
+        write(ETC / 'sub-proxy.json', json.dumps(cfg, indent=2), 0o640, owner=('root', 'xxd-sub'))
+    if a.used_gb is not None:
+        if a.used_gb < 0:
+            die('--used-gb 不能是负数')
+        write(ETC / 'traffic-calibration.json', json.dumps({'id': secrets.token_hex(6), 'at': int(time.time()),
+              'used_bytes': int(a.used_gb * 1024 ** 3)}), 0o640, owner=('root', 'xxd-sub'))
+    if a.count or a.used_gb is not None:
+        systemctl('restart', 'xxd-vps-sub')
+        time.sleep(2)
+    used, total, reset = shown_usage(load(CREDS))
+    say(f"计费方式：{COUNT_NAMES[d.get('traffic_count', 'both')]}；客户端显示：已用 {used:.2f} / {total:.0f} GB，下次重置 {reset}")
+    if (ETC / 'kiwivm.json').exists():
+        say('这台用的是 KiwiVM 官方读数；计费方式和校准只在取不到官方读数时生效')
+
+
 def cmd_kiwivm(a):
     """搬瓦工专用：订阅里的用量改用 KiwiVM 后台的官方读数。VEID 和 API Key 从标准输入读 JSON，不进命令行。"""
     d, path = load(DEPLOY), ETC / 'kiwivm.json'
@@ -1339,6 +1377,9 @@ def main():
         sp.add_parser(name)
     v = sp.add_parser('verify')
     v.add_argument('--full', action='store_true', help='额外做一次证书续期演练')
+    t = sp.add_parser('traffic', help='客户端用量显示：改计费方式、按商家后台读数校准；不带参数只查看')
+    t.add_argument('--count', choices=['both', 'out', 'in', 'max'], help='商家计费方式：双向 / 只算出站 / 只算入站 / 取大的一边')
+    t.add_argument('--used-gb', type=float, help='商家后台此刻显示的本月已用量（GB），用来校准')
     k = sp.add_parser('kiwivm', help='搬瓦工：订阅用量改用 KiwiVM 官方读数（VEID 和 API Key 走标准输入）')
     k.add_argument('--remove', action='store_true')
     e = sp.add_parser('export')
