@@ -219,8 +219,8 @@ def cmd_init(a):
         ipaddress.IPv4Address(a.ip)
     except ValueError:
         die('--ip 必须是服务器的公网 IPv4')
-    if not re.fullmatch(r'[A-Za-z][A-Za-z0-9-]{0,30}', a.alias):
-        die('--alias 只能用字母、数字和连字符，并以字母开头')
+    if not re.fullmatch(r'[A-Za-z][A-Za-z0-9.-]{0,30}', a.alias):
+        die('--alias 只能用字母、数字、点和连字符，并以字母开头')
     if not pathlib.Path('/usr/share/zoneinfo/' + a.timezone).exists():
         die('无效时区：' + a.timezone)
     osr = dict(l.split('=', 1) for l in pathlib.Path('/etc/os-release').read_text().splitlines() if '=' in l)
@@ -1287,6 +1287,40 @@ def cmd_export(a):
     return 0
 
 
+def cmd_kiwivm(a):
+    """搬瓦工专用：订阅里的用量改用 KiwiVM 后台的官方读数。VEID 和 API Key 从标准输入读 JSON，不进命令行。"""
+    d, path = load(DEPLOY), ETC / 'kiwivm.json'
+    if 'sub' not in d.get('done', {}):
+        die('请先完成 sub 阶段')
+    if a.remove:
+        path.unlink(missing_ok=True)
+        systemctl('restart', 'xxd-vps-sub')
+        return say('已取消 KiwiVM 读数，订阅用量改回本机网卡统计')
+    try:
+        k = json.loads(sys.stdin.read())
+        veid, key = str(k['veid']), str(k['api_key'])
+    except (ValueError, KeyError, TypeError):
+        die('没有从标准输入读到 {"veid": ..., "api_key": ...}')
+    if not re.fullmatch(r'[0-9]{1,12}', veid) or not re.fullmatch(r'private_[A-Za-z0-9]{8,64}', key):
+        die('VEID 应为数字，API Key 应以 private_ 开头')
+    url = 'https://api.64clouds.com/v1/getServiceInfo?' + urllib.parse.urlencode({'veid': veid, 'api_key': key})
+    try:
+        with urllib.request.urlopen(urllib.request.Request(url, headers={'User-Agent': 'xxd-vps-sub/1.0'}), timeout=15) as r:
+            j = json.load(r)
+    except Exception as e:
+        die('连不上 KiwiVM API：' + type(e).__name__)
+    if j.get('error'):
+        die('KiwiVM 拒绝了这组 VEID / API Key（错误码 ' + str(j.get('error')) + '）')
+    if d['ip'] not in (j.get('ip_addresses') or []):
+        die('这组 VEID 对应的不是这台服务器（IP 不一致）')
+    write(path, json.dumps({'veid': veid, 'api_key': key}), 0o640, owner=('root', 'xxd-sub'))
+    systemctl('restart', 'xxd-vps-sub')
+    m = j.get('monthly_data_multiplier') or 1
+    used, total = int(j['data_counter']) * m / 1024 ** 3, int(j['plan_monthly_data']) * m / 1024 ** 3
+    reset = datetime.datetime.fromtimestamp(int(j['data_next_reset'])).strftime('%Y-%m-%d %H:%M')
+    say(f'订阅用量改用 KiwiVM 官方读数：已用 {used:.2f} / {total:.0f} GB，下次重置 {reset}（{d["timezone"]}）')
+
+
 # ---------------------------------------------------------------- main
 PHASES = ['base', 'cert', 'xui', 'sub', 'cliproxy', 'maint']
 
@@ -1305,6 +1339,8 @@ def main():
         sp.add_parser(name)
     v = sp.add_parser('verify')
     v.add_argument('--full', action='store_true', help='额外做一次证书续期演练')
+    k = sp.add_parser('kiwivm', help='搬瓦工：订阅用量改用 KiwiVM 官方读数（VEID 和 API Key 走标准输入）')
+    k.add_argument('--remove', action='store_true')
     e = sp.add_parser('export')
     e.add_argument('--force', action='store_true')
     e.add_argument('--lang', default='zh', help='登录信息文件的语言：zh en ko ja ar es fr ru de pt')

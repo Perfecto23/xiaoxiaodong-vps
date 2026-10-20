@@ -1,11 +1,16 @@
 #!/usr/bin/env python3
 """Subscription front for 3x-ui: forwards only known subscription paths, adds traffic usage
-headers (Subscription-Userinfo) from the server NIC counters, and never logs request URLs."""
-import base64, datetime as dt, http.server, json, os, pathlib, re, threading, time, urllib.error, urllib.request
+headers (Subscription-Userinfo) from the server NIC counters, and never logs request URLs.
+On BandwagonHost (KiwiVM) servers with /etc/xxd-vps/kiwivm.json, used/total/reset come from the KiwiVM API."""
+import base64, datetime as dt, http.server, json, os, pathlib, re, threading, time, urllib.error, urllib.parse, urllib.request
 
 CFG = json.loads(pathlib.Path('/etc/xxd-vps/sub-proxy.json').read_text())
 STATE = pathlib.Path('/var/lib/xxd-vps-sub/traffic.json')
 LOCK = threading.Lock()
+KIWI_CFG = pathlib.Path('/etc/xxd-vps/kiwivm.json')
+KIWI_CACHE = STATE.with_name('kiwivm.json')
+KIWI_LOCK = threading.Lock()
+KIWI_TRY = [0]
 HOP = {'connection', 'keep-alive', 'proxy-authenticate', 'proxy-authorization', 'te', 'trailers',
        'transfer-encoding', 'upgrade', 'content-length', 'subscription-userinfo', 'profile-title',
        'profile-update-interval'}
@@ -58,10 +63,57 @@ def sample():
                 'expire': 0, 'cycle_start': start, 'next_reset': reset}
 
 
+def kiwivm():
+    """搬瓦工：已用量、总量、重置时间直接取 KiwiVM 后台的读数（缓存 10 分钟，失败 1 分钟后再试）。
+    取不到就用缓存；缓存过了重置时间、或者从没取到过，返回 None，改用本机网卡统计。"""
+    if not KIWI_CFG.exists():
+        return None
+    with KIWI_LOCK:
+        try:
+            c = json.loads(KIWI_CACHE.read_text())
+        except (FileNotFoundError, ValueError):
+            c = None
+        now = time.time()
+        if (c and now - c['fetched'] < 600) or now - KIWI_TRY[0] < 60:
+            return c if c and now < c['next_reset'] else None
+        KIWI_TRY[0] = now
+        try:
+            k = json.loads(KIWI_CFG.read_text())
+            url = 'https://api.64clouds.com/v1/getServiceInfo?' + urllib.parse.urlencode({'veid': k['veid'], 'api_key': k['api_key']})
+            # 默认的 Python-urllib User-Agent 会被 API 拒绝（403）
+            with urllib.request.urlopen(urllib.request.Request(url, headers={'User-Agent': 'xxd-vps-sub/1.0'}), timeout=10) as r:
+                j = json.load(r)
+            if j.get('error'):
+                raise ValueError('kiwivm error')
+            m = j.get('monthly_data_multiplier') or 1
+            c = {'used': int(j['data_counter']) * m, 'total': int(j['plan_monthly_data']) * m,
+                 'next_reset': int(j['data_next_reset']), 'fetched': int(now)}
+            tmp = KIWI_CACHE.with_suffix('.tmp')
+            tmp.write_text(json.dumps(c))
+            os.chmod(tmp, 0o600)
+            tmp.replace(KIWI_CACHE)
+        except Exception as e:
+            print('kiwivm fetch error: ' + type(e).__name__, flush=True)
+        return c if c and now < c['next_reset'] else None
+
+
+def usage():
+    info = sample()
+    k = kiwivm()
+    if not k:
+        return info
+    # KiwiVM 只给总用量：按本机网卡的上下行比例拆成 upload / download
+    local = info['upload'] + info['download']
+    up = k['used'] * info['upload'] // local if local else 0
+    return dict(info, upload=up, download=k['used'] - up, total=k['total'],
+                next_reset=dt.datetime.fromtimestamp(k['next_reset']).date().isoformat())
+
+
 def sampler():
     while True:
         try:
             sample()
+            kiwivm()
         except Exception as e:
             print('traffic sampler error: ' + type(e).__name__, flush=True)
         time.sleep(30)
@@ -117,7 +169,7 @@ class Handler(http.server.BaseHTTPRequestHandler):
         self.send_header('Content-Length', str(len(body)))
         self.send_header('Cache-Control', 'no-store')
         if status == 200:
-            info = sample()
+            info = usage()
             self.send_header('Subscription-Userinfo', '; '.join(f'{k}={info[k]}' for k in ('upload', 'download', 'total', 'expire')))
             title = CFG.get('profile_title', 'XXD VPS')
             self.send_header('Profile-Title', 'base64:' + base64.b64encode(title.encode()).decode())

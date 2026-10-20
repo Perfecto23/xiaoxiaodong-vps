@@ -86,6 +86,7 @@ bash "$R" 名称 maint      # CLIProxyAPI 自动更新、规则每日刷新、�
 bash "$R" 名称 verify --full
 ```
 
+- 搬瓦工（KiwiVM）可选：用户给了 VEID 和 API Key（KiwiVM 后台 API 页面），`sub` 之后跑 `bash "$R" 名称 kiwivm --veid 数字 --key-file 文件`，订阅里的已用量、总额度、重置日就改用官方读数（每 10 分钟刷新，取不到时退回本机统计）。API Key 和密码一样先写进只有本人可读的临时文件，脚本用完删除；`--remove` 取消。
 - 逐个阶段跑，每跑完一个用一句话告诉用户进度（例如"证书已签发，开始装 3x-ui"）。
 - `init` 会核对这台机器的公网 IP 是否就是用户给的 IP，并拒绝覆盖不是本工具创建的 3x-ui；遇到这两种情况先问用户，不要强行继续。
 - 只支持 Ubuntu 22.04+ / Debian 12+。其他系统请用户在服务商后台重装为 Ubuntu 24.04 LTS。

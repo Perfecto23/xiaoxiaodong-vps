@@ -26,7 +26,7 @@ done
 fail() { echo "[connect] 停止：$*" >&2; exit 2; }
 say() { echo "[connect] $*"; }
 
-[[ "$ALIAS" =~ ^[A-Za-z][A-Za-z0-9-]{0,30}$ ]] || fail "--alias 只能用字母、数字和连字符，并以字母开头"
+[[ "$ALIAS" =~ ^[A-Za-z][A-Za-z0-9.-]{0,30}$ ]] || fail "--alias 只能用字母、数字、点和连字符，并以字母开头"
 [[ "$HOST" =~ ^([0-9]{1,3}\.){3}[0-9]{1,3}$ ]] || fail "--host 必须是服务器的 IPv4 地址"
 [[ "$PORT" =~ ^[0-9]+$ ]] || fail "--port 必须是数字"
 modes=0; [ -n "$KEY" ] && modes=$((modes+1)); [ -n "$PWFILE" ] && modes=$((modes+1)); [ "$PWPROMPT" = 1 ] && modes=$((modes+1))
@@ -41,7 +41,7 @@ touch "$CONFIG"; chmod 600 "$CONFIG"
 
 # 名称已被占用时不覆盖别的服务器
 existing=$(ssh -G "$ALIAS" 2>/dev/null | awk '$1=="hostname"{print $2}')
-if grep -Eq "^[[:space:]]*Host[[:space:]]+(.*[[:space:]])?${ALIAS}([[:space:]]|$)" "$CONFIG"; then
+if grep -Eq "^[[:space:]]*Host[[:space:]]+(.*[[:space:]])?${ALIAS//./\\.}([[:space:]]|$)" "$CONFIG"; then
   [ "$existing" = "$HOST" ] || fail "ssh 名称 \"$ALIAS\" 已经指向另一台服务器（${existing}），请换一个名称"
   ALREADY=1
 else
