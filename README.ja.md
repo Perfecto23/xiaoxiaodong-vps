@@ -4,7 +4,7 @@
 
 ネットが使いにくい国へ出張しても、いつものウェブサイトや AI ツールをそのまま使えます。
 
-手順を追ったチュートリアルサイト（中国語）：<https://vps.xiaoxiaodong.ai>（ミラー：<https://nevertoday.github.io/xiaoxiaodong-vps/>）
+手順を追ったチュートリアルサイト（英語・中国語）：<https://vps.xiaoxiaodong.ai/en/>（中国語版：<https://vps.xiaoxiaodong.ai>、ミラー：<https://nevertoday.github.io/xiaoxiaodong-vps/en/>）
 
 やり方はシンプルです。海外サーバーを自分で 1 台買い、このプロジェクトどおりに AI に設定してもらい、スマホとパソコンに購読を読み込むだけ。回線は自分専用で、知らない人とは共有しません。
 

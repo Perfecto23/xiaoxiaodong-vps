@@ -4,7 +4,7 @@
 
 ¿Viajas a un país donde usar internet es complicado? Sigue usando las webs y herramientas de IA de siempre.
 
-Sitio web con el tutorial paso a paso (en chino): <https://vps.xiaoxiaodong.ai> (espejo: <https://nevertoday.github.io/xiaoxiaodong-vps/>)
+Sitio web con el tutorial paso a paso (en inglés y chino): <https://vps.xiaoxiaodong.ai/en/> (versión en chino: <https://vps.xiaoxiaodong.ai>; espejo: <https://nevertoday.github.io/xiaoxiaodong-vps/en/>)
 
 Cómo funciona: compras tu propio servidor en el extranjero, dejas que una IA lo configure con este proyecto e importas una suscripción en tu móvil y tu ordenador. La conexión es solo tuya; no la compartes con desconocidos.
 

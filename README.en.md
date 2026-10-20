@@ -4,7 +4,7 @@
 
 Travelling to a country where the internet is hard to use? Keep using the websites and AI tools you rely on.
 
-Step-by-step tutorial website (in Chinese): <https://vps.xiaoxiaodong.ai> (mirror: <https://nevertoday.github.io/xiaoxiaodong-vps/>)
+Step-by-step tutorial website: <https://vps.xiaoxiaodong.ai/en/> (Chinese version: <https://vps.xiaoxiaodong.ai>; mirror: <https://nevertoday.github.io/xiaoxiaodong-vps/en/>)
 
 How it works: buy your own overseas server, let an AI set it up with this project, then import a subscription on your phone and computer. The connection is yours alone, not shared with strangers.
 

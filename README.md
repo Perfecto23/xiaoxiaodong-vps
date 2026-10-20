@@ -4,7 +4,7 @@
 
 出差到上网不方便的国家，也能正常用常用的网站和 AI 工具。
 
-**图文教程网站：<https://vps.xiaoxiaodong.ai>**（从买服务器到用上，一步一步讲；还有 How-to、名词解释和常见问题。打不开时用备用地址 <https://nevertoday.github.io/xiaoxiaodong-vps/>）
+**图文教程网站：<https://vps.xiaoxiaodong.ai>**（从买服务器到用上，一步一步讲；还有 How-to、名词解释和常见问题。打不开时用备用地址 <https://nevertoday.github.io/xiaoxiaodong-vps/>。英文版：<https://vps.xiaoxiaodong.ai/en/>）
 
 做法很简单：自己买一台海外服务器，让 AI 按这套方案配好，手机和电脑导入订阅就能用。线路只给你自己用，不和陌生人共享。
 

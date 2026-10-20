@@ -4,7 +4,7 @@
 
 Geschäftsreise in ein Land, in dem das Internet schwer nutzbar ist? Nutzen Sie Ihre gewohnten Websites und KI-Tools einfach weiter.
 
-Schritt-für-Schritt-Anleitung als Website (auf Chinesisch): <https://vps.xiaoxiaodong.ai> (Spiegel: <https://nevertoday.github.io/xiaoxiaodong-vps/>)
+Schritt-für-Schritt-Anleitung als Website (auf Englisch und Chinesisch): <https://vps.xiaoxiaodong.ai/en/> (chinesische Version: <https://vps.xiaoxiaodong.ai>; Spiegel: <https://nevertoday.github.io/xiaoxiaodong-vps/en/>)
 
 So geht's: Sie kaufen einen eigenen Server im Ausland, lassen ihn von einer KI mit diesem Projekt einrichten und importieren ein Abo auf Handy und Computer. Die Verbindung gehört nur Ihnen und wird nicht mit Fremden geteilt.
 
