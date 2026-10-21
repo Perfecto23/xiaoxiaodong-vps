@@ -58,3 +58,10 @@ WSL 里的文件和 Windows 是分开的。在 Ubuntu 窗口里输入 `explorer.
 <Q q="wsl --install 只显示帮助信息？">
 说明 WSL 已经装过了。在开始菜单里搜「Ubuntu」，没有的话运行 `wsl --install -d Ubuntu`。
 </Q>
+<Q q="安装时报 WslRegisterDistribution failed with error: 0xc03a0014？">
+意思是 Windows 找不到虚拟磁盘组件，和这套教程无关。按顺序试，每步做完都重启一次：
+
+1. 在管理员 PowerShell 里运行 `wsl --update`，然后重启电脑。
+2. 打开「设备管理器」→「系统设备」，下面这几项如果显示已禁用（图标上有向下的箭头），右键「启用设备」：Microsoft Virtual Disk Enumerator（虚拟磁盘枚举器）、Microsoft Hyper-V Virtualization Infrastructure Driver、Composite Bus Enumerator、UMBus Root Bus Enumerator。一些「系统优化」软件会把它们关掉。
+3. 还不行就改用 WSL 1，它不需要虚拟磁盘：在管理员 PowerShell 里依次运行 `wsl --set-default-version 1` 和 `wsl --install -d Ubuntu`。这套方案在 WSL 1 下也能正常使用。
+</Q>
