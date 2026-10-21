@@ -69,6 +69,8 @@
 - 检查本地链路：Wi-Fi 是否 5 GHz、网线 / 路由器 LAN 口是否掉到百兆（`ethtool` 或路由器后台看协商速率）、路由器 CPU 是否跑满。
 - 服务器侧：`ssh 名称 'sysctl -n net.ipv4.tcp_congestion_control'` 应显示 `bbr`。
 
+**Google Play 里的应用一直「等待中」或更新失败**：Play 的下载域名 `dl.google.com` 被 ACL4SSR 的 UnBan、GoogleCN 规则集判成直连，连到国内运营商机房的 Google 缓存节点，部分地区不通；Play 的商店接口却走代理。新模板已经把 `dl.google.com`、`dl.l.google.com` 排在这两个规则集前面、走 `GOOGLE-谷歌`。旧服务器先 `upload` 再重跑 `sub`（`sync_clash_rules` 写入新模板，只 SIGHUP 3x-ui，Xray 不断线），客户端更新订阅。临时排查：客户端切「全局」模式能更新，就是这个原因。
+
 **浏览器打开订阅地址提示"不是私密连接"**：证书不对或过期。`ssh 名称 'xxd-vps verify'` 看证书项；如果续期失败，查 `journalctl -u xxd-vps-cert-renew`，通常是 80 端口被安全组拦了。
 
 **OpenClash 里 AI 网站很慢或解析超时**：订阅给 AI 域名配置了 1.1.1.1 / 8.8.8.8 的 DoH，并靠 `respect-rules` 让这些查询走代理。OpenClash 会强制关闭 `respect-rules`，查询就变成直连海外 DoH，在部分网络会超时（Clash Verge Rev 不受影响）。遇到时，在 OpenClash 的配置覆写里删掉这些 AI 域名的 `nameserver-policy` 条目，只保留 `rule-set:cn-domain`。

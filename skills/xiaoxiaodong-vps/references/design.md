@@ -105,7 +105,9 @@ Clash 订阅自带完整规则（模板在 `scripts/server/files/clash-template.
 
 AI 规则必须排在通用规则前面，否则 Gemini 的登录、静态资源域名可能被分到 Google 或直连组，出口不一致，容易出现"页面打得开但用不了"。
 
-规则顺序与小小东最新的生产服务器完全一致（133 条，27 个规则集）。
+`dl.google.com` 和 `dl.l.google.com` 是 Google Play 下载应用和更新用的域名。ACL4SSR 的 UnBan、GoogleCN 规则集把它们判成直连，连到国内运营商机房里的 Google 缓存节点；Play 的商店接口却走代理，前后出口不一致，部分地区（如浙江电信）会一直卡在「等待中」或更新失败（[ACL4SSR #77](https://github.com/ACL4SSR/ACL4SSR/issues/77)）。所以这两个域名单独写在这两个规则集前面，和 Play 的其他域名一起走 `GOOGLE-谷歌`。代价是 Chrome 等 Google 软件的下载也走服务器流量。
+
+规则顺序以小小东最新的生产服务器为基础，再加上面这两条（137 条，27 个规则集）。
 
 **规则文件放在你自己的服务器上**：服务器每天从 ACL4SSR（`Clash/*.list`，转换成规则集格式）、MetaCubeX、misakaio/chnroutes2 的公开地址下载一次（`rule-sources.json`），保存到 `/var/lib/xxd-vps/rules/`，客户端只从 `https://你的IP:2096/rules/` 下载。好处是路由器在国内也不用直连 GitHub；某个上游下载失败时保留上一份，不会出现空规则。部署和验收时还会检查每个规则集声明的格式和文件实际内容一致（上游改过格式时会被发现）。
 

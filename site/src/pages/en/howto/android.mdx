@@ -46,3 +46,13 @@ A key or VPN icon appears in the status bar; ip.net.coffee/claude/ in the browse
 <Callout type="tip">
 Button positions vary between versions — look for "Profiles", "Subscription" or "URL".
 </Callout>
+
+## Stuck?
+
+<Q q="Google Play apps stay on 'Pending', or updates fail?">
+Play downloads apps and updates from `dl.google.com`. Common public rule lists send it direct, to Google cache servers inside Chinese ISPs' data centers, which some regions can't reach. The subscription now sends it through your server together with Play's other domains.
+
+1. Update the subscription once on the app's "Profiles" page and try again.
+2. Still stuck: if your server was set up before October 21, 2026, ask the AI to "update the server's subscription rules to the latest" (manual route: `remote.sh NAME upload`, then `remote.sh NAME sub`. Only the subscription service reloads; nodes in use stay connected), then go back to step 1.
+3. Quick workaround: switch the mode from Rule to Global, update, then switch back.
+</Q>

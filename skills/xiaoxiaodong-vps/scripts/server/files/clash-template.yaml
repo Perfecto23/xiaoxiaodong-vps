@@ -709,6 +709,8 @@ rules:
 - DOMAIN-SUFFIX,cursor.sh,AI-人工智能
 - DOMAIN-SUFFIX,muse.ai,AI-人工智能
 - RULE-SET,ai-non-cn,AI-人工智能
+- DOMAIN-SUFFIX,dl.google.com,GOOGLE-谷歌
+- DOMAIN-SUFFIX,dl.l.google.com,GOOGLE-谷歌
 - RULE-SET,ACL-UnBan,DIRECT
 - RULE-SET,ACL-GoogleFCM,DIRECT
 - RULE-SET,ACL-GoogleCN,DIRECT
