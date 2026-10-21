@@ -89,9 +89,10 @@ Depois disso, basta dizer à IA "use xiaoxiaodong-vps para configurar meu servid
 
 ### 3. Importe a assinatura
 
-- **Computador**: instale o [Clash Verge Rev](https://github.com/clash-verge-rev/clash-verge-rev/releases), importe a URL de assinatura do Clash, escolha o modo **Regra (Rule)** e ligue o **modo TUN** (placa de rede virtual; instale o serviço quando solicitado). Só com o proxy do sistema, o WebRTC do navegador pode revelar seu IP real — veja o [guia de correção de vazamento de WebRTC](./docs/Clash-Verge-WebRTC泄露修复手册.md) (em chinês, escrito para que um assistente de IA possa segui-lo passo a passo).
+- **Computador (recomendado: Clash Verge Rev)**: instale o [Clash Verge Rev](https://github.com/clash-verge-rev/clash-verge-rev/releases), importe a URL de assinatura do Clash, escolha o modo **Regra (Rule)** e ligue o **modo TUN** (placa de rede virtual; instale o serviço quando solicitado). Só com o proxy do sistema, o WebRTC do navegador pode revelar seu IP real — veja o [guia de correção de vazamento de WebRTC](./docs/Clash-Verge-WebRTC泄露修复手册.md) (em chinês, escrito para que um assistente de IA possa segui-lo passo a passo).
 - **iPhone**: importe a URL de assinatura do Shadowrocket no Shadowrocket.
 - **Roteador (OpenClash)**: a mesma URL de assinatura do Clash funciona, e todos os aparelhos de casa usam a linha. Adicione-a na assinatura de configuração (não envie o arquivo YAML, senão o uso de dados não aparece e as regras não se atualizam sozinhas), desative a conversão de assinatura online e use o núcleo Meta.
+- **Já usa o v2rayN (Windows / Mac / Linux)**: funciona, mas só como alternativa. Importe a URL da linha "Shadowrocket (iPhone)" (não a do Clash), escolha o roteamento "ignorar China continental" e ative o TUN contra vazamentos de WebRTC. Essa assinatura traz só os nós, sem as regras de IA nem de WeChat direto, por isso no computador continuamos recomendando o Clash Verge Rev. Veja o [guia do v2rayN](https://vps.xiaoxiaodong.ai/en/howto/v2rayn/) (em inglês).
 
 Depois abra <https://ip.net.coffee/claude/>. Se aparecer o IP do seu servidor, você está conectado.
 

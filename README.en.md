@@ -89,9 +89,10 @@ After that, just tell the AI "use xiaoxiaodong-vps to set up my new server" and 
 
 ### 3. Import the subscription
 
-- **Computer**: install [Clash Verge Rev](https://github.com/clash-verge-rev/clash-verge-rev/releases), import the Clash subscription URL, choose **Rule** mode and turn on **TUN mode** (Virtual Network Interface; install the service when prompted). With System Proxy alone, the browser's WebRTC can reveal your real IP — see the [WebRTC leak fix guide](./docs/Clash-Verge-WebRTC泄露修复手册.md) (in Chinese, written so an AI assistant can follow it step by step).
+- **Computer (Clash Verge Rev recommended)**: install [Clash Verge Rev](https://github.com/clash-verge-rev/clash-verge-rev/releases), import the Clash subscription URL, choose **Rule** mode and turn on **TUN mode** (Virtual Network Interface; install the service when prompted). With System Proxy alone, the browser's WebRTC can reveal your real IP — see the [WebRTC leak fix guide](./docs/Clash-Verge-WebRTC泄露修复手册.md) (in Chinese, written so an AI assistant can follow it step by step).
 - **iPhone**: import the Shadowrocket subscription URL in Shadowrocket.
 - **Router (OpenClash)**: the same Clash subscription URL works, so every device at home uses the line. Add it under Config Subscribe (don't upload the YAML file, or the usage bar won't show and rules won't auto-update), turn off online subscription conversion, and use the Meta core.
+- **Already using v2rayN (Windows / Mac / Linux)**: it works, but only as a fallback. Import the subscription URL from the "Shadowrocket (iPhone)" row (not the Clash row), pick the "bypass mainland China" routing, and turn on TUN against WebRTC leaks. That subscription has only the nodes — none of the AI routing or WeChat-direct rules — so Clash Verge Rev remains the recommended desktop app. See the [v2rayN guide](https://vps.xiaoxiaodong.ai/en/howto/v2rayn/).
 
 Then open <https://ip.net.coffee/claude/>. If it shows your server's IP, you're connected.
 

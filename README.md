@@ -87,9 +87,10 @@ cp -R xiaoxiaodong-vps/skills/xiaoxiaodong-vps ~/.codex/skills/
 
 ### 3. 导入订阅
 
-- **电脑**：安装 [Clash Verge Rev](https://github.com/clash-verge-rev/clash-verge-rev/releases)，导入 Clash 订阅地址，选 **规则模式**，打开 **虚拟网卡模式**（TUN，第一次会提示安装服务，按提示装上）。只开系统代理时，浏览器的 WebRTC 会暴露你的真实 IP，详见 [WebRTC 泄露修复手册](./docs/Clash-Verge-WebRTC泄露修复手册.md)（可以直接交给 AI 助手照做）。
+- **电脑（首推 Clash Verge Rev）**：安装 [Clash Verge Rev](https://github.com/clash-verge-rev/clash-verge-rev/releases)，导入 Clash 订阅地址，选 **规则模式**，打开 **虚拟网卡模式**（TUN，第一次会提示安装服务，按提示装上）。只开系统代理时，浏览器的 WebRTC 会暴露你的真实 IP，详见 [WebRTC 泄露修复手册](./docs/Clash-Verge-WebRTC泄露修复手册.md)（可以直接交给 AI 助手照做）。
 - **iPhone**：在 Shadowrocket 里导入 Shadowrocket 订阅地址。
 - **软路由（OpenClash）**：同一个 Clash 订阅地址就能用，家里所有设备都走这条线路。在「配置订阅」里添加地址（别上传 yaml 文件，否则看不到流量用量，规则也不会自动更新），关闭「在线订阅转换」，内核选 Meta。
+- **已经在用 v2rayN（Windows / Mac / Linux）**：也能用，但只是备选。导入「Shadowrocket（iPhone）」那一行的订阅地址（不是 Clash 那一行），路由选「绕过大陆」，打开 TUN 防 WebRTC 泄露。这个订阅只有节点，没有 AI 分流、微信直连这些规则，所以电脑上仍然首推 Clash Verge Rev。详见 [v2rayN 教程](https://vps.xiaoxiaodong.ai/howto/v2rayn/)。
 
 导入后打开 <https://ip.net.coffee/claude/>，显示的是你服务器的 IP 就说明通了。
 

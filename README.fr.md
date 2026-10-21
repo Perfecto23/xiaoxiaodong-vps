@@ -89,9 +89,10 @@ Ensuite, il suffit de dire à l'IA « utilise xiaoxiaodong-vps pour configurer m
 
 ### 3. Importez l'abonnement
 
-- **Ordinateur** : installez [Clash Verge Rev](https://github.com/clash-verge-rev/clash-verge-rev/releases), importez l'URL d'abonnement Clash, choisissez le mode **Règles (Rule)** et activez le **mode TUN** (carte réseau virtuelle ; installez le service si on vous le demande). Avec le seul proxy système, le WebRTC du navigateur peut révéler votre vraie IP : voir le [guide de correction des fuites WebRTC](./docs/Clash-Verge-WebRTC泄露修复手册.md) (en chinois, rédigé pour qu'un assistant IA puisse le suivre pas à pas).
+- **Ordinateur (recommandé : Clash Verge Rev)** : installez [Clash Verge Rev](https://github.com/clash-verge-rev/clash-verge-rev/releases), importez l'URL d'abonnement Clash, choisissez le mode **Règles (Rule)** et activez le **mode TUN** (carte réseau virtuelle ; installez le service si on vous le demande). Avec le seul proxy système, le WebRTC du navigateur peut révéler votre vraie IP : voir le [guide de correction des fuites WebRTC](./docs/Clash-Verge-WebRTC泄露修复手册.md) (en chinois, rédigé pour qu'un assistant IA puisse le suivre pas à pas).
 - **iPhone** : importez l'URL d'abonnement Shadowrocket dans Shadowrocket.
 - **Routeur (OpenClash)** : la même URL d'abonnement Clash fonctionne, tous les appareils de la maison passent par la ligne. Ajoutez-la dans l'abonnement de configuration (n'importez pas le fichier YAML, sinon la consommation ne s'affiche pas et les règles ne se mettent pas à jour), désactivez la conversion d'abonnement en ligne et utilisez le cœur Meta.
+- **Vous utilisez déjà v2rayN (Windows / Mac / Linux)** : ça fonctionne, mais seulement en solution de repli. Importez l'URL de la ligne « Shadowrocket (iPhone) » (pas celle de Clash), choisissez le routage « contourner la Chine continentale » et activez TUN contre les fuites WebRTC. Cet abonnement ne contient que les nœuds, sans les règles IA ni WeChat en direct : sur ordinateur, Clash Verge Rev reste recommandé. Voir le [guide v2rayN](https://vps.xiaoxiaodong.ai/en/howto/v2rayn/) (en anglais).
 
 Ouvrez ensuite <https://ip.net.coffee/claude/>. Si l'IP de votre serveur s'affiche, vous êtes connecté.
 

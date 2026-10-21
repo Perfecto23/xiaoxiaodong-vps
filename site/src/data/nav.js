@@ -60,6 +60,7 @@ export const HOWTO = [
     { slug: "clash-verge-tun", title: "打开虚拟网卡模式（TUN）", en: { title: "Turn on TUN mode" } },
     { slug: "shadowrocket", title: "Shadowrocket（iPhone、iPad）", en: { title: "Shadowrocket (iPhone, iPad)" } },
     { slug: "android", title: "安卓客户端", en: { title: "Android apps" } },
+    { slug: "v2rayn", title: "v2rayN（备选，电脑）", en: { title: "v2rayN (alternative, desktop)" } },
     { slug: "openclash", title: "OpenClash 路由器（进阶）", en: { title: "OpenClash on a router (advanced)" } },
   ]},
   { group: "检测", en: { group: "Checks" }, items: [

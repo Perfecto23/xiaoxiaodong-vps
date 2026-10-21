@@ -89,9 +89,10 @@ cp -R xiaoxiaodong-vps/skills/xiaoxiaodong-vps ~/.codex/skills/
 
 ### 3. 購読を読み込む
 
-- **パソコン**：[Clash Verge Rev](https://github.com/clash-verge-rev/clash-verge-rev/releases) をインストールして Clash 購読 URL を読み込み、**ルール**モードを選び、**TUN モード**（仮想ネットワークアダプター。求められたらサービスをインストール）をオンにします。システムプロキシだけだと、ブラウザの WebRTC から実際の IP が漏れることがあります。[WebRTC 漏洩の修正ガイド](./docs/Clash-Verge-WebRTC泄露修复手册.md)（中国語。AI アシスタントがそのまま手順どおりに進められるように書かれています）を参照してください。
+- **パソコン（おすすめは Clash Verge Rev）**：[Clash Verge Rev](https://github.com/clash-verge-rev/clash-verge-rev/releases) をインストールして Clash 購読 URL を読み込み、**ルール**モードを選び、**TUN モード**（仮想ネットワークアダプター。求められたらサービスをインストール）をオンにします。システムプロキシだけだと、ブラウザの WebRTC から実際の IP が漏れることがあります。[WebRTC 漏洩の修正ガイド](./docs/Clash-Verge-WebRTC泄露修复手册.md)（中国語。AI アシスタントがそのまま手順どおりに進められるように書かれています）を参照してください。
 - **iPhone**：Shadowrocket で Shadowrocket 購読 URL を読み込みます。
 - **ルーター（OpenClash）**：同じ Clash 購読 URL がそのまま使え、家中の端末がこの回線を通ります。「設定の購読」に URL を追加してください（YAML ファイルをアップロードすると、通信量が表示されずルールも自動更新されません）。「オンライン購読変換」はオフ、コアは Meta を選びます。
+- **すでに v2rayN を使っている場合（Windows / Mac / Linux）**：使えますが、あくまで代替です。「Shadowrocket（iPhone）」の行の購読 URL を読み込み（Clash の行ではありません）、ルーティングは「中国本土をバイパス」を選び、WebRTC 漏洩対策に TUN をオンにします。この購読はノードだけで、AI の振り分けや WeChat 直結のルールは入っていないため、パソコンでは引き続き Clash Verge Rev をおすすめします。詳しくは [v2rayN ガイド](https://vps.xiaoxiaodong.ai/en/howto/v2rayn/)（英語）。
 
 最後に <https://ip.net.coffee/claude/> を開き、自分のサーバーの IP が表示されればつながっています。
 
