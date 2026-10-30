@@ -37,7 +37,7 @@ import Shot from "../../components/Shot.astro";
 出口 IP 是你的服务器 IP，DNS 出口和 WebRTC 出口都不在中国。
 </Callout>
 
-这个页面还会显示 Claude 对这个 IP 的信任评分。自己的服务器是机房 IP，评分不会是满分，这是正常的。
+**重点是上面的泄露检测**，其次看「Claude AI 信任评分」。低于 70 分的话，可以发邮件给服务商（比如搬瓦工）退掉这台，重新买一台（邮件模板见 [退掉服务器、重新买一台](/howto/refund-rebuy/)），部署好再测一次，到 70 分以上就行。
 
 ## 2. 再确认一次 WebRTC（电脑）
 
@@ -73,6 +73,10 @@ import Shot from "../../components/Shot.astro";
 </Q>
 <Q q="WebRTC 显示国内 IP？">
 多半是只开了系统代理、没开虚拟网卡模式。按 [打开虚拟网卡模式（TUN）](/howto/clash-verge-tun/) 打开，再完全退出浏览器重新打开测试。
+</Q>
+
+<Q q="信任评分低于 70？">
+泄露都没问题、只是评分低，说明这个 IP 本身的口碑一般。可以发邮件给服务商（比如搬瓦工）退掉这台，重新买一台（邮件模板见 [退掉服务器、重新买一台](/howto/refund-rebuy/)），部署好再测一次，到 70 分以上就行。
 </Q>
 
 <Checkpoint id="step5" items={[

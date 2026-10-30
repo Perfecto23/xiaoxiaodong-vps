@@ -25,7 +25,7 @@
 
 - **公网 IP 不是用户给的 IP**：连错了服务器，或者 IP 抄错了。停下来和用户核对，不要加参数强行继续。
 - **检测到已有 3x-ui 数据库**：这台机器装过别的面板。如果用户确认这是刚买的机器、上面没有要保留的东西，请他在服务商后台把系统重装为 Ubuntu 24.04 LTS，再从 connect 开始。
-- **系统不支持**：只支持 Ubuntu 22.04+ / Debian 12+。请用户在后台重装系统。
+- **系统不支持**：只支持 Ubuntu 22.04+ / Debian 12+。请用户在后台重装系统，搬瓦工开通时的默认系统多半就是这种情况。搬瓦工的步骤：KiwiVM 首页点 Stop 关机 → 左侧 Install new OS → 选 Ubuntu 24.04（x86_64）→ 勾选同意 → Reload → 几分钟后页面显示新 root 密码和 SSH 端口（只显示一次，让用户抄下）→ 状态回到 Running（没有就点 Start）。其他商家在服务器详情页找 Reinstall / Rebuild。图文版：<https://vps.xiaoxiaodong.ai/howto/reinstall-os/>。重装后按上面"重装系统后连不上"一条清旧主机密钥，再用新密码重跑 connect.sh。
 
 ## cert：IP 证书申请失败
 
@@ -69,7 +69,7 @@
 - 检查本地链路：Wi-Fi 是否 5 GHz、网线 / 路由器 LAN 口是否掉到百兆（`ethtool` 或路由器后台看协商速率）、路由器 CPU 是否跑满。
 - 服务器侧：`ssh 名称 'sysctl -n net.ipv4.tcp_congestion_control'` 应显示 `bbr`。
 
-**Google Play 里的应用一直「等待中」或更新失败**：Play 的下载域名 `dl.google.com` 被 ACL4SSR 的 UnBan、GoogleCN 规则集判成直连，连到国内运营商机房的 Google 缓存节点，部分地区不通；Play 的商店接口却走代理。新模板已经把 `dl.google.com`、`dl.l.google.com` 排在这两个规则集前面、走 `GOOGLE-谷歌`。旧服务器先 `upload` 再重跑 `sub`（`sync_clash_rules` 写入新模板，只 SIGHUP 3x-ui，Xray 不断线），客户端更新订阅。临时排查：客户端切「全局」模式能更新，就是这个原因。
+**Google Play 里的应用一直「等待中」或更新失败**：多半是国行手机。Play 给国行手机分配北京、上海、广州的 Google 缓存节点（`rr*---sn-2x3|ni5|j5o*****.xn--ngstr-lra8j.com`，也有 `gvt1.com`、`googlevideo.com`、`xn--ngstr-cn-8za9o.com`），这些节点从境外服务器连不上（TCP 通、TLS 握手无回应），必须国内直连。新模板用一条 `DOMAIN-REGEX` 让它们直连。旧服务器先 `upload` 再重跑 `sub`（`sync_clash_rules` 写入新模板，只 SIGHUP 3x-ui，Xray 不断线），客户端更新订阅。**不要让用户切「全局」模式**，那样这些节点也走代理，更连不上。排查时看客户端「连接」页：更新时出现 `sn-2x3`/`sn-ni5`/`sn-j5o` 的地址走代理并超时，就是这个原因；海外版系统的手机走 Google 海外节点，不受影响。
 
 **浏览器打开订阅地址提示"不是私密连接"**：证书不对或过期。`ssh 名称 'xxd-vps verify'` 看证书项；如果续期失败，查 `journalctl -u xxd-vps-cert-renew`，通常是 80 端口被安全组拦了。
 
@@ -85,3 +85,7 @@
 
 - 用户没要求的其他服务器、路由器、`~/.ssh/config` 里的其他条目。
 - 3x-ui / Xray 的版本：除非已经在测试机上用真实客户端验证过新版本。
+
+## 修不好的时候
+
+如实告诉用户卡在哪一项、影响是什么，不要为了"解决"去重装服务器。如果原因是教程没写清楚或脚本有 bug，建议用户到 GitHub 提 Issue（<https://github.com/nevertoday/xiaoxiaodong-vps/issues>），附上报错文字；截图里的 IP、订阅地址和密码先打码。

@@ -12,6 +12,7 @@ import Q from "../../../components/Q.astro";
 import Copy from "../../../components/Copy.astro";
 import Tabs from "../../../components/Tabs.astro";
 import Checkpoint from "../../../components/Checkpoint.astro";
+import Cmd from "../../../components/Cmd.astro";
 
 ## What it is
 
@@ -57,12 +58,12 @@ WSL's files are separate from Windows'. Type `explorer.exe .` (note the final do
 Restart into the BIOS and enable Intel VT-x or AMD-V (names vary by motherboard), then run the install command again.
 </Q>
 <Q q="wsl --install only prints help text?">
-WSL is already installed. Search the Start menu for "Ubuntu"; if it isn't there, run `wsl --install -d Ubuntu`.
+WSL is already installed. Search the Start menu for "Ubuntu"; if it isn't there, run <Cmd c="wsl --install -d Ubuntu" />.
 </Q>
 <Q q="Install fails with WslRegisterDistribution failed with error: 0xc03a0014?">
 Windows can't find its virtual disk support — this isn't caused by the guide. Try these in order, restarting after each:
 
-1. In an administrator PowerShell, run `wsl --update`, then restart.
+1. In an administrator PowerShell, run <Cmd c="wsl --update" />, then restart.
 2. Open Device Manager → System devices. If any of these are disabled (down-arrow icon), right-click → Enable device: Microsoft Virtual Disk Enumerator, Microsoft Hyper-V Virtualization Infrastructure Driver, Composite Bus Enumerator, UMBus Root Bus Enumerator. Some "system optimizer" tools turn them off.
-3. Still failing? Use WSL 1, which needs no virtual disk: in an administrator PowerShell run `wsl --set-default-version 1`, then `wsl --install -d Ubuntu`. This setup works fine on WSL 1.
+3. Still failing? Use WSL 1, which needs no virtual disk: in an administrator PowerShell run <Cmd c="wsl --set-default-version 1" />, then <Cmd c="wsl --install -d Ubuntu" />. This setup works fine on WSL 1.
 </Q>

@@ -12,6 +12,7 @@ import Q from "../../components/Q.astro";
 import Copy from "../../components/Copy.astro";
 import Tabs from "../../components/Tabs.astro";
 import Shot from "../../components/Shot.astro";
+import Cmd from "../../components/Cmd.astro";
 
 ## 1. 下载哪个安装包
 
@@ -54,7 +55,7 @@ Mac 不需要打开「严格路由」。更多细节见 [打开虚拟网卡模�
 ## 卡住了？
 
 <Q q="打开时提示「已损坏」或「无法验证开发者」？">
-打开「系统设置 → 隐私与安全性」，在下方找到 Clash Verge 的提示，点「仍要打开」。还不行的话，在终端运行 `sudo xattr -r -c "/Applications/Clash Verge.app"`（会要求输入开机密码），再打开。
+打开「系统设置 → 隐私与安全性」，在下方找到 Clash Verge 的提示，点「仍要打开」。还不行的话，在终端运行 <Cmd c='sudo xattr -r -c "/Applications/Clash Verge.app"' />（会要求输入开机密码），再打开。
 </Q>
 <Q q="安装服务一直失败？">
 确认用的是最新版。旧版本可以先卸载，从发布页重新下载最新版安装。

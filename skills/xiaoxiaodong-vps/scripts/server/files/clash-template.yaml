@@ -709,6 +709,8 @@ rules:
 - DOMAIN-SUFFIX,cursor.sh,AI-人工智能
 - DOMAIN-SUFFIX,muse.ai,AI-人工智能
 - RULE-SET,ai-non-cn,AI-人工智能
+- DOMAIN-REGEX,^r+[0-9]+(---|\.)sn-(2x3|ni5|j5o)\w{5}\.(xn--ngstr-lra8j|xn--ngstr-cn-8za9o|gvt1|googlevideo)\.com$,DIRECT
+- DOMAIN,redirector.c.play.google.com,DIRECT
 - DOMAIN-SUFFIX,dl.google.com,GOOGLE-谷歌
 - DOMAIN-SUFFIX,dl.l.google.com,GOOGLE-谷歌
 - RULE-SET,ACL-UnBan,DIRECT

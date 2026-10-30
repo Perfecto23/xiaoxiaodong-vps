@@ -2,7 +2,7 @@
 layout: ../../../layouts/Guide.astro
 step: 2
 need: A computer; for the AI route, a paid Claude or ChatGPT plan
-description: Get a terminal ready and install Claude Code or Codex. No AI account? Take the manual route.
+description: Test whether your AI can run commands; if it can, go straight to step 3, otherwise install Claude Code or Codex. No AI account? Take the manual route.
 ---
 import Callout from "../../../components/Callout.astro";
 import Term from "../../../components/Term.astro";
@@ -15,7 +15,18 @@ import Copy from "../../../components/Copy.astro";
 
 Prepare the tools for the next step: a <Term k="终端" text="terminal" /> to type commands into, and — on the AI route — an AI assistant that runs commands for you.
 
-Whichever route you take, **you need the terminal**: the AI works inside it too.
+Whichever route you take, **you need to be able to open a terminal**: the manual route types commands there, and the AI route may ask you to type the server password there once.
+
+## Test first: can your AI run commands?
+
+If you already have an AI tool, tell it:
+
+<Copy id="ai-test" title="Test message for the AI" code="Please run whoami on my computer and tell me the result." />
+
+- **It actually runs it and answers with a user name**: it works. Once you can open a terminal (first thing below), skip "install an AI assistant" and go straight to step 3.
+- **It tells you to run it yourself, or says it can't**: it's chat-only and can't do this for you. Install Claude Code or Codex below, or take the manual route.
+
+On Windows, also have it run `uname -a`: the answer must include `Linux`, meaning it works inside <Term k="WSL" /> (the setup's scripts only run there). If not, install one inside WSL as below.
 
 ## First: open a terminal
 
@@ -42,7 +53,7 @@ Paste a command, press Enter and wait. A fresh `$` or `%` line means the command
 
 If you won't use AI, the terminal is all you need. Go to the next step and choose "Type it yourself".
 
-## AI route: install an AI assistant
+## No AI that runs commands yet: install one
 
 Pick one — whichever you have an account for:
 
@@ -106,6 +117,6 @@ The AI assistants themselves run on Windows, but this setup's scripts need Linux
 
 <Checkpoint id="step2" items={[
   "I can open a terminal (Windows: Ubuntu in WSL)",
-  "(AI route) Typing claude or codex opens the assistant, and I'm logged in",
+  "(AI route) My AI passed the test above: it actually ran whoami",
   "(Manual route) I know to choose “Type it yourself” in the next step",
 ]} />

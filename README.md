@@ -23,15 +23,19 @@
 
 ### 1. 买一台服务器
 
-现在推荐直接买**搬瓦工**，线路稳定，我自己一直在用：
+现在推荐直接买**搬瓦工**，我自己一直在用。
 
-**[购买搬瓦工 BandwagonHost](https://bandwagonhost.com/aff.php?aff=83651&a=add&pid=87&billingcycle=quarterly&configoption%5B17%5D=55)**
+推荐这种服务器，是我**真金白银砸出来的经验、头破血流换来的教训**：它的线路针对国内做了优化，而且稳定到让我成了铁粉。
 
-这个链接里的套餐每月 **1T 流量**，个人和家人日常使用足够。
+**[购买搬瓦工 BandwagonHost](https://bandwagonhost.com/aff.php?aff=83651&a=add&pid=88&billingcycle=quarterly&configoption%5B17%5D=55)**
 
-[DMIT](https://www.dmit.io/aff.php?aff=23544) 也不错，但现在缺货，不用等。
+这个链接里的套餐每月 **2T 流量**、2G 内存，洛杉矶 CN2 GIA 机房，个人和家人日常使用绰绰有余。
 
-> 两个都是我的邀请链接，通过它们购买我可能获得佣金，这部分收入我会用于慈善相关工作。价格和库存以官网为准。
+原来推荐的 ~~[1T 套餐](https://bandwagonhost.com/aff.php?aff=83651&a=add&pid=87&billingcycle=quarterly&configoption%5B17%5D=55)~~ 现在缺货，点进去买不了。
+
+[DMIT](https://www.dmit.io/aff.php?aff=23544) 也是我很喜欢用的，可惜现在缺货，不用等。
+
+> 这些都是我的邀请链接，通过它们购买我可能获得佣金，这部分收入我会用于慈善相关工作。价格和库存以官网为准。
 
 系统选 **Ubuntu 24.04**。开通后在后台记下三样东西：**服务器 IP、root 密码（或密钥文件）、SSH 端口**。
 
@@ -45,6 +49,7 @@
 方案地址：https://github.com/nevertoday/xiaoxiaodong-vps
 请先把这个项目下载到本机，完整阅读 skills/xiaoxiaodong-vps/SKILL.md，
 严格按里面的步骤和规则，用项目里的脚本完成部署和验收。
+如果你不能在我的电脑上执行命令，请直接告诉我，不要让我一条条手动敲命令。
 
 我的服务器：
 - IP：
@@ -58,6 +63,7 @@
 - **IP**：填后台看到的服务器 IP。
 - **登录方式**：如果服务商给的是密钥文件，改成 `密钥文件：文件路径`（zip 也行）。
 - **名字**：`bwg` 换成你想要的名字，以后输入 `ssh 这个名字` 就能登录服务器。
+- **搬瓦工（建议加上）**：在那段话最后加一行 `- 搬瓦工 VEID 和 API Key：…`（在 KiwiVM 左侧菜单的「API」页，[怎么找](https://vps.xiaoxiaodong.ai/howto/traffic-and-ip/)）。这样客户端里的流量额度、已用量、重置日直接读搬瓦工后台，1T、2T 套餐都对得上；不加也能用，默认按每月 1000G 显示。
 
 用户名和端口不是 root / 22 的，把"默认"改成实际值。
 
@@ -94,7 +100,10 @@ cp -R xiaoxiaodong-vps/skills/xiaoxiaodong-vps ~/.codex/skills/
 - **软路由（OpenClash）**：同一个 Clash 订阅地址就能用，家里所有设备都走这条线路。在「配置订阅」里添加地址（别上传 yaml 文件，否则看不到流量用量，规则也不会自动更新），关闭「在线订阅转换」，内核选 Meta。
 - **已经在用 v2rayN（Windows / Mac / Linux）**：也能用，但只是备选。导入「Shadowrocket（iPhone）」那一行的订阅地址（不是 Clash 那一行），路由选「绕过大陆」，打开 TUN 防 WebRTC 泄露。这个订阅只有节点，没有 AI 分流、微信直连这些规则，所以电脑上仍然首推 Clash Verge Rev。详见 [v2rayN 教程](https://vps.xiaoxiaodong.ai/howto/v2rayn/)。
 
-导入后打开 <https://ip.net.coffee/claude/>，显示的是你服务器的 IP 就说明通了。
+导入后打开 <https://ip.net.coffee/claude/>，显示的是你服务器的 IP 就说明通了。顺便看两处：
+
+1. **先看有没有泄露**：DNS 出口不在中国，WebRTC 的 UDP 出口是你服务器的 IP（电脑上看）。
+2. **再看「Claude AI 信任评分」**：低于 70 分的话，可以发邮件给服务商（比如搬瓦工）退掉这台，重新买一台，部署好再测一次，到 70 分以上就行。邮件可以直接复制 [这几段模板](https://vps.xiaoxiaodong.ai/howto/refund-rebuy/)。
 
 更详细的设置见 [客户端与使用建议](./docs/客户端与使用建议.md)。
 
@@ -102,7 +111,7 @@ cp -R xiaoxiaodong-vps/skills/xiaoxiaodong-vps ~/.codex/skills/
 
 - **出发前配好，并测试一遍**。到了网络受限的地方，下载项目、打开 AI 工具都可能变困难。
 - 手机和电脑都装好客户端、导入订阅，确认两个节点都能连。
-- 当地有的网络连不上服务器时，先换网络试（酒店 Wi-Fi、手机流量、换运营商）。都连不上，多半是这个 IP 在当地被限制了，配置改不好，要找服务商换 IP。
+- 同一台服务器，换个地方、换家运营商，速度可能不一样，这很正常。哪里连不上，先换个网络试试（酒店 Wi-Fi、手机流量、换运营商）；都不行的话，多半是这个 IP 在当地被限制了，找服务商换个新 IP 就好。
 - 线路只给自己和家人用，不要分享给别人。
 
 ## 以后要检查服务器
@@ -120,14 +129,18 @@ cp -R xiaoxiaodong-vps/skills/xiaoxiaodong-vps ~/.codex/skills/
 
 遇到问题先看 [常见问题](./skills/xiaoxiaodong-vps/references/troubleshooting.md)。想了解每个设计的原因，看 [方案详解](./skills/xiaoxiaodong-vps/references/design.md)。
 
+## 反馈与建议
+
+对项目有建议，或者发现哪里没写清楚、照做不成功，欢迎到 [GitHub 提 Issue](https://github.com/nevertoday/xiaoxiaodong-vps/issues)，也可以[在 X 上私信我](https://x.com/xiaoxiaodong)（@xiaoxiaodong），或者加我（小小东）的微信反馈，我会补进教程。
+
+<img src="https://vip.xiaoxiaodong.ai/site-assets/wechat-qr.png" width="160" alt="小小东的微信二维码">
+
 ## 隐私
 
 - 项目里没有任何真实服务器的信息。
 - 每台服务器的密码、密钥、订阅地址、Key 都是部署时新生成的，只保存在服务器和你自己的电脑上，AI 不会在聊天里显示。
 - 登录信息文件、订阅地址和 Key 不要发群、截图或上传。
 - 发现安全问题请看 [SECURITY.md](./SECURITY.md)。
-
-能不能连上、速度如何，还取决于当地网络和服务器线路。这套方案保证服务器配置正确，但保证不了每个国家、每个运营商都能连通同一个 IP。
 
 ## License
 

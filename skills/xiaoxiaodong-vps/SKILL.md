@@ -26,7 +26,7 @@ description: 按小小东 VPS 方案，把一台全新的 Debian / Ubuntu VPS �
 
 ## 第一步：问用户要信息
 
-用户常常是复制 README 里的那段话来的，消息里已经写了 IP、登录方式、名称。**已经给了的不要再问**，只补问缺的必填项；"默认"表示 root / 22；可选项没写就用默认值。缺信息时用一条消息问齐，不要一项一项追问：
+用户常常是复制 README 里的那段话来的，消息里已经写了 IP、登录方式、名称。**已经给了的不要再问**，只补问缺的必填项；"默认"表示 root / 22；可选项没写就用默认值。例外：用户提到搬瓦工、或名字用的是 bwg，却没给第 7 项时，补问时（没有要补问的就在部署前）顺带问一次 VEID 和 API Key，说明不给的话客户端只能按默认 1000G 显示，而搬瓦工的套餐有 1T 也有 2T。缺信息时用一条消息问齐，不要一项一项追问：
 
 ```text
 请告诉我这几项（服务商后台都能看到）：
@@ -96,7 +96,7 @@ bash "$R" 名称 verify --full
 
 ## 第四步：交付
 
-1. `verify --full` 必须全部 PASS。有 FAIL 就先修，修不了就如实告诉用户哪一项没通过、影响是什么。
+1. `verify --full` 必须全部 PASS。有 FAIL 就先修，修不了就如实告诉用户哪一项没通过、影响是什么；如果是教程或脚本的问题，建议用户到 GitHub 提 Issue（见 troubleshooting 最后一节）。
 2. 保存登录信息到本机（不会显示在终端）：
 
    ```bash
@@ -116,7 +116,7 @@ bash "$R" 名称 verify --full
    - 登录信息文件的路径（让用户自己打开，你不要读出来）；
    - 电脑装 Clash Verge Rev，导入文件里的 **Clash 订阅**，选"规则"模式并打开"虚拟网卡模式"（TUN，第一次按提示安装服务；只开系统代理时，浏览器的 WebRTC 会暴露真实 IP）；iPhone 用 Shadowrocket 导入 **Shadowrocket 订阅**；路由器 OpenClash 用 Clash 订阅；
    - CLIProxyAPI 现在是空的，要在管理中心添加自己的上游账号或供应商 Key；
-   - 导入后打开 <https://ip.net.coffee/claude/>，显示服务器的 IP 就说明通了；要出差的话，出发前在手机和电脑上都测一遍。
+   - 导入后打开 <https://ip.net.coffee/claude/>，显示服务器的 IP 就说明通了；重点看有没有泄露（DNS 出口不在中国、WebRTC 的 UDP 出口是服务器 IP），其次看「Claude AI 信任评分」，低于 70 分可以发邮件给服务商（比如搬瓦工）退掉这台、重新买一台，部署后再测，到 70 分以上就行，邮件模板在 <https://vps.xiaoxiaodong.ai/howto/refund-rebuy/>（不要说成「换 IP」，也不要说机房 IP 不会是满分）；要出差的话，出发前在手机和电脑上都测一遍。
    - 每个客户端怎么装、怎么检查泄露、AI 接口怎么用，都有图文教程：<https://vps.xiaoxiaodong.ai>（备用 <https://nevertoday.github.io/xiaoxiaodong-vps/>）。
 
 ## 以后的复核和维护

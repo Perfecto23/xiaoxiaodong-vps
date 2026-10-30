@@ -105,9 +105,14 @@ Clash 订阅自带完整规则（模板在 `scripts/server/files/clash-template.
 
 AI 规则必须排在通用规则前面，否则 Gemini 的登录、静态资源域名可能被分到 Google 或直连组，出口不一致，容易出现"页面打得开但用不了"。
 
-`dl.google.com` 和 `dl.l.google.com` 是 Google Play 下载应用和更新用的域名。ACL4SSR 的 UnBan、GoogleCN 规则集把它们判成直连，连到国内运营商机房里的 Google 缓存节点；Play 的商店接口却走代理，前后出口不一致，部分地区（如浙江电信）会一直卡在「等待中」或更新失败（[ACL4SSR #77](https://github.com/ACL4SSR/ACL4SSR/issues/77)）。所以这两个域名单独写在这两个规则集前面，和 Play 的其他域名一起走 `GOOGLE-谷歌`。代价是 Chrome 等 Google 软件的下载也走服务器流量。
+**Google Play 下载。** 国行手机（国内版系统自带 Google 服务）下载应用时，Play 会分配 Google 在北京（`sn-2x3`）、上海（`sn-ni5`）、广州（`sn-j5o`）的缓存节点，地址形如 `rr1---sn-2x3edn7e.xn--ngstr-lra8j.com`，同样的节点也挂在 `gvt1.com`、`googlevideo.com` 和后来新加的 `xn--ngstr-cn-8za9o.com` 下面。这些节点从国内直连正常，从境外服务器连过去，TCP 能通但 TLS 握手没有回应（10-22 实测：路由器直连 204 / 0.2 秒，美国服务器超时）。ACL4SSR 把它们和 Google 其他域名一起送进代理，Play 就一直「等待中」。所以在 Google、YouTube 规则集前面加了：
 
-规则顺序以小小东最新的生产服务器为基础，再加上面这两条（137 条，27 个规则集）。
+- 一条 `DOMAIN-REGEX`，只让这三个机房的节点直连，和 v2fly 的 `google-play@cn`（[#2436](https://github.com/v2fly/domain-list-community/pull/2436)、[#2468](https://github.com/v2fly/domain-list-community/pull/2468)）一致；`redirector.c.play.google.com` 同样直连；讨论见 [gfwlist #2255](https://github.com/gfwlist/gfwlist/issues/2255)。Play 的商店接口、香港等境外节点照旧走代理。
+- `dl.google.com`、`dl.l.google.com` 走 `GOOGLE-谷歌`：ACL4SSR 的 UnBan、GoogleCN 把它们判成直连，连到国内运营商机房的缓存，部分地区不通（[ACL4SSR #77](https://github.com/ACL4SSR/ACL4SSR/issues/77)）。代价是 Chrome 等 Google 软件的下载也走服务器流量。
+
+这些国内节点没有备案，Google 哪天撤掉或换机房代码，正则要跟着改。
+
+规则顺序以小小东最新的生产服务器为基础，再加上面这四条（139 条，27 个规则集）。
 
 **规则文件放在你自己的服务器上**：服务器每天从 ACL4SSR（`Clash/*.list`，转换成规则集格式）、MetaCubeX、misakaio/chnroutes2 的公开地址下载一次（`rule-sources.json`），保存到 `/var/lib/xxd-vps/rules/`，客户端只从 `https://你的IP:2096/rules/` 下载。好处是路由器在国内也不用直连 GitHub；某个上游下载失败时保留上一份，不会出现空规则。部署和验收时还会检查每个规则集声明的格式和文件实际内容一致（上游改过格式时会被发现）。
 

@@ -1,0 +1,48 @@
+---
+// 反馈与建议：首页、常见问题末尾的卡片（xxd 分层卡片 LayerCard）。主体：GitHub、X 私信两个按钮，小小东微信并列（二维码直接显示）；
+// 下面洗色的一条：发截图前先打码
+import { langOf } from "../data/nav.js";
+const en = langOf(Astro.url.pathname) === "en";
+const QR = "https://vip.xiaoxiaodong.ai/site-assets/wechat-qr.png";
+const ISSUE = "https://github.com/nevertoday/xiaoxiaodong-vps/issues/new";
+const X = "https://x.com/xiaoxiaodong";
+const X_MARK = '<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>';
+const T = en
+  ? {
+      h: "Feedback and suggestions",
+      p: "Have a suggestion, or found a step that's unclear or doesn't work as written? Let me know and I'll add it to the guide.",
+      btn: "Give feedback on GitHub",
+      x: "Message me on X",
+      cap: "Or add me on WeChat",
+      mobile: "On a phone: long-press to save, then scan it from your photos in WeChat.",
+      alt: "Xiaoxiaodong's WeChat QR code",
+      privacy: "Before sending screenshots, blur IPs, subscription URLs and passwords.",
+    }
+  : {
+      h: "反馈与建议",
+      p: "对项目有建议，或者发现哪一步没写清楚、照做不成功，欢迎告诉我，我会补进教程。",
+      btn: "到 GitHub 反馈",
+      x: "在 X 上私信我",
+      cap: "也可以加我微信反馈",
+      mobile: "手机上：长按保存图片，再用微信扫一扫从相册识别。",
+      alt: "小小东的微信二维码",
+      privacy: "发截图前，先把 IP、订阅地址和密码打码。",
+    };
+---
+<section class="xxd-layer contact" aria-labelledby="h-contact">
+  <div class="xxd-layer__primary contact__body">
+    <div class="contact__text">
+      <h2 id="h-contact">{T.h}</h2>
+      <p>{T.p}</p>
+      <div class="contact__btns">
+        <a class="xxd-btn" href={ISSUE} rel="noopener">{T.btn}<i data-xxd-icon="ArrowRight" data-size="16"></i></a>
+        <a class="xxd-btn" href={X} rel="noopener"><Fragment set:html={X_MARK} />{T.x}</a>
+      </div>
+    </div>
+    <figure class="contact__qr">
+      <img src={QR} width="160" height="165" alt={T.alt} loading="lazy" decoding="async" />
+      <figcaption>{T.cap}<span class="contact__mobile">{T.mobile}</span></figcaption>
+    </figure>
+  </div>
+  <p class="xxd-layer__secondary contact__note"><i data-xxd-icon="EyeOff" data-size="14"></i>{T.privacy}</p>
+</section>

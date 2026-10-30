@@ -21,15 +21,19 @@ How it works: buy your own overseas server, let an AI set it up with this projec
 
 ### 1. Buy a server
 
-Right now, go with **BandwagonHost**. The network is stable and it's what I use myself:
+Right now, go with **BandwagonHost** — it's what I use myself.
 
-**[Buy BandwagonHost](https://bandwagonhost.com/aff.php?aff=83651&a=add&pid=87&billingcycle=quarterly&configoption%5B17%5D=55)**
+I recommend this kind of server because of **lessons I paid for with real money and learned the hard way**: its routes are optimized for connections from mainland China, and it's so stable it turned me into a die-hard fan.
 
-The plan in this link includes **1 TB of traffic per month** — plenty for you and your family.
+**[Buy BandwagonHost](https://bandwagonhost.com/aff.php?aff=83651&a=add&pid=88&billingcycle=quarterly&configoption%5B17%5D=55)**
 
-[DMIT](https://www.dmit.io/aff.php?aff=23544) is also good, but it's out of stock at the moment. No need to wait for it.
+The plan in this link includes **2 TB of traffic per month** and 2 GB of RAM, in a Los Angeles CN2 GIA data center — more than enough for you and your family.
 
-> Both are my referral links. I may earn a commission if you buy through them, and I will use that income for charitable work. Prices and stock are as shown on the official sites.
+The ~~[1 TB plan](https://bandwagonhost.com/aff.php?aff=83651&a=add&pid=87&billingcycle=quarterly&configoption%5B17%5D=55)~~ I recommended before is out of stock and can't be ordered right now.
+
+[DMIT](https://www.dmit.io/aff.php?aff=23544) is another one I really like using, but it's out of stock at the moment. No need to wait for it.
+
+> These are all my referral links. I may earn a commission if you buy through them, and I will use that income for charitable work. Prices and stock are as shown on the official sites.
 
 Choose **Ubuntu 24.04** as the system. Once the server is ready, write down three things from the control panel: **server IP, root password (or key file) and SSH port**.
 
@@ -58,6 +62,7 @@ You only need to change three things:
 - **IP**: the server IP from the control panel.
 - **Login**: if your provider gave you a key file, change it to `key file: path to the file` (a zip is fine).
 - **Name**: replace `bwg` with any name you like. Afterwards, typing `ssh that-name` logs you into the server.
+- **BandwagonHost (recommended)**: add a line at the end, `- BandwagonHost VEID and API Key: …` (on the API page in KiwiVM's left menu — [how to find them](https://vps.xiaoxiaodong.ai/en/howto/traffic-and-ip/)). Your apps then read the traffic quota, usage and reset day straight from BandwagonHost, so 1 TB and 2 TB plans both show correctly. It works without them too; usage is then shown against 1000 GB a month.
 
 If the user and port are not root / 22, replace "default" with the real values.
 
@@ -94,13 +99,16 @@ After that, just tell the AI "use xiaoxiaodong-vps to set up my new server" and 
 - **Router (OpenClash)**: the same Clash subscription URL works, so every device at home uses the line. Add it under Config Subscribe (don't upload the YAML file, or the usage bar won't show and rules won't auto-update), turn off online subscription conversion, and use the Meta core.
 - **Already using v2rayN (Windows / Mac / Linux)**: it works, but only as a fallback. Import the subscription URL from the "Shadowrocket (iPhone)" row (not the Clash row), pick the "bypass mainland China" routing, and turn on TUN against WebRTC leaks. That subscription has only the nodes — none of the AI routing or WeChat-direct rules — so Clash Verge Rev remains the recommended desktop app. See the [v2rayN guide](https://vps.xiaoxiaodong.ai/en/howto/v2rayn/).
 
-Then open <https://ip.net.coffee/claude/>. If it shows your server's IP, you're connected.
+Then open <https://ip.net.coffee/claude/>. If it shows your server's IP, you're connected. While you're there, check two things:
+
+1. **Leaks first**: the DNS exit is not in China, and WebRTC's UDP exit is your server's IP (check on a computer).
+2. **Then the Claude AI trust score**: if it's below 70, you can email your provider (for example BandwagonHost) to cancel this server, buy a new one, deploy it and test again. Once it's 70 or above, you're set. You can copy [these email templates](https://vps.xiaoxiaodong.ai/en/howto/refund-rebuy/).
 
 ## Before you travel
 
 - **Set everything up and test it before you leave.** Once you're on a restricted network, downloading the project or even opening AI tools may get much harder.
 - Install the clients and import the subscriptions on both phone and computer, and check that both nodes connect.
-- If some local network can't reach your server, try another one first (hotel Wi-Fi, mobile data, another carrier). If none work, the server's IP is probably blocked there. No configuration change will fix that; ask your provider for a new IP.
+- The same server can feel faster or slower depending on where you are and which carrier you use. That's normal. If it won't connect somewhere, try another network first (hotel Wi-Fi, mobile data, another carrier). If none work, the IP is probably blocked there; your provider can give you a new one.
 - Keep the connection to yourself and your family. Don't share it.
 
 ## Checking your server later
@@ -120,14 +128,18 @@ Please talk to me in English.
 
 Detailed docs ([troubleshooting](./skills/xiaoxiaodong-vps/references/troubleshooting.md), [design notes](./skills/xiaoxiaodong-vps/references/design.md)) are currently in Chinese; your AI can read them for you.
 
+## Feedback and suggestions
+
+Have a suggestion, or found something unclear or not working as written? [Open an issue on GitHub](https://github.com/nevertoday/xiaoxiaodong-vps/issues), [message me on X](https://x.com/xiaoxiaodong) (@xiaoxiaodong), or add me (Xiaoxiaodong, 小小东) on WeChat. I'll add it to the guide.
+
+<img src="https://vip.xiaoxiaodong.ai/site-assets/wechat-qr.png" width="160" alt="Xiaoxiaodong's WeChat QR code">
+
 ## Privacy
 
 - This project contains no information about any real server.
 - Every server's passwords, keys, subscription URLs and API keys are freshly generated during setup and stored only on the server and your own computer. The AI doesn't show them in the chat.
 - Don't post your login file, subscription URLs or keys anywhere, and don't screenshot them.
 - To report a security issue, see [SECURITY.md](./SECURITY.md).
-
-Whether you can connect, and how fast, also depends on the local network and the server's routing. This project makes sure the server is configured correctly. It can't guarantee that one IP is reachable from every country and every carrier.
 
 ## License
 

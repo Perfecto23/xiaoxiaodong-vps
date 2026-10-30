@@ -21,15 +21,19 @@ Le principe : vous achetez votre propre serveur à l'étranger, une IA le config
 
 ### 1. Achetez un serveur
 
-En ce moment, prenez **BandwagonHost**. Le réseau est stable, c'est celui que j'utilise moi-même :
+En ce moment, prenez **BandwagonHost** ; c'est celui que j'utilise moi-même.
 
-**[Acheter BandwagonHost](https://bandwagonhost.com/aff.php?aff=83651&a=add&pid=87&billingcycle=quarterly&configoption%5B17%5D=55)**
+Si je recommande ce type de serveur, c'est **une leçon payée de ma poche et apprise à la dure** : ses routes sont optimisées pour les connexions depuis la Chine continentale, et elles sont si stables que je ne jure plus que par elles.
 
-L'offre de ce lien inclut **1 To de trafic par mois**, largement assez pour vous et votre famille.
+**[Acheter BandwagonHost](https://bandwagonhost.com/aff.php?aff=83651&a=add&pid=88&billingcycle=quarterly&configoption%5B17%5D=55)**
 
-[DMIT](https://www.dmit.io/aff.php?aff=23544) est bien aussi, mais il est en rupture de stock. Inutile d'attendre.
+L'offre de ce lien inclut **2 To de trafic par mois** et 2 Go de RAM, dans un centre de données CN2 GIA à Los Angeles : largement de quoi faire pour vous et votre famille.
 
-> Ce sont mes deux liens de parrainage. Je peux toucher une commission si vous achetez par leur biais, et je consacrerai ce revenu à des actions caritatives. Prix et disponibilité selon les sites officiels.
+L'~~[offre 1 To](https://bandwagonhost.com/aff.php?aff=83651&a=add&pid=87&billingcycle=quarterly&configoption%5B17%5D=55)~~ que je recommandais avant est en rupture de stock et ne peut pas être commandée.
+
+[DMIT](https://www.dmit.io/aff.php?aff=23544) fait aussi partie de mes préférés, mais il est malheureusement en rupture de stock. Inutile d'attendre.
+
+> Ce sont tous mes liens de parrainage. Je peux toucher une commission si vous achetez par leur biais, et je consacrerai ce revenu à des actions caritatives. Prix et disponibilité selon les sites officiels.
 
 Choisissez **Ubuntu 24.04** comme système. Une fois le serveur prêt, notez trois informations dans le panneau : **IP du serveur, mot de passe root (ou fichier de clé) et port SSH**.
 
@@ -58,6 +62,7 @@ Il n'y a que trois choses à changer :
 - **IP** : l'IP du serveur indiquée dans le panneau.
 - **Connexion** : si votre fournisseur vous a donné un fichier de clé, remplacez par `fichier de clé : chemin du fichier` (un zip convient).
 - **Nom** : remplacez `bwg` par le nom de votre choix. Ensuite, il suffit de taper `ssh ce-nom` pour entrer sur le serveur.
+- **BandwagonHost (recommandé)** : ajoutez à la fin la ligne `- VEID et API Key BandwagonHost : …` (page « API » du menu de gauche de KiwiVM, [comment les trouver](https://vps.xiaoxiaodong.ai/en/howto/traffic-and-ip/)). Vos applications liront alors le quota, la consommation et le jour de remise à zéro directement chez BandwagonHost : l'affichage est juste pour l'offre 1 To comme pour 2 To. Sans eux, ça marche aussi ; l'usage est alors affiché sur 1000 Go par mois.
 
 Si l'utilisateur et le port ne sont pas root / 22, remplacez « par défaut » par les vraies valeurs.
 
@@ -118,6 +123,12 @@ N'affichez ni mots de passe, ni URLs d'abonnement, ni clés dans la discussion. 
 ```
 
 La documentation détaillée ([dépannage](./skills/xiaoxiaodong-vps/references/troubleshooting.md), [notes de conception](./skills/xiaoxiaodong-vps/references/design.md)) n'existe pour l'instant qu'en chinois ; votre IA peut la lire pour vous.
+
+## Retours et suggestions
+
+Une suggestion, ou un point peu clair ou qui ne fonctionne pas comme indiqué ? [Ouvrez une issue sur GitHub](https://github.com/nevertoday/xiaoxiaodong-vps/issues), [écrivez-moi sur X](https://x.com/xiaoxiaodong) (@xiaoxiaodong) ou ajoutez-moi sur WeChat (Xiaoxiaodong, 小小东). Je l'ajouterai au guide.
+
+<img src="https://vip.xiaoxiaodong.ai/site-assets/wechat-qr.png" width="160" alt="QR code WeChat de Xiaoxiaodong">
 
 ## Confidentialité
 

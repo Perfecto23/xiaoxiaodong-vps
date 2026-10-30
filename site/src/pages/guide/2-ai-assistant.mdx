@@ -2,7 +2,7 @@
 layout: ../../layouts/Guide.astro
 step: 2
 need: 电脑；AI 路线还要 Claude 或 ChatGPT 的付费账号
-description: 准备好能执行命令的环境，装好 Claude Code 或 Codex。没有 AI 账号也能走手动路线。
+description: 测一下你的 AI 能不能执行命令；能的话直接去第 3 步，不能的话装 Claude Code 或 Codex。没有 AI 账号也能走手动路线。
 ---
 import Callout from "../../components/Callout.astro";
 import Term from "../../components/Term.astro";
@@ -15,7 +15,18 @@ import Copy from "../../components/Copy.astro";
 
 准备好下一步要用的工具：一个能输入命令的<Term k="终端" />，以及（如果走 AI 路线）一个能替你执行命令的 AI 助手。
 
-不管走哪条路线，**终端都要准备**：AI 也是在终端里替你干活的。
+不管走哪条路线，**终端都要会打开**：手动路线在里面敲命令，AI 路线也可能请你在里面输入一次服务器密码。
+
+## 先测一下：你的 AI 能不能执行命令
+
+已经有 AI 工具的，先对它说：
+
+<Copy id="ai-test" title="发给 AI 的测试" code="请在我的电脑上运行 whoami，告诉我结果。" />
+
+- **它真的运行了，回答出一个用户名**：能用。打开终端（下面第一件事）以后，跳过「装一个 AI 助手」，直接去第 3 步。
+- **它让你自己去运行，或者说做不到**：它只能聊天，替你配不了。按下面装 Claude Code 或 Codex，或者走手动路线。
+
+Windows 上还要再让它运行一次 `uname -a`，回答里要有 `Linux`，说明它在 <Term k="WSL" /> 里工作（方案的脚本只能在那里运行）。没有的话，按下面在 WSL 里装一个。
 
 ## 第一件事：打开终端
 
@@ -42,7 +53,7 @@ Mac 自带终端：按 <kbd class="xxd-kbd">⌘</kbd> + <kbd class="xxd-kbd">空
 
 不打算用 AI 的话，终端准备好就可以去下一步，选「自己照着敲」。
 
-## 走 AI 路线的：装一个 AI 助手
+## 还没有能执行命令的 AI：装一个
 
 两个选一个就行。哪个你有账号就装哪个：
 
@@ -106,6 +117,6 @@ AI 助手本身可以在 Windows 上直接装，但这套方案的脚本需要 b
 
 <Checkpoint id="step2" items={[
   "我能打开终端（Windows：WSL 里的 Ubuntu）",
-  "（AI 路线）输入 claude 或 codex 能打开 AI 助手，并且已经登录",
+  "（AI 路线）我的 AI 通过了上面的测试：真的运行了 whoami",
   "（手动路线）我知道下一步要选「自己照着敲」",
 ]} />

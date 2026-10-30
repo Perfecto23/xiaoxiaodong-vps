@@ -17,14 +17,14 @@ import Shot from "../../components/Shot.astro";
 
 ## 1. 下单
 
-1. 打开 [搬瓦工购买链接](https://bandwagonhost.com/aff.php?aff=83651&a=add&pid=87&billingcycle=quarterly&configoption%5B17%5D=55)（作者的邀请链接，见下面说明）。
-2. 确认套餐（链接里的套餐每月 1T 流量）、付款周期（Billing Cycle），机房（Location）选**洛杉矶**相关的选项。
+1. 打开 [搬瓦工购买链接](https://bandwagonhost.com/aff.php?aff=83651&a=add&pid=88&billingcycle=quarterly&configoption%5B17%5D=55)（作者的邀请链接，见下面说明）。原来推荐的 1T 套餐现在缺货，不用等。
+2. 确认套餐（链接里的套餐每月 2T 流量、2G 内存）、付款周期（Billing Cycle），机房（Location）选**洛杉矶**相关的选项。
 3. 点加入购物车，结账时注册账号（推荐用 Gmail），付款方式可以选**支付宝**（Alipay）。
 
 <Shot src="bwg-order.webp" w={999} h={311} alt="搬瓦工下单页的付款周期和机房选项" caption="下单页：红框是付款周期（Billing Cycle）和机房（Location）两项。价格以官网为准。" />
 
 <Callout type="tip" title="关于链接">
-这是作者的邀请链接，通过它购买作者可能获得佣金，这部分收入会用于慈善相关工作。价格、库存和可选机房以官网为准。
+这些都是作者的邀请链接，通过它们购买作者可能获得佣金，这部分收入会用于慈善相关工作。价格、库存和可选机房以官网为准。
 </Callout>
 
 ## 2. 进入 KiwiVM 控制面板
@@ -36,10 +36,11 @@ import Shot from "../../components/Shot.astro";
 
 - **IP 地址**和 **SSH 端口**：KiwiVM 首页（Main controls）就有显示。搬瓦工的 SSH 端口**不一定是 22**，以页面为准。
 - **root 密码**：开通邮件里会给；找不到的话，在 KiwiVM 里用「Root password modification」生成一个新的（会显示一次，马上抄下来）。
+- **VEID 和 API Key**（可选，建议记下）：在 KiwiVM 左侧菜单的 **API** 页。部署时一起告诉 AI，客户端里的流量额度、已用量和重置日就直接读后台，1T、2T 套餐都对得上。怎么找见 [查看流量](/howto/traffic-and-ip/)。
 
 ## 4. 确认系统
 
-KiwiVM 首页能看到当前系统。如果不是 Ubuntu 22.04 以上或 Debian 12 以上，按 [后台重装系统为 Ubuntu](/howto/reinstall-os/) 重装成 Ubuntu 24.04。
+KiwiVM 首页的 Operating system 一栏就是当前系统。搬瓦工开通时装的是默认系统，多半要重装一次：先在首页点 **Stop** 关机，再点左侧 **Install new OS**，选 Ubuntu 24.04，勾选同意后点 **Reload**，几分钟后抄下页面显示的新 root 密码和 SSH 端口。每一步的细节见 [后台重装系统为 Ubuntu](/howto/reinstall-os/)。
 
 <Callout type="ok">
 KiwiVM 里服务器状态是运行中（Running），你已经记下了 IP、SSH 端口和 root 密码，系统是 Ubuntu 24.04。

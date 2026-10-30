@@ -28,7 +28,7 @@ const title = t(me, "title", lang);
   {sameGroup.length > 0 && (
     <nav class="related" aria-label={en ? "Related articles" : "同类文章"}>
       <p class="related__title">{en ? `More in “${group}”` : `「${group}」的其他文章`}</p>
-      <ul>{sameGroup.map((h) => <li><a href={howtoHref(h.slug, lang)}>{t(h, "title", lang)}</a></li>)}</ul>
+      <ul>{sameGroup.map((h) => <li><a class="xxd-link" href={howtoHref(h.slug, lang)}>{t(h, "title", lang)}</a></li>)}</ul>
     </nav>
   )}
 </Site>

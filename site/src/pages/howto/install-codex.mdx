@@ -11,6 +11,7 @@ import Term from "../../components/Term.astro";
 import Q from "../../components/Q.astro";
 import Copy from "../../components/Copy.astro";
 import Tabs from "../../components/Tabs.astro";
+import Cmd from "../../components/Cmd.astro";
 
 ## 需要什么
 
@@ -24,7 +25,7 @@ import Tabs from "../../components/Tabs.astro";
 
 <Copy id="cx" lang="bash" title="安装 Codex（Mac、Linux、WSL）" code="curl -fsSL https://chatgpt.com/codex/install.sh | sh" />
 
-Mac 用 Homebrew 的也可以运行 `brew install --cask codex`。装好后**关掉终端，重新打开**，检查：
+Mac 用 Homebrew 的也可以运行 <Cmd c="brew install --cask codex" />。装好后**关掉终端，重新打开**，检查：
 
 <Copy id="cx-v" lang="bash" title="检查版本" code="codex --version" />
 

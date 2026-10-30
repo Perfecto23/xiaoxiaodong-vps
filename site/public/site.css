@@ -2,63 +2,52 @@
    外壳（顶栏、左导航、正文、右目录）照 ui.xiaoxiaodong.ai 展示站的结构。 */
 @layer site {
   html { scroll-padding-top: 72px; }
+  /* 外壳：左导航宽度 + 整页最宽 1280px。更宽的屏幕整页居中，顶栏的内容跟着同一个宽度，
+     Logo 和导航文字左对齐、右边的工具和目录右边对齐，不会一个贴屏幕边、一个在中间 */
+  :root { --site-nav-w: 248px; --site-max: 1280px; }
   body { min-height: 100vh; }
 
   /* ---------- 顶栏 ---------- */
   .site-top {
-    position: sticky; top: 0; z-index: var(--z-dock);
-    display: flex; align-items: center; gap: var(--space-3);
-    height: 56px; padding: 0 var(--space-4);
-    border-bottom: 1px solid var(--line);
+    --site-gutter: max(0px, calc((100% - var(--site-max)) / 2));
+    position: sticky; top: 0; z-index: var(--z-dock); gap: var(--space-3);
+    padding-left: calc(var(--site-gutter) + 20px); padding-right: calc(var(--site-gutter) + var(--space-4));
     background: color-mix(in srgb, var(--bg) 94%, transparent);
     backdrop-filter: blur(10px);
   }
   .site-menu { display: none; }
-  .site-brand {
-    display: inline-flex; align-items: center; gap: 8px;
-    color: var(--ink); font: var(--weight-strong) var(--text-base) / 1 var(--font-body);
-    text-decoration: none; white-space: nowrap;
-  }
-  .site-mark {
-    width: 18px; height: 18px; border-radius: var(--r-xs);
-    background:
-      linear-gradient(var(--on-ink), var(--on-ink)) 4px 4px / 4px 4px no-repeat,
-      linear-gradient(color-mix(in srgb, var(--on-ink) 70%, transparent), color-mix(in srgb, var(--on-ink) 70%, transparent)) 10px 4px / 4px 4px no-repeat,
-      linear-gradient(color-mix(in srgb, var(--on-ink) 45%, transparent), color-mix(in srgb, var(--on-ink) 45%, transparent)) 4px 10px / 4px 4px no-repeat,
-      linear-gradient(color-mix(in srgb, var(--on-ink) 22%, transparent), color-mix(in srgb, var(--on-ink) 22%, transparent)) 10px 10px / 4px 4px no-repeat,
-      var(--ink);
-  }
+  .site-menu, .site-brand { flex: none; }
   .site-top__spacer { flex: 1; }
-  .site-appearance { display: flex; align-items: center; gap: var(--space-2); }
+  .site-tools { display: flex; flex: none; align-items: center; gap: var(--space-2); }
+  .site-tools .site-search { margin-right: var(--space-2); }
+
+  /* 外观按钮：图标跟着当前是亮还是暗；选了主题色，右下角多一个那个颜色的小圆点 */
+  .site-look { position: relative; }
+  .site-look__icon { display: inline-flex; }
+  .site-look__icon[data-for="dark"], :root[data-theme="dark"] .site-look__icon[data-for="light"] { display: none; }
+  :root[data-theme="dark"] .site-look__icon[data-for="dark"] { display: inline-flex; }
+  .site-look__dot { position: absolute; right: 4px; bottom: 4px; width: 8px; height: 8px; border: 1.5px solid var(--bg); border-radius: var(--r-circle); }
+  .site-look__dot[hidden] { display: none; }
+  .site-look-pop { width: 260px; padding: var(--space-3); }
+  .site-look__seg { display: flex; margin-top: var(--space-2); }
+  .site-look__seg > * { display: inline-flex; flex: 1; align-items: center; justify-content: center; gap: 6px; min-width: 0; padding-inline: 4px; }
+  .site-look__label { margin-top: var(--space-4); }
+  .site-look-pop .xxd-swatches { display: grid; grid-template-columns: repeat(6, 22px); justify-content: space-between; row-gap: var(--space-3); margin-top: var(--space-2); }
 
   /* ---------- 三栏 ---------- */
   /* 阅读页：正文栏限宽，目录紧跟在正文后面，不贴到屏幕最右边 */
-  .site-body { display: grid; grid-template-columns: 248px minmax(0, 760px) 200px; align-items: start; }
-  .site-body:has(> .site-main--wide) { grid-template-columns: 248px minmax(0, 1fr); }
+  .site-body { display: grid; grid-template-columns: var(--site-nav-w) minmax(0, 760px) minmax(200px, 1fr); align-items: start; max-width: var(--site-max); margin-inline: auto; }
+  .site-body:has(> .site-main--wide) { grid-template-columns: var(--site-nav-w) minmax(0, 1fr); }
 
-  .site-nav {
-    position: sticky; top: 56px; height: calc(100vh - 56px);
-    padding: var(--space-4) var(--space-3) var(--space-8);
-    overflow-y: auto; border-right: 1px solid var(--line); scrollbar-width: thin;
-  }
-  .site-nav__group + .site-nav__group { margin-top: var(--space-5); }
-  .site-nav__group h2 {
-    margin: 0 0 4px; padding: 0 8px; color: var(--muted);
-    font: var(--weight-medium) var(--text-2xs) / 1.6 var(--font-body);
-  }
-  .site-nav ul { margin: 0; padding: 0; list-style: none; }
-  .site-nav a, .site-nav .is-pending {
-    display: flex; align-items: baseline; gap: 8px;
-    padding: 5px 8px; border-radius: var(--r-xs);
-    color: var(--ink); font: var(--weight-regular) var(--text-sm) / 1.4 var(--font-body);
-    text-decoration: none; transition: background-color var(--motion-quick) ease;
-  }
-  .site-nav a:hover { background: var(--wash); transition-duration: 0s; }
-  .site-nav a[aria-current="page"] { background: var(--selected-bg); font-weight: var(--weight-medium); }
-  .site-nav .is-pending { color: var(--muted); }
-  .site-nav__num { flex: none; width: 1.2em; color: var(--muted); font: var(--text-xs) var(--font-mono); }
-  .site-nav__label { flex: 1; min-width: 0; }
-  .site-nav__tag { flex: none; color: var(--muted); font-size: var(--text-2xs); }
+  .site-nav { position: sticky; top: 56px; width: auto; height: calc(100vh - 56px); }
+  .site-nav .xxd-sidebar__body { padding: var(--space-4) var(--space-3) var(--space-8); }
+  .site-nav .xxd-sidebar__label { margin: 0; }
+  /* 教程标题不截断：长了换行 */
+  .site-nav .xxd-sidebar__item { white-space: normal; padding-block: 6px; }
+  .site-nav__num { flex: none !important; width: 1.2em; color: var(--muted); font: var(--text-xs) var(--font-mono); }
+  .site-nav .is-pending { color: var(--muted); cursor: default; }
+  .site-nav .is-pending:hover { background: transparent; }
+  .site-nav__sub { color: var(--muted); font-weight: var(--weight-regular); }
 
   .site-main { min-width: 0; padding: var(--space-8) var(--space-8) 120px; }
   .site-main--wide { grid-column: 2 / -1; }
@@ -66,13 +55,8 @@
 
   .site-toc {
     position: sticky; top: 56px; max-height: calc(100vh - 56px);
-    padding: var(--space-8) var(--space-4); overflow-y: auto; font-size: var(--text-xs);
+    padding: var(--space-8) var(--space-4); overflow-y: auto;
   }
-  .site-toc h2 { margin: 0 0 6px; color: var(--muted); font: var(--weight-medium) var(--text-2xs) / 1.6 var(--font-body); }
-  .site-toc ul { margin: 0; padding: 0; list-style: none; }
-  .site-toc li.is-sub { padding-left: 10px; }
-  .site-toc a { display: block; padding: 3px 0; color: var(--muted); text-decoration: none; }
-  .site-toc a:hover { color: var(--ink); }
 
   .site-foot {
     max-width: var(--read-width, 680px); margin-top: var(--space-8); padding-top: var(--space-4);
@@ -159,22 +143,18 @@
 
 
   /* ---------- 搜索、侧栏分组、列表链接 ---------- */
+  /* 搜索：浅灰底、无边框，和旁边的无边框按钮一家；⌘K 只是淡色提示，不再套小框 */
   .site-search {
-    display: inline-flex; flex: 0 1 260px; align-items: center; gap: 8px;
-    height: 32px; margin-left: var(--space-4); padding: 0 8px 0 10px;
-    border: 1px solid var(--line); border-radius: var(--r-sm); background: var(--bg);
-    color: var(--muted); font: var(--text-sm) var(--font-body); cursor: pointer;
+    display: inline-flex; flex: none; width: 280px; align-items: center; gap: 10px;
+    height: 34px; padding: 0 12px;
+    border: 1px solid transparent; border-radius: var(--r-sm); background: var(--gray-3);
+    color: var(--muted); font: 14px/1 var(--font-body); cursor: pointer;
+    transition: background-color .15s, border-color .15s;
   }
-  .site-search:hover { border-color: var(--line-strong); }
+  .site-search:hover { background: var(--gray-4); }
+  .site-search:focus-visible { outline: none; border-color: var(--line-strong); background: var(--bg); }
   .site-search span { flex: 1; text-align: left; }
-  .site-nav__more { margin-top: 2px; }
-  .site-nav__more summary {
-    padding: 5px 8px; color: var(--muted); font-size: var(--text-xs); cursor: pointer; list-style: none;
-  }
-  .site-nav__more summary::-webkit-details-marker { display: none; }
-  .site-nav__more summary::before { content: "▸ "; }
-  .site-nav__more[open] summary::before { content: "▾ "; }
-  .site-nav__more ul { padding-left: 10px; }
+  .site-search .xxd-kbd { min-width: 0; height: auto; padding: 0; border: 0; background: none; color: var(--muted-2); font: 12px/1 var(--font-body); letter-spacing: .08em; }
   .list-link { display: flex; flex-direction: column; color: var(--ink); text-decoration: none !important; }
   .xxd-prose .xxd-list { padding-left: 0; }
   .xxd-prose .xxd-list__item { margin: 0; }
@@ -199,7 +179,7 @@
   a.xxd-badge { text-decoration: none; color: inherit; }
 
   .shot { margin: var(--space-4) 0; }
-  .shot img { display: block; max-width: 100%; height: auto; border: 1px solid var(--line); background: #fff; }
+  .shot img { display: block; max-width: 100%; height: auto; border: 1px solid var(--line); background: #fff; } /* xxd-ignore：截图是亮色的，暗色下也垫白底 */
   .shot figcaption { margin-top: 6px; color: var(--muted); font-size: var(--text-xs); line-height: 20px; }
   .shot__stamp { color: var(--muted-2); }
 
@@ -210,9 +190,34 @@
   }
   .feedback a { color: var(--ink); }
 
+  /* ---------- 反馈与建议 ---------- */
+  /* 卡片：xxd-layer 管边框、圆角、主体和下面洗色的一条；这里只排主体里的文字和二维码 */
+  .contact { margin-top: var(--space-8); }
+  .contact__body { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: var(--space-4) var(--space-6); align-items: center; padding: var(--space-5, 20px) var(--space-6); }
+  .contact h2 { margin: 0 0 8px; }
+  /* 首页和常见问题页一个样（以前首页被 .home h2 + p 盖成了小号灰字，常见问题页是正文字号，两边不一致） */
+  .contact .contact__text p { margin: 0; color: var(--muted); font-size: var(--text-sm); line-height: 20px; }
+  .contact__btns { display: flex; flex-wrap: wrap; gap: 8px; margin-top: var(--space-3); }
+  .contact__note { margin: 0; padding-inline: var(--space-6); }
+  .contact__qr { margin: 0; text-align: center; }
+  /* 二维码在暗色下也要白底才扫得出来 */
+  .contact__qr img, .feedback__qr img { display: block; height: auto; padding: 8px; background: #fff; border: 1px solid var(--line); } /* xxd-ignore */
+  .contact__qr img { width: 160px; margin: 0 auto; }
+  .contact__qr figcaption { max-width: 180px; margin-top: 8px; color: var(--muted); font-size: var(--text-xs); line-height: 18px; }
+  .contact__mobile { display: none; }
+  /* 每页末尾：微信二维码是 xxd 的说明浮层（Popover），定位、阴影、点外面关闭都由它管 */
+  .feedback__qr { min-width: 0; }
+  .feedback__qr img { width: 148px; }
+  .feedback__qr .contact__mobile { max-width: 148px; margin-top: 6px; font-size: var(--text-xs); line-height: 18px; }
+
+  /* 正文里一点就复制的命令（Cmd.astro）：命令长时照常换行，不撑出横向滚动 */
+  .cmd { display: inline; text-align: left; white-space: normal; }
+  .cmd > .ui-icon { margin-left: 2px; vertical-align: -1px; }
+
   /* ---------- 响应式 ---------- */
   @media (max-width: 1180px) {
-    .site-body { grid-template-columns: 232px minmax(0, 1fr); }
+    :root { --site-nav-w: 232px; }
+    .site-body { grid-template-columns: var(--site-nav-w) minmax(0, 1fr); }
     .site-toc { display: none; }
   }
   @media (max-width: 820px) {
@@ -232,7 +237,10 @@
     .site-nav-scrim[data-open] { opacity: 1; pointer-events: auto; }
     .site-main { padding: var(--space-6) var(--space-4) 96px; }
     .site-search span, .site-search kbd { display: none; }
-    .site-search { flex: none; width: 32px; margin-left: 0; padding: 0; justify-content: center; }
+    .site-search { width: 34px; padding: 0; justify-content: center; background: none; color: var(--ink); }
+    .site-search:hover { background: var(--gray-3); }
+    .site-tools .site-search { margin-right: 0; }
+    .site-top { padding-left: var(--space-4); }
     .flow { grid-template-columns: 1fr; }
     .flow__arrow { flex-direction: row; padding: 2px 0; }
     .flow__arrow > :first-child { transform: rotate(90deg); }
@@ -241,8 +249,17 @@
     .pending-list { columns: 1; }
   }
   @media (max-width: 560px) {
+    .site-top { gap: var(--space-2); }
     .site-brand__name { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
     .roadmap li { grid-template-columns: 2em minmax(0, 1fr); }
     .roadmap__time { grid-column: 2; }
+    .contact__body { grid-template-columns: 1fr; padding: var(--space-4); }
+    .contact__note { padding-inline: var(--space-4); }
+    .contact__qr figcaption { max-width: none; }
+    .feedback { align-items: flex-start; }
+    .feedback__ways { display: block; flex-basis: 100%; }
+  }
+  @media (pointer: coarse) {
+    .contact__mobile { display: block; }
   }
 }

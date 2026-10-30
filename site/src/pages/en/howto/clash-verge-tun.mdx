@@ -92,5 +92,14 @@ Still failing? Open **Connections** on the left in Clash Verge, send an image, s
 <Q q="Some Chinese test sites still show a Chinese IP?">
 If that site uses a Chinese STUN server, Rule mode connects to it directly — expected behaviour. Confirm with browserleaks.com/webrtc; don't disable WebRTC or switch to Global mode for this.
 </Q>
+<Q q="Want the same setup on Windows and Mac?">
+That's fine — import the same subscription and use the same settings. But **check each computer carefully**:
+
+- both are in Rule mode, with Tun Mode on and the service installed;
+- **Windows only** has one extra step: Strict Route on;
+- DNS Overwrite is off on both;
+- set the IPv6 switch after checking **the network that computer is on right now** — the two may differ;
+- fully quit and reopen the browser on each, and test for leaks on each at [ip.net.coffee/claude](/en/howto/check-ip/).
+</Q>
 
 The full step-by-step troubleshooting (including test commands an AI assistant can run) is in the setup repository's [WebRTC leak fix guide](https://github.com/nevertoday/xiaoxiaodong-vps/blob/main/docs/Clash-Verge-WebRTC泄露修复手册.md) (in Chinese).

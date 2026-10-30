@@ -17,7 +17,7 @@ export const t = (x, key, lang) => (lang === "en" && x.en && x.en[key] !== undef
 export const STEPS = [
   { n: 0, slug: "0-prepare", title: "准备", minutes: "读 10 分钟", ready: true, sum: "需要什么、花多少钱、要多久", en: { title: "Get ready", minutes: "10-minute read", sum: "What you need, what it costs, how long it takes" } },
   { n: 1, slug: "1-buy-server", title: "买服务器", minutes: "20–30 分钟", ready: true, sum: "选商家和套餐，系统选 Ubuntu，记下 IP 和密码", en: { title: "Buy a server", minutes: "20–30 minutes", sum: "Pick a provider and plan, choose Ubuntu, note the IP and password" } },
-  { n: 2, slug: "2-ai-assistant", title: "准备 AI 助手", minutes: "15 分钟", ready: true, sum: "装 Claude Code 或 Codex；没有也能走手动路线", en: { title: "Set up an AI assistant", minutes: "15 minutes", sum: "Install Claude Code or Codex — or take the manual route" } },
+  { n: 2, slug: "2-ai-assistant", title: "准备 AI 助手", minutes: "15 分钟", ready: true, sum: "测你的 AI 能否执行命令，不能就装 Claude Code 或 Codex；没有也能走手动路线", en: { title: "Set up an AI assistant", minutes: "15 minutes", sum: "Test whether your AI can run commands; if not, install Claude Code or Codex — or take the manual route" } },
   { n: 3, slug: "3-deploy", title: "配置服务器", minutes: "约 10 分钟", ready: true, sum: "让 AI 来配，或者自己照着敲命令", en: { title: "Configure the server", minutes: "About 10 minutes", sum: "Let AI do it, or type the commands yourself" } },
   { n: 4, slug: "4-clients", title: "装客户端", minutes: "10 分钟", ready: true, sum: "电脑 Clash Verge、iPhone Shadowrocket、安卓、路由器", en: { title: "Install the apps", minutes: "10 minutes", sum: "Clash Verge on computers, Shadowrocket on iPhone, Android, routers" } },
   { n: 5, slug: "5-verify", title: "检查通没通", minutes: "5 分钟", ready: true, sum: "看出口 IP，查 DNS 和 WebRTC 泄露", en: { title: "Check it works", minutes: "5 minutes", sum: "Check your exit IP, DNS leaks and WebRTC leaks" } },
@@ -45,7 +45,9 @@ export const HOWTO = [
     { slug: "buy-dmit", title: "在 DMIT 买服务器", en: { title: "Buy a server from DMIT" } },
     { slug: "reinstall-os", title: "后台重装系统为 Ubuntu", en: { title: "Reinstall the OS as Ubuntu" } },
     { slug: "root-password-vnc", title: "后台改 root 密码、用救援控制台", en: { title: "Change the root password and use the rescue console" } },
-    { slug: "traffic-and-ip", title: "查看流量、更换 IP", en: { title: "Check traffic and change the IP" } },
+    { slug: "traffic-and-ip", title: "查看流量", en: { title: "Check traffic" } },
+    { slug: "ip-blocked", title: "IP 被墙了怎么办", en: { title: "IP blocked in China" } },
+    { slug: "refund-rebuy", title: "退掉服务器、重新买一台", en: { title: "Refund a server and buy a new one" } },
   ]},
   { group: "AI 工具", en: { group: "AI tools" }, items: [
     { slug: "windows-wsl", title: "Windows 安装 WSL", en: { title: "Install WSL on Windows" } },

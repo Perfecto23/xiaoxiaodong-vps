@@ -57,6 +57,16 @@ import Shot from "../../components/Shot.astro";
 首页显示「TUN 模式已启用」，「代理」页面能看到两个节点：`名字-Reality` 和 `名字-TLS`。
 </Callout>
 
+<Callout type="tip" title="Windows 和 Mac 都要用？">
+可以，两台电脑导入同一个 Clash 订阅、用同样的设置就行。但一台配好了，不代表另一台也好了，**两台要各自仔细核对一遍**：
+
+- 都是「规则」模式，「虚拟网卡模式」打开，服务装好了；
+- **只有 Windows** 多一步：「严格路由」打开；
+- 「DNS 覆写」都是关闭的；
+- 「IPv6」开关按**这台电脑现在用的网络**检测后再定，两台的结果不一定一样；
+- 各自完全退出浏览器再打开，各自打开 [ip.net.coffee/claude](/howto/check-ip/) 测一次泄露。
+</Callout>
+
 </div>
 <div slot="ios">
 

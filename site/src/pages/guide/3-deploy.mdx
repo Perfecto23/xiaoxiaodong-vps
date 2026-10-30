@@ -10,6 +10,7 @@ import Checkpoint from "../../components/Checkpoint.astro";
 import Q from "../../components/Q.astro";
 import Tabs from "../../components/Tabs.astro";
 import Copy from "../../components/Copy.astro";
+import Cmd from "../../components/Cmd.astro";
 
 ## 这一步做什么
 
@@ -27,13 +28,14 @@ import Copy from "../../components/Copy.astro";
 
 ### 1. 把这段话发给 AI
 
-在终端里打开 `claude` 或 `codex`，复制下面这段，**改好 IP 和名字**后发给它：
+打开你的 AI 工具（终端里的 `claude`、`codex`，或者桌面版、编辑器里的 AI 都行，只要通过了第 2 步的测试），复制下面这段，**改好 IP 和名字**后发给它：
 
 <Copy id="prompt" title="复制给 AI 的话" code={`请按「小小东 VPS」方案配置我新买的服务器。
 
 方案地址：https://github.com/nevertoday/xiaoxiaodong-vps
 请先把这个项目下载到本机，完整阅读 skills/xiaoxiaodong-vps/SKILL.md，
 严格按里面的步骤和规则，用项目里的脚本完成部署和验收。
+如果你不能在我的电脑上执行命令，请直接告诉我，不要让我一条条手动敲命令。
 
 我的服务器：
 - IP：
@@ -47,10 +49,11 @@ import Copy from "../../components/Copy.astro";
 - **登录方式**：商家给的是密钥文件的话，改成 `密钥文件：文件路径`（zip 也行）。
 - **用户名和端口**：不是 root 和 22 的，把「默认」改成实际的值。
 - **名字**：`bwg` 换成你想好的名字。
+- **搬瓦工（建议加上）**：在最后加一行 `- 搬瓦工 VEID 和 API Key：…`（在 KiwiVM 左侧菜单的「API」页，[怎么找](/howto/traffic-and-ip/)）。客户端里的流量额度、已用量、重置日就直接读搬瓦工后台，1T、2T 套餐都对得上；不加也能用，默认按每月 1000G 显示。
 
 ### 2. 按 AI 的提示输入一次密码
 
-AI 会请你在终端里**自己输入**服务器的 root 密码（输入时屏幕不显示，是正常的）。
+AI 会请你在终端里**自己输入**服务器的 root 密码（输入时屏幕不显示，是正常的）。用的不是 Claude Code 的话，AI 会给你一条命令，复制到第 2 步打开的终端里运行，按提示输入密码，再回到 AI 那边告诉它好了。
 
 <Callout type="tip" title="看到以 ! 开头的命令">
 在 Claude Code 里，AI 可能让你输入一条以 `!` 开头的命令。直接把整行粘贴到 Claude Code 的输入框，回车，它会在终端里提示你输入密码。`!` 的意思是「这条命令由你亲自运行」，密码因此不会经过 AI。
@@ -71,10 +74,14 @@ AI 下载不了项目的话，可以手动 [下载 ZIP](https://github.com/never
 </div>
 <div slot="manual">
 
+<Callout type="tip">
+这条路线是给手边没有能执行命令的 AI 的人。有 Claude Code、Codex 这类工具的话，用「让 AI 来配」，不用自己敲。
+</Callout>
+
 下面每一段都是：复制 → 粘贴到终端 → 回车 → 等它结束，再做下一段。**把命令里的 `你的IP` 和 `bwg` 换成你自己的。**
 
 <Callout type="warn" title="全程用同一个终端窗口">
-后面的命令要在「下载方案」进入的那个目录里运行，还用到了 `R=…` 这个变量。中途关了终端的话，重新打开后先运行 `cd xiaoxiaodong-vps/skills/xiaoxiaodong-vps` 和 `R=scripts/local/remote.sh`，再接着做。
+后面的命令要在「下载方案」进入的那个目录里运行，还用到了 `R=…` 这个变量。中途关了终端的话，重新打开后先运行 <Cmd c="cd xiaoxiaodong-vps/skills/xiaoxiaodong-vps" /> 和 <Cmd c="R=scripts/local/remote.sh" />，再接着做。
 </Callout>
 
 ### 1. 下载方案
@@ -115,7 +122,7 @@ bash $R bwg sub
 bash $R bwg cliproxy
 bash $R bwg maint`} />
 
-每一段跑完会显示 `xxx 完成`，比如 `cert 完成`。客户端默认按每月 1000G 显示流量（正好是推荐的搬瓦工套餐的流量），重置日按开通日自动推算。和你的套餐不一样的话，在 `init` 那一行末尾加上 `--quota-gb 额度 --reset-day 几号`（比如 `--quota-gb 500 --reset-day 1`）。
+每一段跑完会显示 `xxx 完成`，比如 `cert 完成`。客户端默认按每月 1000G 显示流量，重置日按开通日自动推算。和你的套餐不一样的话，在 `init` 那一行末尾加上 `--quota-gb 额度 --reset-day 几号`（比如 `--quota-gb 500 --reset-day 1`）。搬瓦工的机器可以在 `sub` 之后再跑 `bash $R bwg kiwivm --veid VEID --key-file 存放-Key-的文件`，额度、已用量和重置日直接读后台，见 [查看流量](/howto/traffic-and-ip/)。
 
 <Callout type="warn" title="看到「停止：」怎么办">
 某一段停下来时，会显示 `停止：` 和原因。按原因修好后，**重新运行同一段**就行，每一段都可以重复运行。常见原因和修法见 [排错说明](https://github.com/nevertoday/xiaoxiaodong-vps/blob/main/skills/xiaoxiaodong-vps/references/troubleshooting.md)。

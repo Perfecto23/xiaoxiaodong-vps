@@ -18,14 +18,14 @@ BandwagonHost has two layers: the **client area** (ordering, paying, renewing) a
 
 ## 1. Order
 
-1. Open the [BandwagonHost order link](https://bandwagonhost.com/aff.php?aff=83651&a=add&pid=87&billingcycle=quarterly&configoption%5B17%5D=55) (the author's referral link — see below).
-2. Confirm the plan (the one in the link has 1 TB of traffic a month) and Billing Cycle, and choose a **Los Angeles** option under Location.
+1. Open the [BandwagonHost order link](https://bandwagonhost.com/aff.php?aff=83651&a=add&pid=88&billingcycle=quarterly&configoption%5B17%5D=55) (the author's referral link — see below). The 1 TB plan recommended before is out of stock — no need to wait for it.
+2. Confirm the plan (the one in the link has 2 TB of traffic a month and 2 GB of RAM) and Billing Cycle, and choose a **Los Angeles** option under Location.
 3. Add to cart, create an account at checkout (Gmail recommended) and pay — **Alipay** (支付宝) is one of the options.
 
 <Shot src="bwg-order.webp" w={999} h={311} alt="BandwagonHost order page with billing cycle and location" caption="Order page: the red boxes are Billing Cycle and Location. Prices as on the official site." />
 
 <Callout type="tip" title="About the link">
-This is the author's referral link. If you buy through it, the author may earn a commission, which goes to charitable work. Prices, stock and locations are as shown on the official site.
+These are the author's referral links. If you buy through them, the author may earn a commission, which goes to charitable work. Prices, stock and locations are as shown on the official site.
 </Callout>
 
 ## 2. Open the KiwiVM control panel
@@ -37,10 +37,11 @@ This is the author's referral link. If you buy through it, the author may earn a
 
 - **IP address** and **SSH port**: shown on the KiwiVM home page (Main controls). BandwagonHost's SSH port **isn't always 22** — go by the page.
 - **root password**: in the server-ready email; if you can't find it, generate a new one in KiwiVM with "Root password modification" (shown once — copy it immediately).
+- **VEID and API Key** (optional, recommended): on the **API** page in KiwiVM's left menu. Give them to the AI when you deploy, and your apps read the traffic quota, usage and reset day straight from the dashboard, so 1 TB and 2 TB plans both show correctly. See [Traffic](/en/howto/traffic-and-ip/) for where to find them.
 
 ## 4. Check the OS
 
-The KiwiVM home page shows the current OS. If it isn't Ubuntu 22.04+ or Debian 12+, reinstall it as Ubuntu 24.04 following [Reinstall the OS as Ubuntu](/en/howto/reinstall-os/).
+The Operating system line on the KiwiVM home page shows the current OS. BandwagonHost servers come with a default OS, so you'll usually reinstall once: click **Stop** on the home page, then **Install new OS** in the left menu, pick Ubuntu 24.04, tick the agreement and click **Reload**. A few minutes later, copy the new root password and SSH port the page shows. Step-by-step details are in [Reinstall the OS as Ubuntu](/en/howto/reinstall-os/).
 
 <Callout type="ok">
 KiwiVM shows the server Running; you've written down the IP, SSH port and root password; the OS is Ubuntu 24.04.

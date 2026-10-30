@@ -21,15 +21,19 @@ Como funciona: você compra seu próprio servidor no exterior, deixa uma IA conf
 
 ### 1. Compre um servidor
 
-No momento, vá de **BandwagonHost**. A rede é estável e é o que eu mesmo uso:
+No momento, vá de **BandwagonHost**; é o que eu mesmo uso.
 
-**[Comprar BandwagonHost](https://bandwagonhost.com/aff.php?aff=83651&a=add&pid=87&billingcycle=quarterly&configoption%5B17%5D=55)**
+Recomendo esse tipo de servidor porque é **uma lição que paguei do meu bolso e aprendi da forma mais dura**: as rotas são otimizadas para conexões a partir da China continental, e são tão estáveis que virei fã de carteirinha.
 
-O plano deste link inclui **1 TB de tráfego por mês**, o suficiente para você e sua família.
+**[Comprar BandwagonHost](https://bandwagonhost.com/aff.php?aff=83651&a=add&pid=88&billingcycle=quarterly&configoption%5B17%5D=55)**
 
-[DMIT](https://www.dmit.io/aff.php?aff=23544) também é bom, mas está sem estoque agora. Não precisa esperar.
+O plano deste link inclui **2 TB de tráfego por mês** e 2 GB de RAM, em um data center CN2 GIA de Los Angeles — mais do que suficiente para você e sua família.
 
-> Os dois são meus links de indicação. Posso receber uma comissão se você comprar por eles, e vou usar essa renda em trabalhos de caridade. Preços e estoque conforme os sites oficiais.
+O ~~[plano de 1 TB](https://bandwagonhost.com/aff.php?aff=83651&a=add&pid=87&billingcycle=quarterly&configoption%5B17%5D=55)~~ que eu recomendava antes está sem estoque e não dá para comprar agora.
+
+[DMIT](https://www.dmit.io/aff.php?aff=23544) é outro que eu gosto muito de usar, mas infelizmente está sem estoque agora. Não precisa esperar.
+
+> Todos são meus links de indicação. Posso receber uma comissão se você comprar por eles, e vou usar essa renda em trabalhos de caridade. Preços e estoque conforme os sites oficiais.
 
 Escolha **Ubuntu 24.04** como sistema. Quando o servidor estiver pronto, anote três coisas do painel: **IP do servidor, senha de root (ou arquivo de chave) e porta SSH**.
 
@@ -58,6 +62,7 @@ Só três coisas mudam:
 - **IP**: o IP do servidor que aparece no painel.
 - **Acesso**: se o provedor deu um arquivo de chave, troque por `arquivo de chave: caminho do arquivo` (zip também serve).
 - **Nome**: troque `bwg` pelo nome que quiser. Depois, basta digitar `ssh esse-nome` para entrar no servidor.
+- **BandwagonHost (recomendado)**: adicione no fim a linha `- VEID e API Key do BandwagonHost: …` (página “API” no menu esquerdo do KiwiVM, [como encontrar](https://vps.xiaoxiaodong.ai/en/howto/traffic-and-ip/)). Assim os apps leem a cota de tráfego, o uso e o dia de reinício direto do BandwagonHost, e batem tanto no plano de 1 TB quanto no de 2 TB. Sem eles também funciona; o uso aparece sobre 1000 GB por mês.
 
 Se o usuário e a porta não forem root / 22, troque "padrão" pelos valores reais.
 
@@ -118,6 +123,12 @@ Não mostre senhas, URLs de assinatura nem chaves no chat. Fale comigo em portug
 ```
 
 A documentação detalhada ([solução de problemas](./skills/xiaoxiaodong-vps/references/troubleshooting.md), [notas de projeto](./skills/xiaoxiaodong-vps/references/design.md)) por enquanto só existe em chinês; sua IA pode ler por você.
+
+## Comentários e sugestões
+
+Tem uma sugestão, ou algo não está claro ou não funciona como descrito? [Abra uma issue no GitHub](https://github.com/nevertoday/xiaoxiaodong-vps/issues), [me mande uma mensagem no X](https://x.com/xiaoxiaodong) (@xiaoxiaodong) ou me adicione no WeChat (Xiaoxiaodong, 小小东). Vou incluir no guia.
+
+<img src="https://vip.xiaoxiaodong.ai/site-assets/wechat-qr.png" width="160" alt="QR code do WeChat de Xiaoxiaodong">
 
 ## Privacidade
 

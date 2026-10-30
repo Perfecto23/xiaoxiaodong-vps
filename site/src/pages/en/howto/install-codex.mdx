@@ -12,6 +12,7 @@ import Q from "../../../components/Q.astro";
 import Copy from "../../../components/Copy.astro";
 import Tabs from "../../../components/Tabs.astro";
 import Checkpoint from "../../../components/Checkpoint.astro";
+import Cmd from "../../../components/Cmd.astro";
 
 ## What you need
 
@@ -25,7 +26,7 @@ Open the terminal (Windows: Ubuntu in WSL), paste this command and press Enter:
 
 <Copy id="cx" lang="bash" title="Install Codex (Mac, Linux, WSL)" code="curl -fsSL https://chatgpt.com/codex/install.sh | sh" />
 
-With Homebrew on a Mac you can also run `brew install --cask codex`. After installing, **close the terminal and open it again**, and check:
+With Homebrew on a Mac you can also run <Cmd c="brew install --cask codex" />. After installing, **close the terminal and open it again**, and check:
 
 <Copy id="cx-v" lang="bash" title="Check the version" code="codex --version" />
 

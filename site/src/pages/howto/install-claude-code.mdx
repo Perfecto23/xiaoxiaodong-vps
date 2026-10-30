@@ -11,6 +11,7 @@ import Term from "../../components/Term.astro";
 import Q from "../../components/Q.astro";
 import Copy from "../../components/Copy.astro";
 import Tabs from "../../components/Tabs.astro";
+import Cmd from "../../components/Cmd.astro";
 
 ## 需要什么
 
@@ -41,7 +42,7 @@ import Tabs from "../../components/Tabs.astro";
 ## 卡住了？
 
 <Q q="提示 claude: command not found？">
-安装后要重新打开终端。还不行的话，运行 `claude doctor`（如果能运行）或者查看 [官方安装说明](https://code.claude.com/docs/en/setup) 里的 PATH 设置。
+安装后要重新打开终端。还不行的话，运行 <Cmd c="claude doctor" />（如果能运行）或者查看 [官方安装说明](https://code.claude.com/docs/en/setup) 里的 PATH 设置。
 </Q>
 <Q q="浏览器没有自动打开？">
 终端里会打印一个登录网址，复制到浏览器打开。

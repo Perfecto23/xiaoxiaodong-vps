@@ -2,7 +2,7 @@
 layout: ../../../layouts/Guide.astro
 step: 1
 need: Email, a payment method
-description: Rent a server from a provider and get its IP, root password and SSH port.
+description: Rent a server from a provider, get its IP, root password and SSH port, and test whether the IP can be reached from mainland China.
 ---
 import Callout from "../../../components/Callout.astro";
 import Term from "../../../components/Term.astro";
@@ -16,14 +16,21 @@ Rent a server from a provider. When you're done you'll have three things: **the 
 
 ## Which provider
 
-We recommend **BandwagonHost** (搬瓦工). Its routes are stable, the author uses it, and this setup has been tested on it again and again. The plan in the link below includes **1 TB of traffic per month** — plenty for you and your family.
+We recommend **BandwagonHost** (搬瓦工). The author uses it, and this setup has been tested on it again and again.
 
-<p><a class="xxd-btn" data-variant="primary" href="https://bandwagonhost.com/aff.php?aff=83651&a=add&pid=87&billingcycle=quarterly&configoption%5B17%5D=55" rel="noopener">Buy from BandwagonHost<i data-xxd-icon="ExternalLink" data-size="14"></i></a></p>
+The author recommends this kind of server because of **lessons paid for with real money and learned the hard way**: its routes are optimized for connections from mainland China, and it's so stable the author became a die-hard fan.
 
-[DMIT](https://www.dmit.io/aff.php?aff=23544) is good too, but often out of stock — don't wait for it.
+The plan in the link below includes **2 TB of traffic per month** and 2 GB of RAM, in a Los Angeles CN2 GIA data center — more than enough for you and your family.
+
+<div class="xxd-cluster">
+<a class="xxd-btn" data-variant="primary" href="https://bandwagonhost.com/aff.php?aff=83651&a=add&pid=88&billingcycle=quarterly&configoption%5B17%5D=55" rel="noopener">Buy the 2 TB plan<i data-xxd-icon="ExternalLink" data-size="14"></i></a>
+<span class="xxd-btn" aria-disabled="true">1 TB plan<span class="xxd-badge" data-tone="warning">Out of stock</span></span>
+</div>
+
+[DMIT](https://www.dmit.io/aff.php?aff=23544) is another one the author really likes using, but it's often out of stock — don't wait for it.
 
 <Callout type="tip" title="About these links">
-Both are the author's referral links. If you buy through them, the author may earn a commission, which goes to charitable work. Prices and stock are as shown on the official sites.
+These are all the author's referral links. If you buy through them, the author may earn a commission, which goes to charitable work. Prices and stock are as shown on the official sites.
 </Callout>
 
 ## Which options to choose
@@ -37,7 +44,7 @@ Provider pages show lots of options; only these matter:
 | Memory | 1 GB is enough | Nodes and the AI API run well on 1 GB in testing |
 | Virtualization | <Term k="KVM" /> | A full system. BandwagonHost uses it by default |
 | IP | A dedicated <Term k="公网 IP" text="public IP" /> (IPv4) | Not a <Term k="NAT" /> machine — those only get a few ports, and the certificate and nodes won't install |
-| Traffic | A few hundred GB to 1 TB per month | Plenty for you and your family; the recommended BandwagonHost plan has 1 TB a month |
+| Traffic | A few hundred GB to 1 TB per month | Plenty for you and your family; the recommended BandwagonHost plan has 2 TB a month |
 
 <Callout type="warn" title="Get the OS right">
 The most common mistake is choosing CentOS or another old system. This setup won't install on it; you'll have to "reinstall OS" from the dashboard as Ubuntu 24.04. The root password usually changes after reinstalling — use the new one.
@@ -72,6 +79,23 @@ The server shows as "Running" in the provider's dashboard, and you've written do
 Don't post these three in group chats, send them to strangers or share screenshots. After the next steps, the server will only accept your computer's key, and the password will no longer work for remote login.
 </Callout>
 
+## Test it now: can this IP be reached from mainland China?
+
+A new server occasionally gets an IP that's already blocked in mainland China. It's easiest to sort out right after buying, so take a minute to test before configuring anything:
+
+1. Open `https://tcp.ping.pe/your-IP:SSH-port` in a browser, e.g. `https://tcp.ping.pe/203.0.113.10:22`. A brand-new server only has its SSH port open, so test that.
+2. Wait a dozen seconds for the table to finish, scroll to the rows starting with `China` at the bottom, and **look only at the 6 rows whose ISP is China Telecom, China Unicom or China Mobile** (the home and mobile networks people actually use).
+
+| Those 6 rows show | Meaning | What to do |
+|---|---|---|
+| Mostly `successful`, with a time in ms | Reachable from China | Go on to the next step |
+| All `failed`, while other countries are `successful` | This IP is blocked in China | **Don't configure it yet** — refund and rebuy, or change the IP, as in [My IP is blocked](/en/howto/ip-blocked/) |
+| `failed` everywhere in the world | The server isn't up yet; it's not a block | Wait a few minutes and test again |
+
+<Callout type="tip">
+Ignore the rows whose ISP is Tencent (Tencent Cloud): when testing the SSH port they show failed even for a healthy IP.
+</Callout>
+
 ## Stuck?
 
 <Q q="Payment failed. What now?">
@@ -93,4 +117,5 @@ No. Note it down and tell the AI (or put it in the command) in the next steps.
   "I wrote down the server IP",
   "I wrote down the root password (or where the key file is)",
   "I wrote down the SSH port",
+  "On tcp.ping.pe, the China Telecom, Unicom and Mobile rows connect",
 ]} />

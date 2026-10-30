@@ -1,5 +1,5 @@
 ---
-// 页面末尾的反馈入口：在 GitHub 上新建一条带模板的反馈（真人试用时，卡住的地方都会汇总到这里）
+// 页面末尾的反馈入口：在 GitHub 上新建一条带模板的反馈（真人试用时，卡住的地方都会汇总到这里），也可以 X 私信或加小小东微信（二维码用 xxd 的说明浮层 Popover）
 import { langOf } from "../data/nav.js";
 interface Props { page: string }
 const en = langOf(Astro.url.pathname) === "en";
@@ -10,9 +10,16 @@ const body = en
   ? `Page: ${url}\n\nWhere I got stuck:\n\nWhat I saw (paste the text; blur IPs, subscription URLs and passwords in screenshots):\n\nWhat I tried:\n\nDevice and system:\n`
   : `页面：${url}\n\n卡在哪一步：\n\n看到了什么（文字直接复制；截图请先把 IP、订阅地址、密码打码）：\n\n试过什么：\n\n设备和系统：\n`;
 const href = `https://github.com/nevertoday/xiaoxiaodong-vps/issues/new?title=${encodeURIComponent(title)}&body=${encodeURIComponent(body)}`;
+const QR = "https://vip.xiaoxiaodong.ai/site-assets/wechat-qr.png";
 ---
 <aside class="feedback">
   <i data-xxd-icon="MessageCircle" data-size="16"></i>
   <span>{en ? "Something unclear or not working on this page?" : "这一页有没看懂、或者照做不成功的地方？"}</span>
-  <a href={href} rel="noopener">{en ? "Tell us on GitHub" : "到 GitHub 告诉我们"}</a>
+  <div class="feedback__ways">
+    <a class="xxd-link" href={href} rel="noopener">{en ? "Tell me on GitHub" : "到 GitHub 告诉我"}</a>{en ? ", " : "、"}<a class="xxd-link" href="https://x.com/xiaoxiaodong" rel="noopener">{en ? "message me on X" : "在 X 上私信我"}</a>{en ? ", or " : "，或者"}<button class="xxd-link" type="button" data-xxd-popover="feedback-wx" data-placement="top-start">{en ? "add me on WeChat" : "加我微信"}</button>
+  </div>
+  <div class="xxd-popover feedback__qr" id="feedback-wx" popover>
+    <img src={QR} width="148" height="152" alt={en ? "Xiaoxiaodong's WeChat QR code" : "小小东的微信二维码"} loading="lazy" decoding="async" />
+    <span class="contact__mobile">{en ? "On a phone: long-press to save, then scan it from your photos in WeChat." : "手机上：长按保存图片，再用微信扫一扫从相册识别。"}</span>
+  </div>
 </aside>

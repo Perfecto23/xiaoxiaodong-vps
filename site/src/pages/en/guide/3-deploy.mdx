@@ -10,6 +10,7 @@ import Checkpoint from "../../../components/Checkpoint.astro";
 import Q from "../../../components/Q.astro";
 import Tabs from "../../../components/Tabs.astro";
 import Copy from "../../../components/Copy.astro";
+import Cmd from "../../../components/Cmd.astro";
 
 ## What this step is
 
@@ -27,13 +28,14 @@ Afterwards:
 
 ### 1. Send this message to the AI
 
-Open `claude` or `codex` in the terminal, copy the message below, **fill in the IP and name**, and send it:
+Open your AI tool (`claude` or `codex` in the terminal, or a desktop or editor AI — anything that passed the test in step 2), copy the message below, **fill in the IP and name**, and send it:
 
 <Copy id="prompt" title="Message for the AI" code={`Please configure my new server with the "xiaoxiaodong VPS" setup.
 
 Setup: https://github.com/nevertoday/xiaoxiaodong-vps
 Download the project first, read skills/xiaoxiaodong-vps/SKILL.md in full,
 and follow its steps and rules strictly, using the project's scripts for deployment and verification.
+If you can't run commands on my computer, tell me so directly instead of having me type commands one by one.
 Please talk to me in English and save the login file in English.
 
 My server:
@@ -48,10 +50,11 @@ What to change:
 - **Login**: if the provider gave you a key file, change it to `key file: path` (a zip works too).
 - **SSH user and port**: if they aren't root and 22, replace "default" with the real values.
 - **Name**: replace `bwg` with your chosen name.
+- **BandwagonHost (recommended)**: add a line at the end, `- BandwagonHost VEID and API Key: …` (on the API page in KiwiVM's left menu — [how to find them](/en/howto/traffic-and-ip/)). Your apps then read the traffic quota, usage and reset day straight from BandwagonHost, so 1 TB and 2 TB plans both show correctly. It works without them too; usage is then shown against 1000 GB a month.
 
 ### 2. Type the password once when asked
 
-The AI will ask you to **type** the server's root password in the terminal yourself (nothing shows while typing — that's normal).
+The AI will ask you to **type** the server's root password in the terminal yourself (nothing shows while typing — that's normal). If you're not using Claude Code, the AI gives you a command: run it in the terminal you opened in step 2, type the password when asked, then go back and tell the AI it's done.
 
 <Callout type="tip" title="A command starting with !">
 In Claude Code, the AI may ask you to enter a command that starts with `!`. Paste the whole line into Claude Code's input box and press Enter; it then prompts for the password in the terminal. `!` means "you run this command yourself", so the password never passes through the AI.
@@ -72,10 +75,14 @@ If the AI can't download the project, [download the ZIP](https://github.com/neve
 </div>
 <div slot="manual">
 
+<Callout type="tip">
+This route is for people without an AI that can run commands. If you have a tool like Claude Code or Codex, use "Let AI do it" instead of typing.
+</Callout>
+
 Each block below: copy → paste into the terminal → Enter → wait for it to finish, then the next. **Replace `your-IP` and `bwg` with your own.**
 
 <Callout type="warn" title="Use one terminal window throughout">
-The later commands run inside the folder you entered in "Download the setup" and use the `R=…` variable. If you close the terminal midway, reopen it and first run `cd xiaoxiaodong-vps/skills/xiaoxiaodong-vps` and `R=scripts/local/remote.sh`, then continue.
+The later commands run inside the folder you entered in "Download the setup" and use the `R=…` variable. If you close the terminal midway, reopen it and first run <Cmd c="cd xiaoxiaodong-vps/skills/xiaoxiaodong-vps" /> and <Cmd c="R=scripts/local/remote.sh" />, then continue.
 </Callout>
 
 ### 1. Download the setup
@@ -116,7 +123,7 @@ bash $R bwg sub
 bash $R bwg cliproxy
 bash $R bwg maint`} />
 
-Each stage ends with `xxx 完成` ("xxx done"), e.g. `cert 完成`. Apps show traffic against 1000 GB a month by default (the recommended BandwagonHost plan's traffic), with the reset day worked out from the provisioning date. If your plan differs, add `--quota-gb QUOTA --reset-day DAY` to the end of the `init` line (e.g. `--quota-gb 500 --reset-day 1`).
+Each stage ends with `xxx 完成` ("xxx done"), e.g. `cert 完成`. Apps show traffic against 1000 GB a month by default, with the reset day worked out from the provisioning date. If your plan differs, add `--quota-gb QUOTA --reset-day DAY` to the end of the `init` line (e.g. `--quota-gb 500 --reset-day 1`). On a BandwagonHost server you can instead run `bash $R bwg kiwivm --veid VEID --key-file FILE-CONTAINING-THE-KEY` after `sub`, and the quota, usage and reset day come straight from its dashboard — see [Traffic](/en/howto/traffic-and-ip/).
 
 <Callout type="warn" title="If you see 停止： (stopped)">
 When a stage stops, it prints `停止：` ("stopped:") and a reason. Fix the cause and **rerun the same stage** — every stage can be run again. Common causes and fixes: [troubleshooting notes](https://github.com/nevertoday/xiaoxiaodong-vps/blob/main/skills/xiaoxiaodong-vps/references/troubleshooting.md) (in Chinese).

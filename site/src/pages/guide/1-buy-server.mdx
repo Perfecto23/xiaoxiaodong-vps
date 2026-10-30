@@ -2,7 +2,7 @@
 layout: ../../layouts/Guide.astro
 step: 1
 need: 邮箱、付款方式
-description: 在服务商那里租一台服务器，拿到 IP、root 密码和 SSH 端口。
+description: 在服务商那里租一台服务器，拿到 IP、root 密码和 SSH 端口，并测一下这个 IP 在国内能不能连上。
 ---
 import Callout from "../../components/Callout.astro";
 import Term from "../../components/Term.astro";
@@ -16,14 +16,21 @@ import Shot from "../../components/Shot.astro";
 
 ## 选哪家
 
-推荐直接买**搬瓦工**（BandwagonHost）。线路稳定，作者自己一直在用，这套方案也在它上面反复测试过。下面链接里的套餐每月 **1T 流量**，个人和家人日常使用足够。
+推荐直接买**搬瓦工**（BandwagonHost）。作者自己一直在用，这套方案也在它上面反复测试过。
 
-<p><a class="xxd-btn" data-variant="primary" href="https://bandwagonhost.com/aff.php?aff=83651&a=add&pid=87&billingcycle=quarterly&configoption%5B17%5D=55" rel="noopener">购买搬瓦工<i data-xxd-icon="ExternalLink" data-size="14"></i></a></p>
+推荐这种服务器，是作者**真金白银砸出来的经验、头破血流换来的教训**：它的线路针对国内做了优化，而且稳定到让作者成了铁粉。
 
-[DMIT](https://www.dmit.io/aff.php?aff=23544) 也不错，但经常缺货，不用等它。
+下面链接里的套餐每月 **2T 流量**、2G 内存，洛杉矶 CN2 GIA 机房，个人和家人日常使用绰绰有余。
+
+<div class="xxd-cluster">
+<a class="xxd-btn" data-variant="primary" href="https://bandwagonhost.com/aff.php?aff=83651&a=add&pid=88&billingcycle=quarterly&configoption%5B17%5D=55" rel="noopener">购买搬瓦工 2T 套餐<i data-xxd-icon="ExternalLink" data-size="14"></i></a>
+<span class="xxd-btn" aria-disabled="true">1T 套餐<span class="xxd-badge" data-tone="warning">缺货</span></span>
+</div>
+
+[DMIT](https://www.dmit.io/aff.php?aff=23544) 也是作者很喜欢用的，可惜经常缺货，不用等它。
 
 <Callout type="tip" title="关于链接">
-两个都是作者的邀请链接，通过它们购买，作者可能获得佣金，这部分收入会用于慈善相关工作。价格和库存以官网为准。
+这些都是作者的邀请链接，通过它们购买，作者可能获得佣金，这部分收入会用于慈善相关工作。价格和库存以官网为准。
 </Callout>
 
 ## 配置怎么选
@@ -37,7 +44,7 @@ import Shot from "../../components/Shot.astro";
 | 内存 | 1G 就够 | 节点和 AI 接口在 1G 内存的机器上实测运行良好 |
 | 虚拟化 | <Term k="KVM" /> | 能装完整的系统。搬瓦工默认就是 |
 | IP | 独立的 <Term k="公网 IP" />（IPv4） | 不能是 <Term k="NAT" /> 机器，那种只给几个端口，证书和节点装不上 |
-| 流量 | 每月几百 G 到 1T | 个人和家人日常使用足够；推荐的搬瓦工套餐是每月 1T |
+| 流量 | 每月几百 G 到 1T | 个人和家人日常使用足够；推荐的搬瓦工套餐是每月 2T |
 
 <Callout type="warn" title="系统一定要选对">
 最常见的错误是系统选成了 CentOS 或其他旧系统。这套方案装不上，只能到商家后台「重装系统」改成 Ubuntu 24.04。重装以后 root 密码通常会变，要用新的。
@@ -72,6 +79,23 @@ import Shot from "../../components/Shot.astro";
 不要把这三样发到群里、发给陌生人，也不要截图分享。下一步配置好以后，服务器会改成只能用你电脑上的密钥登录，密码就不能用来远程登录了。
 </Callout>
 
+## 马上测一下：这个 IP 在国内能不能连上
+
+新买的服务器偶尔会分到一个在国内已经被封的 IP。刚买时发现最好处理，所以配置之前先花一分钟测一下：
+
+1. 在浏览器打开 `https://tcp.ping.pe/你的IP:SSH端口`，比如 `https://tcp.ping.pe/203.0.113.10:22`。刚开通的服务器只开着 SSH 端口，所以测它。
+2. 等十几秒，表格跑完后翻到最下面 `China` 开头的几行，**只看 ISP 一栏是 China Telecom、China Unicom、China Mobile 的那 6 行**（中国电信、联通、移动，就是家里和手机用的网络）。
+
+| 那 6 行显示 | 说明 | 怎么办 |
+|---|---|---|
+| 大多是 `successful`，后面带毫秒数 | 国内能连上 | 继续下一步 |
+| 全是 `failed`，其他国家却都是 `successful` | 这个 IP 在国内被封了 | **先别配置**，按 [IP 被墙了怎么办](/howto/ip-blocked/) 退款重买或换 IP |
+| 全世界都是 `failed` | 服务器还没开好，不是被封 | 等几分钟再测 |
+
+<Callout type="tip">
+ISP 是 Tencent（腾讯云）的那几行别看：测 SSH 端口时，正常的 IP 在这几行也会显示 failed。
+</Callout>
+
 ## 卡住了？
 
 <Q q="付款失败怎么办？">
@@ -93,4 +117,5 @@ import Shot from "../../components/Shot.astro";
   "我记下了服务器 IP",
   "我记下了 root 密码（或者密钥文件放在哪）",
   "我记下了 SSH 端口",
+  "tcp.ping.pe 上电信、联通、移动那几行能连上",
 ]} />

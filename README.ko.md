@@ -21,15 +21,19 @@
 
 ### 1. 서버 구매
 
-지금은 **BandwagonHost**를 바로 사는 것을 추천합니다. 회선이 안정적이고, 저도 계속 쓰고 있습니다.
+지금은 **BandwagonHost**를 바로 사는 것을 추천합니다. 저도 계속 쓰고 있습니다.
 
-**[BandwagonHost 구매하기](https://bandwagonhost.com/aff.php?aff=83651&a=add&pid=87&billingcycle=quarterly&configoption%5B17%5D=55)**
+이런 서버를 추천하는 건 **제 돈을 쏟아붓고 호되게 당하면서 얻은 교훈**이기 때문입니다. 회선이 중국 본토에서의 연결에 맞춰 최적화되어 있고, 너무 안정적이라 저는 열성 팬이 되었습니다.
 
-이 링크의 요금제는 **매월 1TB 트래픽**이 포함되어 있어 가족이 함께 써도 충분합니다.
+**[BandwagonHost 구매하기](https://bandwagonhost.com/aff.php?aff=83651&a=add&pid=88&billingcycle=quarterly&configoption%5B17%5D=55)**
 
-[DMIT](https://www.dmit.io/aff.php?aff=23544)도 좋지만 현재 품절입니다. 기다릴 필요는 없습니다.
+이 링크의 요금제는 **매월 2TB 트래픽**, 메모리 2GB, 로스앤젤레스 CN2 GIA 데이터센터로 가족이 함께 써도 넉넉합니다.
 
-> 두 링크 모두 제 추천 링크입니다. 이 링크로 구매하면 제가 수수료를 받을 수 있으며, 그 수입은 자선 활동에 쓰겠습니다. 가격과 재고는 공식 사이트 기준입니다.
+전에 추천했던 ~~[1TB 요금제](https://bandwagonhost.com/aff.php?aff=83651&a=add&pid=87&billingcycle=quarterly&configoption%5B17%5D=55)~~는 현재 품절이라 구매할 수 없습니다.
+
+[DMIT](https://www.dmit.io/aff.php?aff=23544)도 제가 즐겨 쓰는 서버지만, 아쉽게도 현재 품절입니다. 기다릴 필요는 없습니다.
+
+> 모두 제 추천 링크입니다. 이 링크로 구매하면 제가 수수료를 받을 수 있으며, 그 수입은 자선 활동에 쓰겠습니다. 가격과 재고는 공식 사이트 기준입니다.
 
 운영체제는 **Ubuntu 24.04**를 선택하세요. 개통되면 관리 화면에서 세 가지를 적어 두세요: **서버 IP, root 비밀번호(또는 키 파일), SSH 포트**.
 
@@ -57,6 +61,7 @@
 - **IP**: 관리 화면에 보이는 서버 IP.
 - **로그인 방식**: 업체가 키 파일을 줬다면 `키 파일: 파일 경로`로 바꾸세요 (zip도 됩니다).
 - **이름**: `bwg`를 원하는 이름으로 바꾸세요. 이후 `ssh 그이름`만 입력하면 서버에 로그인됩니다.
+- **BandwagonHost라면(추천)**: 마지막에 `- BandwagonHost VEID와 API Key: …` 한 줄을 추가하세요(KiwiVM 왼쪽 메뉴의 「API」 페이지, [찾는 방법](https://vps.xiaoxiaodong.ai/en/howto/traffic-and-ip/)). 클라이언트의 트래픽 한도·사용량·초기화일을 BandwagonHost 관리 화면에서 바로 읽어 와 1TB·2TB 요금제 모두 맞게 표시됩니다. 넣지 않아도 쓸 수 있으며, 그때는 매월 1000GB 기준으로 표시됩니다.
 
 사용자와 포트가 root / 22가 아니라면 "기본값"을 실제 값으로 바꾸세요.
 
@@ -117,6 +122,12 @@ cp -R xiaoxiaodong-vps/skills/xiaoxiaodong-vps ~/.codex/skills/
 ```
 
 자세한 문서([문제 해결](./skills/xiaoxiaodong-vps/references/troubleshooting.md), [설계 설명](./skills/xiaoxiaodong-vps/references/design.md))는 현재 중국어로만 있습니다. AI가 대신 읽어 줄 수 있습니다.
+
+## 피드백과 제안
+
+제안이 있거나 설명이 불분명한 곳, 그대로 따라 해도 안 되는 부분을 발견하면 [GitHub에 Issue를 남겨 주세요](https://github.com/nevertoday/xiaoxiaodong-vps/issues). [X로 DM](https://x.com/xiaoxiaodong)(@xiaoxiaodong)을 보내거나 위챗(WeChat)으로 저(Xiaoxiaodong, 小小东)를 추가해 알려 주셔도 됩니다. 가이드에 반영하겠습니다.
+
+<img src="https://vip.xiaoxiaodong.ai/site-assets/wechat-qr.png" width="160" alt="Xiaoxiaodong의 위챗 QR 코드">
 
 ## 개인정보
 

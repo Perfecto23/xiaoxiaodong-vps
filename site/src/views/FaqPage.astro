@@ -1,6 +1,7 @@
 ---
 import Site from "../layouts/Site.astro";
 import Q from "../components/Q.astro";
+import Contact from "../components/Contact.astro";
 import { FAQ } from "../data/faq.js";
 import { FAQ_EN } from "../data/faq.en.js";
 import { langOf } from "../data/nav.js";
@@ -22,5 +23,6 @@ const ISSUES = "https://github.com/nevertoday/xiaoxiaodong-vps/issues";
         {g.items.map(([q, a], i) => <Q q={q} group={g.id} id={`${g.id}-${i + 1}`}><p set:html={inline(a)} /></Q>)}
       </>
     ))}
+    <Contact />
   </article>
 </Site>

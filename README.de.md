@@ -21,15 +21,19 @@ So geht's: Sie kaufen einen eigenen Server im Ausland, lassen ihn von einer KI m
 
 ### 1. Server kaufen
 
-Nehmen Sie derzeit **BandwagonHost**. Das Netz ist stabil, und ich nutze es selbst:
+Nehmen Sie derzeit **BandwagonHost** – ich nutze es selbst.
 
-**[BandwagonHost kaufen](https://bandwagonhost.com/aff.php?aff=83651&a=add&pid=87&billingcycle=quarterly&configoption%5B17%5D=55)**
+Dass ich genau diese Art Server empfehle, ist eine **teuer bezahlte und schmerzhaft gelernte Lektion**: Die Leitungen sind für Verbindungen aus Festlandchina optimiert, und sie laufen so stabil, dass ich zum treuen Fan geworden bin.
 
-Der Tarif hinter diesem Link enthält **1 TB Datenvolumen pro Monat** – genug für Sie und Ihre Familie.
+**[BandwagonHost kaufen](https://bandwagonhost.com/aff.php?aff=83651&a=add&pid=88&billingcycle=quarterly&configoption%5B17%5D=55)**
 
-[DMIT](https://www.dmit.io/aff.php?aff=23544) ist auch gut, aber im Moment ausverkauft. Warten lohnt sich nicht.
+Der Tarif hinter diesem Link enthält **2 TB Datenvolumen pro Monat** und 2 GB RAM, im CN2-GIA-Rechenzentrum in Los Angeles – mehr als genug für Sie und Ihre Familie.
 
-> Beides sind meine Empfehlungslinks. Wenn Sie darüber kaufen, erhalte ich unter Umständen eine Provision; diese Einnahmen verwende ich für wohltätige Zwecke. Preise und Verfügbarkeit laut den offiziellen Websites.
+Der bisher empfohlene ~~[1-TB-Tarif](https://bandwagonhost.com/aff.php?aff=83651&a=add&pid=87&billingcycle=quarterly&configoption%5B17%5D=55)~~ ist ausverkauft und lässt sich derzeit nicht bestellen.
+
+[DMIT](https://www.dmit.io/aff.php?aff=23544) nutze ich ebenfalls sehr gern, aber es ist im Moment leider ausverkauft. Warten lohnt sich nicht.
+
+> Alle Links hier sind meine Empfehlungslinks. Wenn Sie darüber kaufen, erhalte ich unter Umständen eine Provision; diese Einnahmen verwende ich für wohltätige Zwecke. Preise und Verfügbarkeit laut den offiziellen Websites.
 
 Wählen Sie **Ubuntu 24.04** als System. Sobald der Server bereit ist, notieren Sie aus dem Kundenbereich drei Dinge: **Server-IP, root-Passwort (oder Schlüsseldatei) und SSH-Port**.
 
@@ -58,6 +62,7 @@ Nur drei Stellen müssen Sie ändern:
 - **IP**: die Server-IP aus dem Kundenbereich.
 - **Anmeldung**: Wenn Ihr Anbieter eine Schlüsseldatei mitgegeben hat, ersetzen Sie es durch `Schlüsseldatei: Pfad zur Datei` (ein Zip geht auch).
 - **Name**: Ersetzen Sie `bwg` durch einen beliebigen Namen. Danach genügt `ssh dieser-name`, um sich am Server anzumelden.
+- **BandwagonHost (empfohlen)**: Hängen Sie am Ende eine Zeile `- BandwagonHost VEID und API Key: …` an (Seite „API“ im linken Menü von KiwiVM, [so finden Sie sie](https://vps.xiaoxiaodong.ai/en/howto/traffic-and-ip/)). Dann lesen Ihre Apps Datenvolumen, Verbrauch und Rücksetztag direkt bei BandwagonHost – bei 1 TB wie bei 2 TB stimmt die Anzeige. Ohne geht es auch; dann wird gegen 1000 GB pro Monat angezeigt.
 
 Wenn Benutzer und Port nicht root / 22 sind, ersetzen Sie „Standard“ durch die echten Werte.
 
@@ -118,6 +123,12 @@ Zeige keine Passwörter, Abo-URLs oder Schlüssel im Chat. Bitte sprich mit mir 
 ```
 
 Die ausführliche Dokumentation ([Fehlerbehebung](./skills/xiaoxiaodong-vps/references/troubleshooting.md), [Aufbau im Detail](./skills/xiaoxiaodong-vps/references/design.md)) gibt es derzeit nur auf Chinesisch; Ihre KI kann sie für Sie lesen.
+
+## Feedback und Vorschläge
+
+Sie haben einen Vorschlag, oder etwas ist unklar bzw. funktioniert nicht wie beschrieben? [Eröffnen Sie ein Issue auf GitHub](https://github.com/nevertoday/xiaoxiaodong-vps/issues), [schreiben Sie mir auf X](https://x.com/xiaoxiaodong) (@xiaoxiaodong) oder fügen Sie mich auf WeChat hinzu (Xiaoxiaodong, 小小东). Ich nehme es in die Anleitung auf.
+
+<img src="https://vip.xiaoxiaodong.ai/site-assets/wechat-qr.png" width="160" alt="WeChat-QR-Code von Xiaoxiaodong">
 
 ## Datenschutz
 

@@ -37,7 +37,7 @@ On a device with the app connected, open [ip.net.coffee/claude/](https://ip.net.
 The exit IP is your server's IP, and neither the DNS exit nor the WebRTC exit is in China.
 </Callout>
 
-The page also shows Claude's trust score for the IP. Your own server is a data-center IP, so it won't be a perfect score — that's normal.
+**The leak tests above matter most**; the Claude AI trust score comes second. If it's below 70, you can email your provider (for example BandwagonHost) to cancel this server, buy a new one (email templates: [Refund a server and buy a new one](/en/howto/refund-rebuy/)), deploy it and test again. Once it's 70 or above, you're set.
 
 ## 2. Double-check WebRTC (computer)
 
@@ -73,6 +73,10 @@ First "Update" the subscription in your app to get the latest rules (this was fi
 </Q>
 <Q q="WebRTC shows a Chinese IP?">
 Most likely only System Proxy is on, not Tun Mode. Turn it on as in [Turn on TUN mode](/en/howto/clash-verge-tun/), fully quit and reopen the browser, and test again.
+</Q>
+
+<Q q="The trust score is below 70?">
+If there are no leaks and only the score is low, the IP itself just has a so-so reputation. As a fix, you can email your provider (for example BandwagonHost) to cancel this server, buy a new one (email templates: [Refund a server and buy a new one](/en/howto/refund-rebuy/)), deploy it and test again. Once it's 70 or above, you're set.
 </Q>
 
 <Checkpoint id="step5" items={[

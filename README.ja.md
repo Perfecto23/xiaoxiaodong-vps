@@ -21,15 +21,19 @@
 
 ### 1. サーバーを買う
 
-いまは **BandwagonHost** をそのまま買うのがおすすめです。回線が安定していて、私自身も使い続けています。
+いまは **BandwagonHost** をそのまま買うのがおすすめです。私自身も使い続けています。
 
-**[BandwagonHost を購入する](https://bandwagonhost.com/aff.php?aff=83651&a=add&pid=87&billingcycle=quarterly&configoption%5B17%5D=55)**
+この種のサーバーを勧めるのは、**自腹を切って何度も痛い目を見て得た教訓**だからです。回線が中国本土からの接続向けに最適化されていて、その安定ぶりに私はすっかり熱烈なファンになりました。
 
-このリンクのプランは**毎月 1TB の転送量**付きで、家族で使っても十分です。
+**[BandwagonHost を購入する](https://bandwagonhost.com/aff.php?aff=83651&a=add&pid=88&billingcycle=quarterly&configoption%5B17%5D=55)**
 
-[DMIT](https://www.dmit.io/aff.php?aff=23544) も良いのですが、現在は在庫切れです。待つ必要はありません。
+このリンクのプランは**毎月 2TB の転送量**、メモリ 2GB、ロサンゼルスの CN2 GIA データセンターで、家族で使っても余裕があります。
 
-> どちらも私の紹介リンクです。リンク経由で購入されると私に紹介料が入る場合があり、その収入は慈善活動に使います。価格と在庫は公式サイトをご確認ください。
+以前おすすめしていた ~~[1TB プラン](https://bandwagonhost.com/aff.php?aff=83651&a=add&pid=87&billingcycle=quarterly&configoption%5B17%5D=55)~~ は現在在庫切れで購入できません。
+
+[DMIT](https://www.dmit.io/aff.php?aff=23544) も私が気に入って使っているサーバーですが、残念ながら現在は在庫切れです。待つ必要はありません。
+
+> いずれも私の紹介リンクです。リンク経由で購入されると私に紹介料が入る場合があり、その収入は慈善活動に使います。価格と在庫は公式サイトをご確認ください。
 
 OS は **Ubuntu 24.04** を選んでください。開通したら管理画面で 3 つをメモします：**サーバー IP、root パスワード（または鍵ファイル）、SSH ポート**。
 
@@ -58,6 +62,7 @@ skills/xiaoxiaodong-vps/SKILL.md を最後まで読んでください。
 - **IP**：管理画面に表示されているサーバー IP。
 - **ログイン方法**：業者から鍵ファイルをもらった場合は `鍵ファイル：ファイルのパス` に変えてください（zip でも可）。
 - **名前**：`bwg` を好きな名前に。以後は `ssh その名前` と打つだけでサーバーに入れます。
+- **BandwagonHost の場合（おすすめ）**：最後に `- BandwagonHost の VEID と API Key：…` の一行を足してください（KiwiVM 左メニューの「API」ページ、[探し方](https://vps.xiaoxiaodong.ai/en/howto/traffic-and-ip/)）。クライアントの転送量の上限・使用量・リセット日が BandwagonHost の管理画面から直接読み込まれ、1TB でも 2TB でも一致します。なくても使えますが、その場合は毎月 1000GB として表示されます。
 
 ユーザーとポートが root / 22 でない場合は、「デフォルト」を実際の値に変えてください。
 
@@ -118,6 +123,12 @@ cp -R xiaoxiaodong-vps/skills/xiaoxiaodong-vps ~/.codex/skills/
 ```
 
 詳しい資料（[トラブルシューティング](./skills/xiaoxiaodong-vps/references/troubleshooting.md)、[設計の説明](./skills/xiaoxiaodong-vps/references/design.md)）は現在中国語のみです。AI に読んでもらえます。
+
+## フィードバック・ご提案
+
+ご提案や、分かりにくい箇所・手順どおりにやってもうまくいかない箇所があれば、[GitHub で Issue を作成](https://github.com/nevertoday/xiaoxiaodong-vps/issues)してください。[X の DM](https://x.com/xiaoxiaodong)（@xiaoxiaodong）や、WeChat で私（Xiaoxiaodong、小小东）を追加して伝えていただいても構いません。ガイドに反映します。
+
+<img src="https://vip.xiaoxiaodong.ai/site-assets/wechat-qr.png" width="160" alt="Xiaoxiaodong の WeChat QR コード">
 
 ## プライバシー
 

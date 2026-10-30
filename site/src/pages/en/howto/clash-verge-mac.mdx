@@ -13,6 +13,7 @@ import Copy from "../../../components/Copy.astro";
 import Tabs from "../../../components/Tabs.astro";
 import Checkpoint from "../../../components/Checkpoint.astro";
 import Shot from "../../../components/Shot.astro";
+import Cmd from "../../../components/Cmd.astro";
 
 ## 1. Which installer to download
 
@@ -55,7 +56,7 @@ Home shows "TUN Mode Enabled"; ip.net.coffee/claude/ in your browser shows your 
 ## Stuck?
 
 <Q q="It says the app is damaged or the developer can't be verified?">
-Open System Settings → Privacy & Security, find the Clash Verge message near the bottom and click "Open Anyway". Still blocked? Run `sudo xattr -r -c "/Applications/Clash Verge.app"` in Terminal (enter your login password), then open it again.
+Open System Settings → Privacy & Security, find the Clash Verge message near the bottom and click "Open Anyway". Still blocked? Run <Cmd c='sudo xattr -r -c "/Applications/Clash Verge.app"' /> in Terminal (enter your login password), then open it again.
 </Q>
 <Q q="Installing the service keeps failing?">
 Make sure you have the latest version. Uninstall the old one and install the latest from the releases page.
